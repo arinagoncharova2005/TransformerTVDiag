@@ -1,4 +1,3 @@
 *.pyc
-evaluate_predictions.ipynb
 tmp/
 .ipynb_checkpoints/
