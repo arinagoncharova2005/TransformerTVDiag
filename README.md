@@ -1,3 +1,11 @@
+# Results Reproduction Of TransTVDiag
+```
+conda env create -f environment.yml
+conda activate transformer_tvdiag
+bash train.sh
+python evaluate_predictions.py
+```
+
 # TransTVDiag
 
 TransTVDiag is a Transformer-based multi-modal failure diagnosis method for microservice systems. It includes Failure Type Identification (FTI) and Root Cause Localization (RCL).

@@ -1,0 +1,19 @@
+name: transformer_tvdiag
+channels:
+  - pytorch
+  - nvidia
+  - dglteam/label/cu118
+  - conda-forge
+dependencies:
+  - python=3.8.12
+  - pip
+  - pytorch=2.1.1
+  - pytorch-cuda=11.8
+  - dgl=2.1.0
+  - pandas
+  - scikit-learn
+  - pip:
+      - fasttext==0.9.2
+      - torchdata==0.7.1
+      - "pydantic<2"
+      - tensorboard

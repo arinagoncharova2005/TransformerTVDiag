@@ -1,0 +1,542 @@
+2026-03-15 21:43:50 [INFO]: Currently using GPU 0
+2026-03-15 21:43:50 [INFO]: Load dataset
+2026-03-15 21:43:50 [INFO]: Load raw events from gaia dataset
+2026-03-15 21:43:51 [INFO]: Build embedding for raw events
+2026-03-15 21:44:02 [INFO]: Build dataset for training
+2026-03-15 21:44:03 [INFO]: Training...
+2026-03-15 21:44:03 [INFO]: Training with: cuda
+2026-03-15 21:44:03 [INFO]: batch size: 128
+2026-03-15 21:44:03 [INFO]: Status of task-oriented learning: True
+2026-03-15 21:44:03 [INFO]: Status of cross-modal association: True
+2026-03-15 21:44:03 [INFO]: guide weight: 0.1
+2026-03-15 21:44:03 [INFO]: temperature: 0.3
+2026-03-15 21:44:03 [INFO]: Status of dynamic_weight: True
+2026-03-15 21:44:03 [INFO]: aug percent: 0.2
+2026-03-15 21:44:03 [INFO]: lr: 0.001, weight_decay: 0.0001
+2026-03-15 21:44:03 [INFO]: MainModel(
+  (metric_encoder): Encoder(
+    (graph_encoder): GraphormerEncoder(
+      (dropout): Dropout(p=0, inplace=False)
+      (graph_token): Embedding(1, 128)
+      (degree_encoder): DegreeEncoder(
+        (encoder1): Embedding(513, 128, padding_idx=0)
+        (encoder2): Embedding(513, 128, padding_idx=0)
+      )
+      (path_encoder): PathEncoder(
+        (embedding_table): Embedding(80, 1)
+      )
+      (spatial_encoder): SpatialEncoder(
+        (embedding_table): Embedding(513, 16, padding_idx=0)
+      )
+      (graph_token_virtual_distance): Embedding(1, 16)
+      (emb_layer_norm): LayerNorm((128,), eps=1e-05, elementwise_affine=True)
+      (layers): ModuleList(
+        (0-1): 2 x GraphormerLayer(
+          (attn): BiasedMHA(
+            (q_proj): Linear(in_features=128, out_features=128, bias=True)
+            (k_proj): Linear(in_features=128, out_features=128, bias=True)
+            (v_proj): Linear(in_features=128, out_features=128, bias=True)
+            (out_proj): Linear(in_features=128, out_features=128, bias=True)
+            (dropout): Dropout(p=0.1, inplace=False)
+          )
+          (ffn): Sequential(
+            (0): Linear(in_features=128, out_features=128, bias=True)
+            (1): GELU(approximate='none')
+            (2): Dropout(p=0, inplace=False)
+            (3): Linear(in_features=128, out_features=128, bias=True)
+            (4): Dropout(p=0, inplace=False)
+          )
+          (dropout): Dropout(p=0, inplace=False)
+          (attn_layer_norm): LayerNorm((128,), eps=1e-05, elementwise_affine=True)
+          (ffn_layer_norm): LayerNorm((128,), eps=1e-05, elementwise_affine=True)
+        )
+      )
+      (lm_head_transform_weight): Linear(in_features=128, out_features=128, bias=True)
+      (layer_norm): LayerNorm((128,), eps=1e-05, elementwise_affine=True)
+      (activation_fn): GELU(approximate='none')
+      (embed_out): Linear(in_features=128, out_features=32, bias=False)
+    )
+  )
+  (trace_encoder): Encoder(
+    (graph_encoder): GraphormerEncoder(
+      (dropout): Dropout(p=0, inplace=False)
+      (graph_token): Embedding(1, 128)
+      (degree_encoder): DegreeEncoder(
+        (encoder1): Embedding(513, 128, padding_idx=0)
+        (encoder2): Embedding(513, 128, padding_idx=0)
+      )
+      (path_encoder): PathEncoder(
+        (embedding_table): Embedding(80, 1)
+      )
+      (spatial_encoder): SpatialEncoder(
+        (embedding_table): Embedding(513, 16, padding_idx=0)
+      )
+      (graph_token_virtual_distance): Embedding(1, 16)
+      (emb_layer_norm): LayerNorm((128,), eps=1e-05, elementwise_affine=True)
+      (layers): ModuleList(
+        (0-1): 2 x GraphormerLayer(
+          (attn): BiasedMHA(
+            (q_proj): Linear(in_features=128, out_features=128, bias=True)
+            (k_proj): Linear(in_features=128, out_features=128, bias=True)
+            (v_proj): Linear(in_features=128, out_features=128, bias=True)
+            (out_proj): Linear(in_features=128, out_features=128, bias=True)
+            (dropout): Dropout(p=0.1, inplace=False)
+          )
+          (ffn): Sequential(
+            (0): Linear(in_features=128, out_features=128, bias=True)
+            (1): GELU(approximate='none')
+            (2): Dropout(p=0, inplace=False)
+            (3): Linear(in_features=128, out_features=128, bias=True)
+            (4): Dropout(p=0, inplace=False)
+          )
+          (dropout): Dropout(p=0, inplace=False)
+          (attn_layer_norm): LayerNorm((128,), eps=1e-05, elementwise_affine=True)
+          (ffn_layer_norm): LayerNorm((128,), eps=1e-05, elementwise_affine=True)
+        )
+      )
+      (lm_head_transform_weight): Linear(in_features=128, out_features=128, bias=True)
+      (layer_norm): LayerNorm((128,), eps=1e-05, elementwise_affine=True)
+      (activation_fn): GELU(approximate='none')
+      (embed_out): Linear(in_features=128, out_features=32, bias=False)
+    )
+  )
+  (log_encoder): Encoder(
+    (graph_encoder): GraphormerEncoder(
+      (dropout): Dropout(p=0, inplace=False)
+      (graph_token): Embedding(1, 128)
+      (degree_encoder): DegreeEncoder(
+        (encoder1): Embedding(513, 128, padding_idx=0)
+        (encoder2): Embedding(513, 128, padding_idx=0)
+      )
+      (path_encoder): PathEncoder(
+        (embedding_table): Embedding(80, 1)
+      )
+      (spatial_encoder): SpatialEncoder(
+        (embedding_table): Embedding(513, 16, padding_idx=0)
+      )
+      (graph_token_virtual_distance): Embedding(1, 16)
+      (emb_layer_norm): LayerNorm((128,), eps=1e-05, elementwise_affine=True)
+      (layers): ModuleList(
+        (0-1): 2 x GraphormerLayer(
+          (attn): BiasedMHA(
+            (q_proj): Linear(in_features=128, out_features=128, bias=True)
+            (k_proj): Linear(in_features=128, out_features=128, bias=True)
+            (v_proj): Linear(in_features=128, out_features=128, bias=True)
+            (out_proj): Linear(in_features=128, out_features=128, bias=True)
+            (dropout): Dropout(p=0.1, inplace=False)
+          )
+          (ffn): Sequential(
+            (0): Linear(in_features=128, out_features=128, bias=True)
+            (1): GELU(approximate='none')
+            (2): Dropout(p=0, inplace=False)
+            (3): Linear(in_features=128, out_features=128, bias=True)
+            (4): Dropout(p=0, inplace=False)
+          )
+          (dropout): Dropout(p=0, inplace=False)
+          (attn_layer_norm): LayerNorm((128,), eps=1e-05, elementwise_affine=True)
+          (ffn_layer_norm): LayerNorm((128,), eps=1e-05, elementwise_affine=True)
+        )
+      )
+      (lm_head_transform_weight): Linear(in_features=128, out_features=128, bias=True)
+      (layer_norm): LayerNorm((128,), eps=1e-05, elementwise_affine=True)
+      (activation_fn): GELU(approximate='none')
+      (embed_out): Linear(in_features=128, out_features=32, bias=False)
+    )
+  )
+  (locator): Voter(
+    (net): FullyConnected(
+      (net): Sequential(
+        (0): Linear(in_features=96, out_features=64, bias=True)
+        (1): ReLU()
+        (2): Linear(in_features=64, out_features=10, bias=True)
+      )
+    )
+  )
+  (typeClassifier): Classifyer(
+    (net): FullyConnected(
+      (net): Sequential(
+        (0): Linear(in_features=96, out_features=64, bias=True)
+        (1): ReLU()
+        (2): Linear(in_features=64, out_features=5, bias=True)
+      )
+    )
+  )
+)
+2026-03-15 21:44:03 [INFO]: Start training for 3000 epochs.
+2026-03-15 21:44:04 [DEBUG]: con_loss: 3.042, RCL_loss: 2.371, FTI_loss: 1.472
+2026-03-15 21:44:04 [DEBUG]: con_loss: 2.629, RCL_loss: 2.297, FTI_loss: 1.316
+2026-03-15 21:44:05 [DEBUG]: con_loss: 2.231, RCL_loss: 2.252, FTI_loss: 1.283
+2026-03-15 21:44:05 [INFO]: Epoch 0 done. Loss: 10.456, Time per epoch: 1.086[s]
+2026-03-15 21:44:05 [DEBUG]: con_loss: 2.541, RCL_loss: 2.223, FTI_loss: 1.163
+2026-03-15 21:44:05 [DEBUG]: con_loss: 2.517, RCL_loss: 2.159, FTI_loss: 1.080
+2026-03-15 21:44:05 [DEBUG]: con_loss: 2.155, RCL_loss: 2.070, FTI_loss: 0.913
+2026-03-15 21:44:05 [INFO]: Epoch 1 done. Loss: 9.766, Time per epoch: 0.802[s]
+2026-03-15 21:44:06 [DEBUG]: con_loss: 2.511, RCL_loss: 2.128, FTI_loss: 0.861
+2026-03-15 21:44:06 [DEBUG]: con_loss: 2.500, RCL_loss: 2.033, FTI_loss: 0.869
+2026-03-15 21:44:06 [DEBUG]: con_loss: 2.135, RCL_loss: 2.038, FTI_loss: 0.784
+2026-03-15 21:44:06 [INFO]: Epoch 2 done. Loss: 9.445, Time per epoch: 0.777[s]
+2026-03-15 21:44:06 [DEBUG]: con_loss: 2.497, RCL_loss: 1.996, FTI_loss: 0.690
+2026-03-15 21:44:07 [DEBUG]: con_loss: 2.506, RCL_loss: 2.004, FTI_loss: 0.742
+2026-03-15 21:44:07 [DEBUG]: con_loss: 2.170, RCL_loss: 1.984, FTI_loss: 0.448
+2026-03-15 21:44:07 [INFO]: Epoch 3 done. Loss: 9.171, Time per epoch: 0.787[s]
+2026-03-15 21:44:07 [DEBUG]: con_loss: 2.507, RCL_loss: 1.880, FTI_loss: 0.499
+2026-03-15 21:44:08 [DEBUG]: con_loss: 2.505, RCL_loss: 1.906, FTI_loss: 0.554
+2026-03-15 21:44:08 [DEBUG]: con_loss: 2.121, RCL_loss: 1.921, FTI_loss: 0.488
+2026-03-15 21:44:08 [INFO]: Epoch 4 done. Loss: 8.952, Time per epoch: 0.791[s]
+2026-03-15 21:44:08 [DEBUG]: con_loss: 2.489, RCL_loss: 1.758, FTI_loss: 0.379
+2026-03-15 21:44:08 [DEBUG]: con_loss: 2.460, RCL_loss: 1.812, FTI_loss: 0.450
+2026-03-15 21:44:09 [DEBUG]: con_loss: 2.092, RCL_loss: 1.845, FTI_loss: 0.385
+2026-03-15 21:44:09 [INFO]: Epoch 5 done. Loss: 8.716, Time per epoch: 0.784[s]
+2026-03-15 21:44:09 [DEBUG]: con_loss: 2.379, RCL_loss: 1.695, FTI_loss: 0.294
+2026-03-15 21:44:09 [DEBUG]: con_loss: 2.353, RCL_loss: 1.724, FTI_loss: 0.339
+2026-03-15 21:44:09 [DEBUG]: con_loss: 2.007, RCL_loss: 1.651, FTI_loss: 0.476
+2026-03-15 21:44:09 [INFO]: Epoch 6 done. Loss: 8.465, Time per epoch: 0.780[s]
+2026-03-15 21:44:10 [DEBUG]: con_loss: 2.310, RCL_loss: 1.656, FTI_loss: 0.333
+2026-03-15 21:44:10 [DEBUG]: con_loss: 2.303, RCL_loss: 1.568, FTI_loss: 0.292
+2026-03-15 21:44:10 [DEBUG]: con_loss: 1.907, RCL_loss: 1.650, FTI_loss: 0.292
+2026-03-15 21:44:10 [INFO]: Epoch 7 done. Loss: 8.263, Time per epoch: 0.804[s]
+2026-03-15 21:44:10 [DEBUG]: con_loss: 2.293, RCL_loss: 1.663, FTI_loss: 0.421
+2026-03-15 21:44:11 [DEBUG]: con_loss: 2.205, RCL_loss: 1.536, FTI_loss: 0.218
+2026-03-15 21:44:11 [DEBUG]: con_loss: 1.823, RCL_loss: 1.522, FTI_loss: 0.149
+2026-03-15 21:44:11 [INFO]: Epoch 8 done. Loss: 8.103, Time per epoch: 0.806[s]
+2026-03-15 21:44:11 [DEBUG]: con_loss: 2.224, RCL_loss: 1.603, FTI_loss: 0.328
+2026-03-15 21:44:12 [DEBUG]: con_loss: 2.141, RCL_loss: 1.479, FTI_loss: 0.247
+2026-03-15 21:44:12 [DEBUG]: con_loss: 1.843, RCL_loss: 1.607, FTI_loss: 0.201
+2026-03-15 21:44:12 [INFO]: Epoch 9 done. Loss: 8.050, Time per epoch: 0.825[s]
+2026-03-15 21:44:12 [DEBUG]: con_loss: 2.167, RCL_loss: 1.513, FTI_loss: 0.348
+2026-03-15 21:44:12 [DEBUG]: con_loss: 2.140, RCL_loss: 1.555, FTI_loss: 0.177
+2026-03-15 21:44:13 [DEBUG]: con_loss: 1.834, RCL_loss: 1.523, FTI_loss: 0.279
+2026-03-15 21:44:13 [INFO]: Epoch 10 done. Loss: 8.004, Time per epoch: 0.783[s]
+2026-03-15 21:44:13 [DEBUG]: con_loss: 2.092, RCL_loss: 1.450, FTI_loss: 0.210
+2026-03-15 21:44:13 [DEBUG]: con_loss: 2.159, RCL_loss: 1.536, FTI_loss: 0.274
+2026-03-15 21:44:13 [DEBUG]: con_loss: 1.869, RCL_loss: 1.564, FTI_loss: 0.327
+2026-03-15 21:44:13 [INFO]: Epoch 11 done. Loss: 7.986, Time per epoch: 0.776[s]
+2026-03-15 21:44:14 [DEBUG]: con_loss: 2.192, RCL_loss: 1.634, FTI_loss: 0.327
+2026-03-15 21:44:14 [DEBUG]: con_loss: 2.106, RCL_loss: 1.355, FTI_loss: 0.204
+2026-03-15 21:44:14 [DEBUG]: con_loss: 1.720, RCL_loss: 1.393, FTI_loss: 0.200
+2026-03-15 21:44:14 [INFO]: Epoch 12 done. Loss: 7.869, Time per epoch: 0.787[s]
+2026-03-15 21:44:14 [DEBUG]: con_loss: 2.111, RCL_loss: 1.490, FTI_loss: 0.251
+2026-03-15 21:44:15 [DEBUG]: con_loss: 2.098, RCL_loss: 1.376, FTI_loss: 0.246
+2026-03-15 21:44:15 [DEBUG]: con_loss: 1.786, RCL_loss: 1.483, FTI_loss: 0.238
+2026-03-15 21:44:15 [INFO]: Epoch 13 done. Loss: 7.852, Time per epoch: 0.775[s]
+2026-03-15 21:44:15 [DEBUG]: con_loss: 2.133, RCL_loss: 1.475, FTI_loss: 0.227
+2026-03-15 21:44:16 [DEBUG]: con_loss: 2.042, RCL_loss: 1.306, FTI_loss: 0.179
+2026-03-15 21:44:16 [DEBUG]: con_loss: 1.829, RCL_loss: 1.487, FTI_loss: 0.377
+2026-03-15 21:44:16 [INFO]: Epoch 14 done. Loss: 7.844, Time per epoch: 0.779[s]
+2026-03-15 21:44:16 [DEBUG]: con_loss: 2.107, RCL_loss: 1.397, FTI_loss: 0.259
+2026-03-15 21:44:16 [DEBUG]: con_loss: 2.091, RCL_loss: 1.439, FTI_loss: 0.181
+2026-03-15 21:44:17 [DEBUG]: con_loss: 1.726, RCL_loss: 1.291, FTI_loss: 0.269
+2026-03-15 21:44:17 [INFO]: Epoch 15 done. Loss: 7.746, Time per epoch: 0.816[s]
+2026-03-15 21:44:17 [DEBUG]: con_loss: 2.042, RCL_loss: 1.333, FTI_loss: 0.206
+2026-03-15 21:44:17 [DEBUG]: con_loss: 2.080, RCL_loss: 1.410, FTI_loss: 0.183
+2026-03-15 21:44:17 [DEBUG]: con_loss: 1.749, RCL_loss: 1.283, FTI_loss: 0.338
+2026-03-15 21:44:17 [INFO]: Epoch 16 done. Loss: 7.700, Time per epoch: 0.794[s]
+2026-03-15 21:44:18 [DEBUG]: con_loss: 2.020, RCL_loss: 1.291, FTI_loss: 0.184
+2026-03-15 21:44:18 [DEBUG]: con_loss: 2.088, RCL_loss: 1.372, FTI_loss: 0.197
+2026-03-15 21:44:18 [DEBUG]: con_loss: 1.824, RCL_loss: 1.382, FTI_loss: 0.292
+2026-03-15 21:44:18 [INFO]: Epoch 17 done. Loss: 7.708, Time per epoch: 0.787[s]
+2026-03-15 21:44:18 [DEBUG]: con_loss: 2.063, RCL_loss: 1.427, FTI_loss: 0.169
+2026-03-15 21:44:19 [DEBUG]: con_loss: 2.056, RCL_loss: 1.291, FTI_loss: 0.285
+2026-03-15 21:44:19 [DEBUG]: con_loss: 1.720, RCL_loss: 1.160, FTI_loss: 0.191
+2026-03-15 21:44:19 [INFO]: Epoch 18 done. Loss: 7.613, Time per epoch: 0.798[s]
+2026-03-15 21:44:19 [DEBUG]: con_loss: 2.040, RCL_loss: 1.211, FTI_loss: 0.194
+2026-03-15 21:44:20 [DEBUG]: con_loss: 2.033, RCL_loss: 1.317, FTI_loss: 0.190
+2026-03-15 21:44:20 [DEBUG]: con_loss: 1.782, RCL_loss: 1.256, FTI_loss: 0.189
+2026-03-15 21:44:20 [INFO]: Epoch 19 done. Loss: 7.563, Time per epoch: 0.846[s]
+2026-03-15 21:44:20 [DEBUG]: con_loss: 2.089, RCL_loss: 1.283, FTI_loss: 0.233
+2026-03-15 21:44:20 [DEBUG]: con_loss: 2.018, RCL_loss: 1.188, FTI_loss: 0.159
+2026-03-15 21:44:21 [DEBUG]: con_loss: 1.713, RCL_loss: 1.308, FTI_loss: 0.129
+2026-03-15 21:44:21 [INFO]: Epoch 20 done. Loss: 7.532, Time per epoch: 0.775[s]
+2026-03-15 21:44:21 [DEBUG]: con_loss: 2.076, RCL_loss: 1.289, FTI_loss: 0.197
+2026-03-15 21:44:21 [DEBUG]: con_loss: 2.048, RCL_loss: 1.184, FTI_loss: 0.151
+2026-03-15 21:44:21 [DEBUG]: con_loss: 1.692, RCL_loss: 1.201, FTI_loss: 0.170
+2026-03-15 21:44:21 [INFO]: Epoch 21 done. Loss: 7.495, Time per epoch: 0.781[s]
+2026-03-15 21:44:22 [DEBUG]: con_loss: 2.076, RCL_loss: 1.303, FTI_loss: 0.177
+2026-03-15 21:44:22 [DEBUG]: con_loss: 2.030, RCL_loss: 1.159, FTI_loss: 0.106
+2026-03-15 21:44:22 [DEBUG]: con_loss: 1.688, RCL_loss: 1.088, FTI_loss: 0.209
+2026-03-15 21:44:22 [INFO]: Epoch 22 done. Loss: 7.437, Time per epoch: 0.823[s]
+2026-03-15 21:44:23 [DEBUG]: con_loss: 2.045, RCL_loss: 1.152, FTI_loss: 0.219
+2026-03-15 21:44:23 [DEBUG]: con_loss: 2.044, RCL_loss: 1.277, FTI_loss: 0.116
+2026-03-15 21:44:23 [DEBUG]: con_loss: 1.724, RCL_loss: 1.239, FTI_loss: 0.081
+2026-03-15 21:44:23 [INFO]: Epoch 23 done. Loss: 7.458, Time per epoch: 0.777[s]
+2026-03-15 21:44:23 [DEBUG]: con_loss: 2.114, RCL_loss: 1.282, FTI_loss: 0.210
+2026-03-15 21:44:24 [DEBUG]: con_loss: 1.957, RCL_loss: 1.043, FTI_loss: 0.077
+2026-03-15 21:44:24 [DEBUG]: con_loss: 1.723, RCL_loss: 1.207, FTI_loss: 0.115
+2026-03-15 21:44:24 [INFO]: Epoch 24 done. Loss: 7.401, Time per epoch: 0.779[s]
+2026-03-15 21:44:24 [DEBUG]: con_loss: 2.047, RCL_loss: 1.178, FTI_loss: 0.202
+2026-03-15 21:44:24 [DEBUG]: con_loss: 2.002, RCL_loss: 1.103, FTI_loss: 0.090
+2026-03-15 21:44:25 [DEBUG]: con_loss: 1.704, RCL_loss: 1.164, FTI_loss: 0.062
+2026-03-15 21:44:25 [INFO]: Epoch 25 done. Loss: 7.343, Time per epoch: 0.784[s]
+2026-03-15 21:44:25 [DEBUG]: con_loss: 2.009, RCL_loss: 1.151, FTI_loss: 0.115
+2026-03-15 21:44:25 [DEBUG]: con_loss: 2.025, RCL_loss: 1.026, FTI_loss: 0.102
+2026-03-15 21:44:25 [DEBUG]: con_loss: 1.754, RCL_loss: 1.145, FTI_loss: 0.193
+2026-03-15 21:44:25 [INFO]: Epoch 26 done. Loss: 7.332, Time per epoch: 0.781[s]
+2026-03-15 21:44:26 [DEBUG]: con_loss: 1.948, RCL_loss: 1.050, FTI_loss: 0.152
+2026-03-15 21:44:26 [DEBUG]: con_loss: 2.042, RCL_loss: 1.123, FTI_loss: 0.113
+2026-03-15 21:44:26 [DEBUG]: con_loss: 1.761, RCL_loss: 1.179, FTI_loss: 0.132
+2026-03-15 21:44:26 [INFO]: Epoch 27 done. Loss: 7.325, Time per epoch: 0.779[s]
+2026-03-15 21:44:26 [DEBUG]: con_loss: 2.092, RCL_loss: 1.167, FTI_loss: 0.139
+2026-03-15 21:44:27 [DEBUG]: con_loss: 2.016, RCL_loss: 1.106, FTI_loss: 0.096
+2026-03-15 21:44:27 [DEBUG]: con_loss: 1.576, RCL_loss: 0.858, FTI_loss: 0.117
+2026-03-15 21:44:27 [INFO]: Epoch 28 done. Loss: 7.214, Time per epoch: 0.779[s]
+2026-03-15 21:44:27 [DEBUG]: con_loss: 1.958, RCL_loss: 1.046, FTI_loss: 0.034
+2026-03-15 21:44:28 [DEBUG]: con_loss: 2.026, RCL_loss: 1.000, FTI_loss: 0.089
+2026-03-15 21:44:28 [DEBUG]: con_loss: 1.746, RCL_loss: 1.066, FTI_loss: 0.184
+2026-03-15 21:44:28 [INFO]: Epoch 29 done. Loss: 7.208, Time per epoch: 0.822[s]
+2026-03-15 21:44:28 [DEBUG]: con_loss: 1.985, RCL_loss: 0.900, FTI_loss: 0.079
+2026-03-15 21:44:28 [DEBUG]: con_loss: 2.022, RCL_loss: 1.045, FTI_loss: 0.065
+2026-03-15 21:44:29 [DEBUG]: con_loss: 1.665, RCL_loss: 0.998, FTI_loss: 0.095
+2026-03-15 21:44:29 [INFO]: Epoch 30 done. Loss: 7.110, Time per epoch: 0.776[s]
+2026-03-15 21:44:29 [DEBUG]: con_loss: 1.981, RCL_loss: 0.882, FTI_loss: 0.085
+2026-03-15 21:44:29 [DEBUG]: con_loss: 1.970, RCL_loss: 0.959, FTI_loss: 0.073
+2026-03-15 21:44:29 [DEBUG]: con_loss: 1.649, RCL_loss: 0.993, FTI_loss: 0.042
+2026-03-15 21:44:29 [INFO]: Epoch 31 done. Loss: 7.037, Time per epoch: 0.780[s]
+2026-03-15 21:44:30 [DEBUG]: con_loss: 1.925, RCL_loss: 0.785, FTI_loss: 0.104
+2026-03-15 21:44:30 [DEBUG]: con_loss: 2.021, RCL_loss: 0.958, FTI_loss: 0.048
+2026-03-15 21:44:30 [DEBUG]: con_loss: 1.683, RCL_loss: 1.015, FTI_loss: 0.027
+2026-03-15 21:44:30 [INFO]: Epoch 32 done. Loss: 7.014, Time per epoch: 0.781[s]
+2026-03-15 21:44:30 [DEBUG]: con_loss: 1.967, RCL_loss: 0.867, FTI_loss: 0.063
+2026-03-15 21:44:31 [DEBUG]: con_loss: 1.919, RCL_loss: 0.815, FTI_loss: 0.049
+2026-03-15 21:44:31 [DEBUG]: con_loss: 1.720, RCL_loss: 0.860, FTI_loss: 0.068
+2026-03-15 21:44:31 [INFO]: Epoch 33 done. Loss: 6.935, Time per epoch: 0.786[s]
+2026-03-15 21:44:31 [DEBUG]: con_loss: 1.940, RCL_loss: 0.797, FTI_loss: 0.053
+2026-03-15 21:44:32 [DEBUG]: con_loss: 1.993, RCL_loss: 0.838, FTI_loss: 0.040
+2026-03-15 21:44:32 [DEBUG]: con_loss: 1.604, RCL_loss: 0.881, FTI_loss: 0.032
+2026-03-15 21:44:32 [INFO]: Epoch 34 done. Loss: 6.885, Time per epoch: 0.780[s]
+2026-03-15 21:44:32 [DEBUG]: con_loss: 1.850, RCL_loss: 0.762, FTI_loss: 0.039
+2026-03-15 21:44:32 [DEBUG]: con_loss: 1.993, RCL_loss: 0.801, FTI_loss: 0.085
+2026-03-15 21:44:33 [DEBUG]: con_loss: 1.622, RCL_loss: 0.884, FTI_loss: 0.021
+2026-03-15 21:44:33 [INFO]: Epoch 35 done. Loss: 6.845, Time per epoch: 0.783[s]
+2026-03-15 21:44:33 [DEBUG]: con_loss: 1.988, RCL_loss: 0.696, FTI_loss: 0.046
+2026-03-15 21:44:33 [DEBUG]: con_loss: 1.872, RCL_loss: 0.766, FTI_loss: 0.028
+2026-03-15 21:44:33 [DEBUG]: con_loss: 1.673, RCL_loss: 0.922, FTI_loss: 0.041
+2026-03-15 21:44:33 [INFO]: Epoch 36 done. Loss: 6.836, Time per epoch: 0.802[s]
+2026-03-15 21:44:34 [DEBUG]: con_loss: 1.927, RCL_loss: 0.626, FTI_loss: 0.045
+2026-03-15 21:44:34 [DEBUG]: con_loss: 1.922, RCL_loss: 0.898, FTI_loss: 0.024
+2026-03-15 21:44:34 [DEBUG]: con_loss: 1.573, RCL_loss: 0.733, FTI_loss: 0.029
+2026-03-15 21:44:34 [INFO]: Epoch 37 done. Loss: 6.751, Time per epoch: 0.778[s]
+2026-03-15 21:44:34 [DEBUG]: con_loss: 1.889, RCL_loss: 0.671, FTI_loss: 0.037
+2026-03-15 21:44:35 [DEBUG]: con_loss: 1.890, RCL_loss: 0.726, FTI_loss: 0.013
+2026-03-15 21:44:35 [DEBUG]: con_loss: 1.666, RCL_loss: 0.677, FTI_loss: 0.065
+2026-03-15 21:44:35 [INFO]: Epoch 38 done. Loss: 6.704, Time per epoch: 0.820[s]
+2026-03-15 21:44:35 [DEBUG]: con_loss: 1.837, RCL_loss: 0.664, FTI_loss: 0.012
+2026-03-15 21:44:36 [DEBUG]: con_loss: 1.888, RCL_loss: 0.687, FTI_loss: 0.028
+2026-03-15 21:44:36 [DEBUG]: con_loss: 1.591, RCL_loss: 0.488, FTI_loss: 0.048
+2026-03-15 21:44:36 [INFO]: Epoch 39 done. Loss: 6.573, Time per epoch: 0.783[s]
+2026-03-15 21:44:36 [DEBUG]: con_loss: 1.910, RCL_loss: 0.609, FTI_loss: 0.036
+2026-03-15 21:44:36 [DEBUG]: con_loss: 1.943, RCL_loss: 0.784, FTI_loss: 0.044
+2026-03-15 21:44:37 [DEBUG]: con_loss: 1.490, RCL_loss: 0.460, FTI_loss: 0.020
+2026-03-15 21:44:37 [INFO]: Epoch 40 done. Loss: 6.591, Time per epoch: 0.776[s]
+2026-03-15 21:44:37 [DEBUG]: con_loss: 1.841, RCL_loss: 0.576, FTI_loss: 0.030
+2026-03-15 21:44:37 [DEBUG]: con_loss: 1.947, RCL_loss: 0.561, FTI_loss: 0.030
+2026-03-15 21:44:37 [DEBUG]: con_loss: 1.563, RCL_loss: 0.551, FTI_loss: 0.016
+2026-03-15 21:44:37 [INFO]: Epoch 41 done. Loss: 6.531, Time per epoch: 0.803[s]
+2026-03-15 21:44:38 [DEBUG]: con_loss: 1.926, RCL_loss: 0.533, FTI_loss: 0.028
+2026-03-15 21:44:38 [DEBUG]: con_loss: 1.870, RCL_loss: 0.559, FTI_loss: 0.025
+2026-03-15 21:44:38 [DEBUG]: con_loss: 1.551, RCL_loss: 0.429, FTI_loss: 0.022
+2026-03-15 21:44:38 [INFO]: Epoch 42 done. Loss: 6.473, Time per epoch: 0.784[s]
+2026-03-15 21:44:38 [DEBUG]: con_loss: 1.965, RCL_loss: 0.493, FTI_loss: 0.034
+2026-03-15 21:44:39 [DEBUG]: con_loss: 1.797, RCL_loss: 0.571, FTI_loss: 0.011
+2026-03-15 21:44:39 [DEBUG]: con_loss: 1.548, RCL_loss: 0.448, FTI_loss: 0.037
+2026-03-15 21:44:39 [INFO]: Epoch 43 done. Loss: 6.461, Time per epoch: 0.808[s]
+2026-03-15 21:44:39 [DEBUG]: con_loss: 1.787, RCL_loss: 0.427, FTI_loss: 0.007
+2026-03-15 21:44:40 [DEBUG]: con_loss: 1.940, RCL_loss: 0.540, FTI_loss: 0.075
+2026-03-15 21:44:40 [DEBUG]: con_loss: 1.513, RCL_loss: 0.408, FTI_loss: 0.018
+2026-03-15 21:44:40 [INFO]: Epoch 44 done. Loss: 6.398, Time per epoch: 0.778[s]
+2026-03-15 21:44:40 [DEBUG]: con_loss: 1.817, RCL_loss: 0.473, FTI_loss: 0.012
+2026-03-15 21:44:40 [DEBUG]: con_loss: 1.921, RCL_loss: 0.447, FTI_loss: 0.021
+2026-03-15 21:44:41 [DEBUG]: con_loss: 1.561, RCL_loss: 0.482, FTI_loss: 0.030
+2026-03-15 21:44:41 [INFO]: Epoch 45 done. Loss: 6.413, Time per epoch: 0.778[s]
+2026-03-15 21:44:41 [DEBUG]: con_loss: 1.852, RCL_loss: 0.439, FTI_loss: 0.011
+2026-03-15 21:44:41 [DEBUG]: con_loss: 1.867, RCL_loss: 0.513, FTI_loss: 0.036
+2026-03-15 21:44:41 [DEBUG]: con_loss: 1.570, RCL_loss: 0.383, FTI_loss: 0.021
+2026-03-15 21:44:41 [INFO]: Epoch 46 done. Loss: 6.389, Time per epoch: 0.789[s]
+2026-03-15 21:44:42 [DEBUG]: con_loss: 1.842, RCL_loss: 0.476, FTI_loss: 0.022
+2026-03-15 21:44:42 [DEBUG]: con_loss: 1.914, RCL_loss: 0.394, FTI_loss: 0.017
+2026-03-15 21:44:42 [DEBUG]: con_loss: 1.472, RCL_loss: 0.353, FTI_loss: 0.008
+2026-03-15 21:44:42 [INFO]: Epoch 47 done. Loss: 6.325, Time per epoch: 0.789[s]
+2026-03-15 21:44:42 [DEBUG]: con_loss: 1.850, RCL_loss: 0.390, FTI_loss: 0.016
+2026-03-15 21:44:43 [DEBUG]: con_loss: 1.840, RCL_loss: 0.350, FTI_loss: 0.019
+2026-03-15 21:44:43 [DEBUG]: con_loss: 1.661, RCL_loss: 0.542, FTI_loss: 0.041
+2026-03-15 21:44:43 [INFO]: Epoch 48 done. Loss: 6.395, Time per epoch: 0.781[s]
+2026-03-15 21:44:43 [DEBUG]: con_loss: 1.859, RCL_loss: 0.385, FTI_loss: 0.016
+2026-03-15 21:44:44 [DEBUG]: con_loss: 1.838, RCL_loss: 0.395, FTI_loss: 0.020
+2026-03-15 21:44:44 [DEBUG]: con_loss: 1.615, RCL_loss: 0.401, FTI_loss: 0.043
+2026-03-15 21:44:44 [INFO]: Epoch 49 done. Loss: 6.349, Time per epoch: 0.780[s]
+2026-03-15 21:44:44 [DEBUG]: con_loss: 1.830, RCL_loss: 0.309, FTI_loss: 0.012
+2026-03-15 21:44:44 [DEBUG]: con_loss: 1.912, RCL_loss: 0.317, FTI_loss: 0.028
+2026-03-15 21:44:45 [DEBUG]: con_loss: 1.443, RCL_loss: 0.420, FTI_loss: 0.007
+2026-03-15 21:44:45 [INFO]: Epoch 50 done. Loss: 6.252, Time per epoch: 0.831[s]
+2026-03-15 21:44:45 [DEBUG]: con_loss: 1.875, RCL_loss: 0.297, FTI_loss: 0.034
+2026-03-15 21:44:45 [DEBUG]: con_loss: 1.812, RCL_loss: 0.301, FTI_loss: 0.008
+2026-03-15 21:44:45 [DEBUG]: con_loss: 1.624, RCL_loss: 0.332, FTI_loss: 0.010
+2026-03-15 21:44:45 [INFO]: Epoch 51 done. Loss: 6.257, Time per epoch: 0.793[s]
+2026-03-15 21:44:46 [DEBUG]: con_loss: 1.901, RCL_loss: 0.349, FTI_loss: 0.020
+2026-03-15 21:44:46 [DEBUG]: con_loss: 1.825, RCL_loss: 0.245, FTI_loss: 0.026
+2026-03-15 21:44:46 [DEBUG]: con_loss: 1.530, RCL_loss: 0.296, FTI_loss: 0.018
+2026-03-15 21:44:46 [INFO]: Epoch 52 done. Loss: 6.229, Time per epoch: 0.782[s]
+2026-03-15 21:44:46 [DEBUG]: con_loss: 1.807, RCL_loss: 0.269, FTI_loss: 0.005
+2026-03-15 21:44:47 [DEBUG]: con_loss: 1.841, RCL_loss: 0.256, FTI_loss: 0.033
+2026-03-15 21:44:47 [DEBUG]: con_loss: 1.541, RCL_loss: 0.289, FTI_loss: 0.007
+2026-03-15 21:44:47 [INFO]: Epoch 53 done. Loss: 6.176, Time per epoch: 0.782[s]
+2026-03-15 21:44:47 [DEBUG]: con_loss: 1.902, RCL_loss: 0.299, FTI_loss: 0.018
+2026-03-15 21:44:48 [DEBUG]: con_loss: 1.793, RCL_loss: 0.175, FTI_loss: 0.014
+2026-03-15 21:44:48 [DEBUG]: con_loss: 1.485, RCL_loss: 0.330, FTI_loss: 0.002
+2026-03-15 21:44:48 [INFO]: Epoch 54 done. Loss: 6.165, Time per epoch: 0.799[s]
+2026-03-15 21:44:48 [DEBUG]: con_loss: 1.774, RCL_loss: 0.205, FTI_loss: 0.005
+2026-03-15 21:44:48 [DEBUG]: con_loss: 1.871, RCL_loss: 0.213, FTI_loss: 0.013
+2026-03-15 21:44:49 [DEBUG]: con_loss: 1.506, RCL_loss: 0.173, FTI_loss: 0.021
+2026-03-15 21:44:49 [INFO]: Epoch 55 done. Loss: 6.086, Time per epoch: 0.776[s]
+2026-03-15 21:44:49 [DEBUG]: con_loss: 1.766, RCL_loss: 0.152, FTI_loss: 0.006
+2026-03-15 21:44:49 [DEBUG]: con_loss: 1.836, RCL_loss: 0.178, FTI_loss: 0.013
+2026-03-15 21:44:49 [DEBUG]: con_loss: 1.582, RCL_loss: 0.319, FTI_loss: 0.014
+2026-03-15 21:44:49 [INFO]: Epoch 56 done. Loss: 6.114, Time per epoch: 0.814[s]
+2026-03-15 21:44:50 [DEBUG]: con_loss: 1.722, RCL_loss: 0.174, FTI_loss: 0.006
+2026-03-15 21:44:50 [DEBUG]: con_loss: 1.834, RCL_loss: 0.133, FTI_loss: 0.015
+2026-03-15 21:44:50 [DEBUG]: con_loss: 1.497, RCL_loss: 0.156, FTI_loss: 0.005
+2026-03-15 21:44:50 [INFO]: Epoch 57 done. Loss: 6.006, Time per epoch: 0.804[s]
+2026-03-15 21:44:50 [DEBUG]: con_loss: 1.744, RCL_loss: 0.126, FTI_loss: 0.007
+2026-03-15 21:44:51 [DEBUG]: con_loss: 1.805, RCL_loss: 0.128, FTI_loss: 0.020
+2026-03-15 21:44:51 [DEBUG]: con_loss: 1.575, RCL_loss: 0.271, FTI_loss: 0.009
+2026-03-15 21:44:51 [INFO]: Epoch 58 done. Loss: 6.054, Time per epoch: 0.816[s]
+2026-03-15 21:44:51 [DEBUG]: con_loss: 1.826, RCL_loss: 0.173, FTI_loss: 0.005
+2026-03-15 21:44:52 [DEBUG]: con_loss: 1.783, RCL_loss: 0.171, FTI_loss: 0.014
+2026-03-15 21:44:52 [DEBUG]: con_loss: 1.431, RCL_loss: 0.072, FTI_loss: 0.005
+2026-03-15 21:44:52 [INFO]: Epoch 59 done. Loss: 5.986, Time per epoch: 0.792[s]
+2026-03-15 21:44:52 [DEBUG]: con_loss: 1.722, RCL_loss: 0.138, FTI_loss: 0.003
+2026-03-15 21:44:52 [DEBUG]: con_loss: 1.811, RCL_loss: 0.127, FTI_loss: 0.006
+2026-03-15 21:44:53 [DEBUG]: con_loss: 1.472, RCL_loss: 0.183, FTI_loss: 0.019
+2026-03-15 21:44:53 [INFO]: Epoch 60 done. Loss: 5.986, Time per epoch: 0.791[s]
+2026-03-15 21:44:53 [DEBUG]: con_loss: 1.758, RCL_loss: 0.123, FTI_loss: 0.011
+2026-03-15 21:44:53 [DEBUG]: con_loss: 1.757, RCL_loss: 0.147, FTI_loss: 0.005
+2026-03-15 21:44:53 [DEBUG]: con_loss: 1.427, RCL_loss: 0.098, FTI_loss: 0.017
+2026-03-15 21:44:53 [INFO]: Epoch 61 done. Loss: 5.940, Time per epoch: 0.794[s]
+2026-03-15 21:44:54 [DEBUG]: con_loss: 1.738, RCL_loss: 0.123, FTI_loss: 0.014
+2026-03-15 21:44:54 [DEBUG]: con_loss: 1.775, RCL_loss: 0.125, FTI_loss: 0.005
+2026-03-15 21:44:54 [DEBUG]: con_loss: 1.455, RCL_loss: 0.168, FTI_loss: 0.010
+2026-03-15 21:44:54 [INFO]: Epoch 62 done. Loss: 5.963, Time per epoch: 0.778[s]
+2026-03-15 21:44:54 [DEBUG]: con_loss: 1.726, RCL_loss: 0.076, FTI_loss: 0.007
+2026-03-15 21:44:55 [DEBUG]: con_loss: 1.805, RCL_loss: 0.153, FTI_loss: 0.003
+2026-03-15 21:44:55 [DEBUG]: con_loss: 1.336, RCL_loss: 0.128, FTI_loss: 0.003
+2026-03-15 21:44:55 [INFO]: Epoch 63 done. Loss: 5.904, Time per epoch: 0.785[s]
+2026-03-15 21:44:55 [DEBUG]: con_loss: 1.732, RCL_loss: 0.129, FTI_loss: 0.005
+2026-03-15 21:44:56 [DEBUG]: con_loss: 1.717, RCL_loss: 0.064, FTI_loss: 0.006
+2026-03-15 21:44:56 [DEBUG]: con_loss: 1.446, RCL_loss: 0.178, FTI_loss: 0.034
+2026-03-15 21:44:56 [INFO]: Epoch 64 done. Loss: 5.929, Time per epoch: 0.781[s]
+2026-03-15 21:44:56 [DEBUG]: con_loss: 1.712, RCL_loss: 0.097, FTI_loss: 0.014
+2026-03-15 21:44:56 [DEBUG]: con_loss: 1.685, RCL_loss: 0.098, FTI_loss: 0.007
+2026-03-15 21:44:57 [DEBUG]: con_loss: 1.452, RCL_loss: 0.118, FTI_loss: 0.013
+2026-03-15 21:44:57 [INFO]: Epoch 65 done. Loss: 5.890, Time per epoch: 0.818[s]
+2026-03-15 21:44:57 [DEBUG]: con_loss: 1.696, RCL_loss: 0.085, FTI_loss: 0.008
+2026-03-15 21:44:57 [DEBUG]: con_loss: 1.754, RCL_loss: 0.130, FTI_loss: 0.006
+2026-03-15 21:44:57 [DEBUG]: con_loss: 1.409, RCL_loss: 0.039, FTI_loss: 0.006
+2026-03-15 21:44:57 [INFO]: Epoch 66 done. Loss: 5.869, Time per epoch: 0.781[s]
+2026-03-15 21:44:58 [DEBUG]: con_loss: 1.733, RCL_loss: 0.116, FTI_loss: 0.004
+2026-03-15 21:44:58 [DEBUG]: con_loss: 1.701, RCL_loss: 0.086, FTI_loss: 0.008
+2026-03-15 21:44:58 [DEBUG]: con_loss: 1.439, RCL_loss: 0.127, FTI_loss: 0.002
+2026-03-15 21:44:58 [INFO]: Epoch 67 done. Loss: 5.898, Time per epoch: 0.780[s]
+2026-03-15 21:44:58 [DEBUG]: con_loss: 1.769, RCL_loss: 0.111, FTI_loss: 0.010
+2026-03-15 21:44:59 [DEBUG]: con_loss: 1.607, RCL_loss: 0.062, FTI_loss: 0.003
+2026-03-15 21:44:59 [DEBUG]: con_loss: 1.378, RCL_loss: 0.050, FTI_loss: 0.006
+2026-03-15 21:44:59 [INFO]: Epoch 68 done. Loss: 5.824, Time per epoch: 0.789[s]
+2026-03-15 21:44:59 [DEBUG]: con_loss: 1.712, RCL_loss: 0.095, FTI_loss: 0.004
+2026-03-15 21:45:00 [DEBUG]: con_loss: 1.688, RCL_loss: 0.055, FTI_loss: 0.006
+2026-03-15 21:45:00 [DEBUG]: con_loss: 1.322, RCL_loss: 0.089, FTI_loss: 0.004
+2026-03-15 21:45:00 [INFO]: Epoch 69 done. Loss: 5.817, Time per epoch: 0.785[s]
+2026-03-15 21:45:00 [DEBUG]: con_loss: 1.736, RCL_loss: 0.072, FTI_loss: 0.004
+2026-03-15 21:45:00 [DEBUG]: con_loss: 1.615, RCL_loss: 0.062, FTI_loss: 0.003
+2026-03-15 21:45:01 [DEBUG]: con_loss: 1.400, RCL_loss: 0.115, FTI_loss: 0.006
+2026-03-15 21:45:01 [INFO]: Epoch 70 done. Loss: 5.829, Time per epoch: 0.787[s]
+2026-03-15 21:45:01 [DEBUG]: con_loss: 1.636, RCL_loss: 0.122, FTI_loss: 0.003
+2026-03-15 21:45:01 [DEBUG]: con_loss: 1.694, RCL_loss: 0.062, FTI_loss: 0.008
+2026-03-15 21:45:01 [DEBUG]: con_loss: 1.377, RCL_loss: 0.077, FTI_loss: 0.003
+2026-03-15 21:45:01 [INFO]: Epoch 71 done. Loss: 5.819, Time per epoch: 0.797[s]
+2026-03-15 21:45:02 [DEBUG]: con_loss: 1.659, RCL_loss: 0.057, FTI_loss: 0.005
+2026-03-15 21:45:02 [DEBUG]: con_loss: 1.645, RCL_loss: 0.050, FTI_loss: 0.005
+2026-03-15 21:45:02 [DEBUG]: con_loss: 1.398, RCL_loss: 0.077, FTI_loss: 0.005
+2026-03-15 21:45:02 [INFO]: Epoch 72 done. Loss: 5.792, Time per epoch: 0.830[s]
+2026-03-15 21:45:02 [DEBUG]: con_loss: 1.671, RCL_loss: 0.080, FTI_loss: 0.003
+2026-03-15 21:45:03 [DEBUG]: con_loss: 1.671, RCL_loss: 0.119, FTI_loss: 0.006
+2026-03-15 21:45:03 [DEBUG]: con_loss: 1.311, RCL_loss: 0.044, FTI_loss: 0.001
+2026-03-15 21:45:03 [INFO]: Epoch 73 done. Loss: 5.795, Time per epoch: 0.799[s]
+2026-03-15 21:45:03 [DEBUG]: con_loss: 1.644, RCL_loss: 0.044, FTI_loss: 0.003
+2026-03-15 21:45:04 [DEBUG]: con_loss: 1.647, RCL_loss: 0.074, FTI_loss: 0.002
+2026-03-15 21:45:04 [DEBUG]: con_loss: 1.334, RCL_loss: 0.085, FTI_loss: 0.004
+2026-03-15 21:45:04 [INFO]: Epoch 74 done. Loss: 5.772, Time per epoch: 0.777[s]
+2026-03-15 21:45:04 [DEBUG]: con_loss: 1.651, RCL_loss: 0.058, FTI_loss: 0.003
+2026-03-15 21:45:04 [DEBUG]: con_loss: 1.592, RCL_loss: 0.040, FTI_loss: 0.003
+2026-03-15 21:45:05 [DEBUG]: con_loss: 1.407, RCL_loss: 0.101, FTI_loss: 0.006
+2026-03-15 21:45:05 [INFO]: Epoch 75 done. Loss: 5.780, Time per epoch: 0.807[s]
+2026-03-15 21:45:05 [DEBUG]: con_loss: 1.631, RCL_loss: 0.050, FTI_loss: 0.006
+2026-03-15 21:45:05 [DEBUG]: con_loss: 1.601, RCL_loss: 0.069, FTI_loss: 0.002
+2026-03-15 21:45:05 [DEBUG]: con_loss: 1.362, RCL_loss: 0.102, FTI_loss: 0.004
+2026-03-15 21:45:05 [INFO]: Epoch 76 done. Loss: 5.768, Time per epoch: 0.781[s]
+2026-03-15 21:45:06 [DEBUG]: con_loss: 1.631, RCL_loss: 0.062, FTI_loss: 0.004
+2026-03-15 21:45:06 [DEBUG]: con_loss: 1.682, RCL_loss: 0.107, FTI_loss: 0.007
+2026-03-15 21:45:06 [DEBUG]: con_loss: 1.274, RCL_loss: 0.068, FTI_loss: 0.001
+2026-03-15 21:45:06 [INFO]: Epoch 77 done. Loss: 5.771, Time per epoch: 0.786[s]
+2026-03-15 21:45:06 [DEBUG]: con_loss: 1.598, RCL_loss: 0.076, FTI_loss: 0.002
+2026-03-15 21:45:07 [DEBUG]: con_loss: 1.628, RCL_loss: 0.103, FTI_loss: 0.005
+2026-03-15 21:45:07 [DEBUG]: con_loss: 1.402, RCL_loss: 0.068, FTI_loss: 0.003
+2026-03-15 21:45:07 [INFO]: Epoch 78 done. Loss: 5.787, Time per epoch: 0.779[s]
+2026-03-15 21:45:07 [DEBUG]: con_loss: 1.623, RCL_loss: 0.049, FTI_loss: 0.009
+2026-03-15 21:45:08 [DEBUG]: con_loss: 1.617, RCL_loss: 0.056, FTI_loss: 0.002
+2026-03-15 21:45:08 [DEBUG]: con_loss: 1.324, RCL_loss: 0.028, FTI_loss: 0.007
+2026-03-15 21:45:08 [INFO]: Epoch 79 done. Loss: 5.731, Time per epoch: 0.829[s]
+2026-03-15 21:45:08 [DEBUG]: con_loss: 1.624, RCL_loss: 0.029, FTI_loss: 0.005
+2026-03-15 21:45:08 [DEBUG]: con_loss: 1.615, RCL_loss: 0.079, FTI_loss: 0.005
+2026-03-15 21:45:09 [DEBUG]: con_loss: 1.348, RCL_loss: 0.079, FTI_loss: 0.003
+2026-03-15 21:45:09 [INFO]: Epoch 80 done. Loss: 5.754, Time per epoch: 0.790[s]
+2026-03-15 21:45:09 [DEBUG]: con_loss: 1.613, RCL_loss: 0.047, FTI_loss: 0.003
+2026-03-15 21:45:09 [DEBUG]: con_loss: 1.621, RCL_loss: 0.043, FTI_loss: 0.003
+2026-03-15 21:45:09 [DEBUG]: con_loss: 1.230, RCL_loss: 0.030, FTI_loss: 0.006
+2026-03-15 21:45:09 [INFO]: Epoch 81 done. Loss: 5.691, Time per epoch: 0.803[s]
+2026-03-15 21:45:10 [DEBUG]: con_loss: 1.606, RCL_loss: 0.036, FTI_loss: 0.002
+2026-03-15 21:45:10 [DEBUG]: con_loss: 1.603, RCL_loss: 0.072, FTI_loss: 0.007
+2026-03-15 21:45:10 [DEBUG]: con_loss: 1.307, RCL_loss: 0.031, FTI_loss: 0.004
+2026-03-15 21:45:10 [INFO]: Epoch 82 done. Loss: 5.715, Time per epoch: 0.777[s]
+2026-03-15 21:45:11 [DEBUG]: con_loss: 1.603, RCL_loss: 0.034, FTI_loss: 0.002
+2026-03-15 21:45:11 [DEBUG]: con_loss: 1.578, RCL_loss: 0.047, FTI_loss: 0.003
+2026-03-15 21:45:11 [DEBUG]: con_loss: 1.282, RCL_loss: 0.043, FTI_loss: 0.005
+2026-03-15 21:45:11 [INFO]: Epoch 83 done. Loss: 5.691, Time per epoch: 0.776[s]
+2026-03-15 21:45:11 [DEBUG]: con_loss: 1.641, RCL_loss: 0.033, FTI_loss: 0.019
+2026-03-15 21:45:12 [DEBUG]: con_loss: 1.553, RCL_loss: 0.027, FTI_loss: 0.002
+2026-03-15 21:45:12 [DEBUG]: con_loss: 1.216, RCL_loss: 0.038, FTI_loss: 0.000
+2026-03-15 21:45:12 [INFO]: Epoch 84 done. Loss: 5.669, Time per epoch: 0.784[s]
+2026-03-15 21:45:12 [DEBUG]: con_loss: 1.527, RCL_loss: 0.030, FTI_loss: 0.002
+2026-03-15 21:45:12 [DEBUG]: con_loss: 1.605, RCL_loss: 0.027, FTI_loss: 0.002
+2026-03-15 21:45:13 [DEBUG]: con_loss: 1.254, RCL_loss: 0.043, FTI_loss: 0.004
+2026-03-15 21:45:13 [INFO]: Epoch 85 done. Loss: 5.657, Time per epoch: 0.825[s]
+2026-03-15 21:45:13 [DEBUG]: con_loss: 1.531, RCL_loss: 0.015, FTI_loss: 0.009
+2026-03-15 21:45:13 [DEBUG]: con_loss: 1.501, RCL_loss: 0.024, FTI_loss: 0.002
+2026-03-15 21:45:13 [DEBUG]: con_loss: 1.356, RCL_loss: 0.028, FTI_loss: 0.023
+2026-03-15 21:45:13 [INFO]: Epoch 86 done. Loss: 5.656, Time per epoch: 0.784[s]
+2026-03-15 21:45:14 [DEBUG]: con_loss: 1.539, RCL_loss: 0.025, FTI_loss: 0.003
+2026-03-15 21:45:14 [DEBUG]: con_loss: 1.567, RCL_loss: 0.047, FTI_loss: 0.003
+2026-03-15 21:45:14 [DEBUG]: con_loss: 1.271, RCL_loss: 0.034, FTI_loss: 0.008
+2026-03-15 21:45:14 [INFO]: Epoch 87 done. Loss: 5.658, Time per epoch: 0.771[s]
+2026-03-15 21:45:14 [DEBUG]: con_loss: 1.520, RCL_loss: 0.026, FTI_loss: 0.009
+2026-03-15 21:45:15 [DEBUG]: con_loss: 1.551, RCL_loss: 0.023, FTI_loss: 0.003
+2026-03-15 21:45:15 [DEBUG]: con_loss: 1.317, RCL_loss: 0.152, FTI_loss: 0.001
+2026-03-15 21:45:15 [INFO]: Epoch 88 done. Loss: 5.693, Time per epoch: 0.786[s]
+2026-03-15 21:45:15 [DEBUG]: con_loss: 1.579, RCL_loss: 0.024, FTI_loss: 0.002
+2026-03-15 21:45:16 [DEBUG]: con_loss: 1.604, RCL_loss: 0.120, FTI_loss: 0.003
+2026-03-15 21:45:16 [DEBUG]: con_loss: 1.314, RCL_loss: 0.067, FTI_loss: 0.001
+2026-03-15 21:45:16 [INFO]: Epoch 89 done. Loss: 5.731, Time per epoch: 0.773[s]
+2026-03-15 21:45:16 [DEBUG]: con_loss: 1.595, RCL_loss: 0.039, FTI_loss: 0.002
+2026-03-15 21:45:16 [DEBUG]: con_loss: 1.579, RCL_loss: 0.080, FTI_loss: 0.002
+2026-03-15 21:45:17 [DEBUG]: con_loss: 1.297, RCL_loss: 0.081, FTI_loss: 0.002
+2026-03-15 21:45:17 [INFO]: Epoch 90 done. Loss: 5.718, Time per epoch: 0.776[s]
+2026-03-15 21:45:17 [DEBUG]: con_loss: 1.561, RCL_loss: 0.079, FTI_loss: 0.002
+2026-03-15 21:45:17 [DEBUG]: con_loss: 1.584, RCL_loss: 0.071, FTI_loss: 0.007
+2026-03-15 21:45:17 [DEBUG]: con_loss: 1.294, RCL_loss: 0.099, FTI_loss: 0.001
+2026-03-15 21:45:17 [INFO]: Epoch 91 done. Loss: 5.725, Time per epoch: 0.784[s]
+2026-03-15 21:45:17 [INFO]: Early stop at epoch 91 due to lack of improvement.
+2026-03-15 21:45:17 [INFO]: Training has finished.
+2026-03-15 21:45:17 [DEBUG]: The training time is 73.07166481018066[s]
+2026-03-15 21:45:17 [DEBUG]: The training time per epoch is 0.794257226197616[s]
+2026-03-15 21:45:17 [INFO]: Model checkpoint and metadata has been saved at logs/gaia.
+2026-03-15 21:45:27 [INFO]: [Root localization] top1: 44.409%, top2: 59.318%, top3: 65.815%, top4: 71.140%, top5: 77.210%,avg@3: 0.565, avg@5: 0.636, NDCG@3: 0.571
+2026-03-15 21:45:27 [INFO]: [Failure type classification] precision: 92.472%, recall: 94.462%, f1-score: 93.203%
+2026-03-15 21:45:27 [INFO]: The average test time is 0.0071810436959718615[s]
+2026-03-15 21:45:27 [INFO]: The total test time is 6.743000030517578[s]

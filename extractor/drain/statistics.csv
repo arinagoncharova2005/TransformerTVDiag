@@ -1,0 +1,33 @@
+id,template,count
+2,<:TIME:> INFO <:HOST:> <:HOST:> <:POD:> <:ID:> <:*:> <:*:> <:*:> <:*:> <:*:> <:*:> <:*:> <:*:>,340936
+4,<:TIME:> INFO <:HOST:> <:HOST:> <:POD:> <:ID:> <:*:> <:*:> <:*:> <:*:> <:*:>,258367
+1,<:TIME:> INFO <:HOST:> <:HOST:> <:POD:> <:ID:> the list of all available services are <:POD:>: <:IP:> <:POD:>: <:IP:>,207433
+6,<:TIME:> <:*:> <:HOST:> <:HOST:> <:POD:> <:ID:> <:*:> <:*:> <:*:> <:*:> <:*:> downstream service,119992
+19,<:TIME:> INFO <:HOST:> <:HOST:> <:POD:> <:ID:> redis write success,117786
+5,<:TIME:> INFO <:HOST:> <:HOST:> <:POD:> <:ID:> <:*:> <:*:> <:*:> <:*:> <:*:> <:*:> <:*:>,113955
+16,<:TIME:> <:*:> <:HOST:> <:HOST:> <:POD:> <:ID:> <:*:> <:*:> <:*:> <:*:>,112920
+3,<:TIME:> INFO <:HOST:> <:HOST:> <:POD:> <:ID:> <:*:> <:*:> <:*:> <:*:> <:*:> <:*:> <:*:> <:*:> <:*:>,105805
+8,<:TIME:> <:*:> <:HOST:> <:POD:> <:FILE METHOD LINE:> <:ID:> <:*:> <:*:> <:*:> <:*:> <:*:> <:*:> <:*:> <:*:>,59757
+18,<:TIME:> <:*:> <:HOST:> <:POD:> <:FILE METHOD LINE:> <:ID:> <:*:> <:*:> <:*:> <:*:>,56585
+7,<:TIME:> INFO <:HOST:> <:POD:> <:FILE METHOD LINE:> <:ID:> the list of all available services are <:POD:>: <:IP:> <:POD:>: <:IP:>,56383
+9,<:TIME:> INFO <:HOST:> <:HOST:> <:POD:> <:ID:> query = select passwards from username table where user <:*:>,53647
+10,<:TIME:> INFO <:HOST:> <:HOST:> <:POD:> <:ID:> <:*:> <:*:> <:*:> <:*:> <:*:> <:*:>,10140
+23,<:TIME:> ERROR <:HOST:> <:POD:> <:FILE METHOD LINE:> <:ID:> get a error [Errno 2] No such file or directory: 'resources/source file/source file.csv',4577
+13,"<:TIME:> ERROR <:HOST:> <:POD:> <:FILE METHOD LINE:> {trace id} password in database of {user} is null, the user is not registered",1014
+12,"<:TIME:> ERROR <:HOST:> <:POD:> <:FILE METHOD LINE:> <:ID:> (pymysql.err.ProgrammingError) (1146, ""Table 'cloudwise micross.system metric datas' doesn't exist"")[SQL: select service names, system data time, system cpu utilization, system memory usage,system disk usage, disk io read count, disk io write count,system network, network io read count, network io write count from system metric datas](Background on this error at: <:IP:>",785
+11,"<:TIME:> ERROR <:HOST:> <:POD:> <:FILE METHOD LINE:> <:ID:> (pymysql.err.OperationalError) (1054, ""Unknown column 'system data time' in 'field list'"")[SQL: select service name, system data time, system cpu utilization, system memory usage,system disk usage, disk io read count, disk io write count,system network, network io read count, network io write count from `metric table 2021-05`](Background on this error at: <:IP:>",758
+20,<:TIME:> <:*:> <:HOST:> <:POD:> <:FILE METHOD LINE:> <:ID:> <:*:> <:*:> <:*:> <:*:> <:*:>,663
+25,<:TIME:> ERROR <:HOST:> <:POD:> <:FILE METHOD LINE:> <:*:> <:*:> <:*:> <:*:> <:*:> <:*:> <:*:>,420
+17,<:TIME:> <:*:> <:HOST:> <:POD:> <:FILE METHOD LINE:> <:ID:> <:*:> <:*:> <:*:> <:*:> <:*:> <:*:> <:*:> <:*:> <:*:>,293
+24,<:TIME:> INFO <:HOST:> <:POD:> <:FILE METHOD LINE:> <:ID:> redis write success,144
+14,"<:TIME:> ERROR <:HOST:> <:HOST:> <:POD:> <:ID:> (pymysql.err.OperationalError) (1054, ""Unknown column 'system data time' in 'field list'"")[SQL: select service name, system data time, system cpu utilization, system memory usage,system disk usage, disk io read count, disk io write count,system network, network io read count, network io write count from `metric table 2021-05`](Background on this error at: <:IP:>",130
+22,<:TIME:> ERROR <:HOST:> <:HOST:> <:POD:> <:ID:> (pymysql.err.OperationalError) <:FIX MESSAGE:>(Background on this error at: <:IP:>,127
+21,"<:TIME:> ERROR <:HOST:> <:HOST:> <:POD:> <:ID:> (pymysql.err.ProgrammingError) (1146, ""Table 'cloudwise micross.system metric datas' doesn't exist"")[SQL: select service names, system data time, system cpu utilization, system memory usage,system disk usage, disk io read count, disk io write count,system network, network io read count, network io write count from system metric datas](Background on this error at: <:IP:>",113
+15,<:TIME:> <:*:> <:HOST:> <:POD:> <:FILE METHOD LINE:> <:ID:> <:*:> <:*:> <:*:> <:*:> <:*:> <:*:> <:*:>,72
+26,<:TIME:> INFO <:HOST:> <:POD:> <:FILE METHOD LINE:> <:ID:> query = select passwards from username table where user <:*:>,37
+28,"<:TIME:> ERROR <:HOST:> <:POD:> <:FILE METHOD LINE:> <:ID:> unknown error occurred, status code == 200, message:{'message': 'redis write success, keys=<:UID:>, value=', 'status code': 200}",12
+32,<:TIME:> ERROR <:HOST:> <:POD:> <:FILE METHOD LINE:> <:ID:> <:*:> <:*:> <:*:> <:*:> <:*:> <:*:> <:*:> <:*:> <:*:> <:*:> <:*:>,8
+30,"<:TIME:> ERROR <:HOST:> <:POD:> <:FILE METHOD LINE:> <:ID:> call the url <:IP:> and param {'uuid': '<:UID:>'} error --HTTPConnectionPool(host='<:HOST:>', port=9384): Max retries exceeded with url: /login query redis info?uuid=<:UID:> (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x<:ID:>>: Failed to establish a new connection: [Errno 111] Connection refused'))",2
+27,"<:TIME:> ERROR <:HOST:> <:HOST:> <:POD:> {traci id} uuid expired, invalid phone request",1
+29,"<:TIME:> ERROR <:HOST:> <:POD:> <:FILE METHOD LINE:> <:ID:> call the url <:IP:> and param {'uuid': '<:UID:>'} error --('Connection aborted.', ConnectionResetError<:FIX MESSAGE:>)",1
+31,<:TIME:> ERROR <:HOST:> <:HOST:> <:POD:> <:ID:> get a error [Errno 2] No such file or directory: 'resources/source file/source file.csv',1

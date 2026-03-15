@@ -1,0 +1,4 @@
+2026-03-15 21:43:34 [INFO]: Currently using GPU 0
+2026-03-15 21:43:34 [INFO]: Load dataset
+2026-03-15 21:43:34 [INFO]: Load raw events from gaia dataset
+2026-03-15 21:43:35 [INFO]: Build embedding for raw events
