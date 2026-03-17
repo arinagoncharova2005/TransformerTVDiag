@@ -2,8 +2,8 @@
 
 # configuration
 dataset='gaia'
-# labels_file='label_15_85.csv'
-labels_file='gaia.csv'
+labels_file='label_15_85.csv'
+# labels_file='gaia.csv'
 epochs=3000
 lr=0.001
 batch_size=128
