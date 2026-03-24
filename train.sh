@@ -1,9 +1,11 @@
 #!/bin/bash
 
 # configuration
-dataset='gaia'
-labels_file='label_15_85.csv'
+# labels_file='labels_without_login.csv'
 # labels_file='gaia.csv'
+labels_file='label_15_85_corrected_index.csv'
+dataset='gaia'
+# labels_file='label_15_85.csv'
 epochs=3000
 lr=0.001
 batch_size=128
