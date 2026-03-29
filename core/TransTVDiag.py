@@ -37,9 +37,34 @@ class TransTVDiag(object):
         self.writer = SummaryWriter(log_dir)
         self.printParams()
 
+    def active_modalities(self):
+        alias_map = {
+            "metric": "metric",
+            "metrics": "metric",
+            "trace": "trace",
+            "traces": "trace",
+            "log": "log",
+            "logs": "log",
+        }
+        active = {
+            alias_map[item.strip().lower()]
+            for item in str(self.args.modalities).split(",")
+            if item.strip().lower() in alias_map
+        }
+        if not active:
+            raise ValueError("No valid modalities were provided. Use a subset of: metric, trace, log.")
+        return active
+
+    def checkpoint_path(self):
+        modality_order = ("metric", "trace", "log")
+        active = self.active_modalities()
+        modality_suffix = "-".join([modality for modality in modality_order if modality in active])
+        return os.path.join(self.writer.log_dir, f"TransTVDiag-{modality_suffix}.pt")
+
     def printParams(self):
         self.logger.info(f"Training with: {self.device}")
         self.logger.info(f"batch size: {self.args.batch_size}")
+        self.logger.info(f"modalities: {self.args.modalities}")
         self.logger.info(f"Status of task-oriented learning: {self.args.TO}")
         self.logger.info(f"Status of cross-modal association: {self.args.CM}")
         self.logger.info(f"guide weight: {self.args.guide_weight}")
@@ -50,6 +75,7 @@ class TransTVDiag(object):
 
     def train(self, train_dl):
         model = MainModel(self.args).to(self.device)
+        active_modalities = self.active_modalities()
         opt = torch.optim.Adam(model.parameters(), lr=self.lr, weight_decay=self.weight_decay)
         
         awl = AutomaticWeightedLoss(3)
@@ -83,16 +109,30 @@ class TransTVDiag(object):
                     dist.to(self.device), path_data.to(self.device), attn_mask.to(self.device))
 
                 # Task-oriented learning
-                l_to, l_cm = torch.tensor(0), torch.tensor(0)
+                # l_to, l_cm = torch.tensor(0), torch.tensor(0)
+                l_to = torch.tensor(0.0, device=self.device)
+                l_cm = torch.tensor(0.0, device=self.device)
                 if self.args.TO:
-                    l_to = supConLoss(f_m, instance_labels) + \
-                        supConLoss(f_t, instance_labels) + \
-                                   supConLoss(f_l, type_labels)
+                    # l_to = supConLoss(f_m, instance_labels) + \
+                    #     supConLoss(f_t, instance_labels) + \
+                    #                supConLoss(f_l, type_labels)
+                    if "metric" in active_modalities:
+                        l_to = l_to + supConLoss(f_m, instance_labels)
+                    if "trace" in active_modalities:
+                        l_to = l_to + supConLoss(f_t, instance_labels)
+                    if "log" in active_modalities:
+                        l_to = l_to + supConLoss(f_l, type_labels)
 
                 # Cross-modal association
                 if self.args.CM:
-                    l_cm = uspConLoss(f_m, f_t) + \
-                        uspConLoss(f_m, f_l)
+                    # l_cm = uspConLoss(f_m, f_t) + \
+                    #     uspConLoss(f_m, f_l)
+                    if {"metric", "trace"}.issubset(active_modalities):
+                        l_cm = l_cm + uspConLoss(f_m, f_t)
+                    if {"metric", "log"}.issubset(active_modalities):
+                        l_cm = l_cm + uspConLoss(f_m, f_l)
+                    # if {"trace", "log"}.issubset(active_modalities):
+                    #     l_cm = l_cm + uspConLoss(f_t, f_l)
                 
                 # Failure Diagnosis
                 gamma = self.args.guide_weight
@@ -114,7 +154,7 @@ class TransTVDiag(object):
                 epoch_con_l += l_con.detach().item()
                 epoch_rcl_l += l_rcl.detach().item()
                 epoch_fti_l += l_fti.detach().item()
-                epoch_loss += total_loss.detach().item()
+                # epoch_loss += total_loss.detach().item()
                 n_iter += 1
                 
             mean_epoch_loss = epoch_loss / n_iter
@@ -127,13 +167,10 @@ class TransTVDiag(object):
             self.logger.info("Epoch {} done. Loss: {:.3f}, Time per epoch: {:.3f}[s]"
                          .format(epoch, mean_epoch_loss, time_per_epoch))
 
-            top1, top3 = HR(root_logit, instance_labels, topk=(1, 3))
+            top1, top3, top5 = HR(root_logit, instance_labels, topk=(1, 3, 5))
             NDCG_3 = NDCG(root_logit.cpu(), instance_labels.cpu(), topk=(3,))[0]
-            # pre = precision(type_logit, type_labels, k=4)
             pre = precision(type_logit, type_labels, k=5)
             rec = recall(type_logit, type_labels, k=5)
-            # rec = recall(type_logit, type_labels, k=4)
-            # f1 = f1score(type_logit, type_labels, k=4)
             f1 = f1score(type_logit, type_labels, k=5)
             self.writer.add_scalar('loss/mean total loss', mean_epoch_loss, global_step=epoch)
             self.writer.add_scalar('loss/mean con loss', mean_con_loss, global_step=epoch)
@@ -141,7 +178,7 @@ class TransTVDiag(object):
             self.writer.add_scalar('loss/mean FTI loss', mean_fti_loss, global_step=epoch)
             self.writer.add_scalar('train/top1', top1, global_step=epoch)
             self.writer.add_scalar('train/top3', top3, global_step=epoch)
-            # self.writer.add_scalar('train/top5', top5, global_step=epoch)
+            self.writer.add_scalar('train/top5', top5, global_step=epoch)
             self.writer.add_scalar('train/NDCG_3', NDCG_3, global_step=epoch)
             self.writer.add_scalar('train/precision', pre, global_step=epoch)
             self.writer.add_scalar('train/recall', rec, global_step=epoch)
@@ -159,17 +196,22 @@ class TransTVDiag(object):
             'model': model.state_dict(),
             'opt': opt.state_dict(),
         }
-        torch.save(state, os.path.join(self.writer.log_dir, 'TransTVDiag.pt'))
+        checkpoint_path = self.checkpoint_path()
+        torch.save(state, checkpoint_path)
+        
+        # torch.save(state, os.path.join(self.writer.log_dir, 'TransTVDiag.pt'))
 
                  
         self.logger.info("Training has finished.")
         self.logger.debug(f"The training time is {np.sum(train_times)}[s]")
         self.logger.debug(f"The training time per epoch is {np.mean(train_times)}[s]")
-        self.logger.info(f"Model checkpoint and metadata has been saved at {self.writer.log_dir}.")
+        self.logger.info(f"Model checkpoint and metadata has been saved at {checkpoint_path}.")
 
 
     def evaluate(self, test_dl):
-        checkpoint = torch.load(os.path.join(self.writer.log_dir, 'TransTVDiag.pt'))
+        checkpoint_path = self.checkpoint_path()
+        checkpoint = torch.load(checkpoint_path)
+        # checkpoint = torch.load(os.path.join(self.writer.log_dir, 'TransTVDiag.pt'))
         model = MainModel(self.args).to(self.device)
         model.load_state_dict(checkpoint['model'])
         model.eval()
@@ -197,19 +239,16 @@ class TransTVDiag(object):
         roots = torch.tensor(roots)
         types = torch.tensor(types)
 
-        #top1, top2, top3, top4, top5 = HR(root_logits, roots, topk=(1, 2, 3, 4, 5))
-        top1, top2, top3, top4 = HR(root_logits, roots, topk=(1, 2, 3, 4))
+        top1, top2, top3, top4, top5 = HR(root_logits, roots, topk=(1, 2, 3, 4, 5))
         NDCG_3 = NDCG(root_logits, roots, topk=(3,))[0]
-        # avg_5 = np.mean([top1, top2, top3, top4, top5])
+        avg_5 = np.mean([top1, top2, top3, top4, top5])
         avg_3 = np.mean([top1, top2, top3])
-        # pre = precision(type_logits, types, k=5)
-        # rec = recall(type_logits, types, k=5)
-        # f1 = f1score(type_logits, types, k=5)
-        pre = precision(type_logits, types, k=4)
-        rec = recall(type_logits, types, k=4)
-        f1 = f1score(type_logits, types, k=4)
+        pre = precision(type_logits, types, k=5)
+        rec = recall(type_logits, types, k=5)
+        f1 = f1score(type_logits, types, k=5)
 
-        self.logger.info("[Root localization] top1: {:.3%}, top2: {:.3%}, top3: {:.3%}, top4: {:.3%}, avg@3: {:.3f}, NDCG@3: {:.3f}".format(top1, top2, top3, top4, avg_3, NDCG_3))
+        self.logger.info("[Root localization] top1: {:.3%}, top2: {:.3%}, top3: {:.3%}, top4: {:.3%}, top5: {:.3%},avg@3: {:.3f}, avg@5: {:.3f}, NDCG@3: {:.3f}".format(top1, top2, top3, top4, top5,avg_3, avg_5, NDCG_3))
         self.logger.info("[Failure type classification] precision: {:.3%}, recall: {:.3%}, f1-score: {:.3%}".format(pre, rec, f1))
+        self.logger.info(f"Evaluated checkpoint: {checkpoint_path}")
         self.logger.info(f"The average test time is {np.mean(inference_times)}[s]")
         self.logger.info(f"The total test time is {np.sum(inference_times)}[s]")

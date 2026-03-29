@@ -1,6 +1,6 @@
 ,[access permission denied exception],[file moving program],[login failure],[memory_anomalies],[normal memory freed label]
-[access permission denied exception],0,8,0,7,0
-[file moving program],0,8,4,19,6
-[login failure],0,6,13113,20,4
-[memory_anomalies],0,44,2,516,2
-[normal memory freed label],0,1,0,14,0
+[access permission denied exception],0,4,1,10,0
+[file moving program],0,6,6,24,1
+[login failure],0,6,13137,0,0
+[memory_anomalies],0,27,5,531,1
+[normal memory freed label],0,0,0,15,0

@@ -60,7 +60,14 @@ parser.add_argument('--dynamic_weight', action='store_true')
 parser.add_argument('--epochs', type=int, default=3000)
 parser.add_argument('--batch_size', type=int, default=128)
 parser.add_argument('--aug_percent', type=float, default=0.2)
+parser.add_argument(
+    '--modalities',
+    type=str,
+    default='metric,trace,log',
+    help='Comma-separated subset of modalities to use: metric,trace,log',
+)
 args = parser.parse_args()
+print('parsed modalities: ', args.modalities)
 
 def set_seed(seed):
     dgl.seed(seed)
