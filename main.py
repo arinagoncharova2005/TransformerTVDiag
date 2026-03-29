@@ -61,6 +61,24 @@ parser.add_argument('--epochs', type=int, default=3000)
 parser.add_argument('--batch_size', type=int, default=128)
 parser.add_argument('--aug_percent', type=float, default=0.2)
 parser.add_argument(
+    '--root_loss',
+    type=str,
+    default='ce',
+    help='Loss for root localization: ce, weighted_ce, focal, weighted_focal',
+)
+parser.add_argument(
+    '--type_loss',
+    type=str,
+    default='ce',
+    help='Loss for failure type classification: ce, weighted_ce, focal, weighted_focal',
+)
+parser.add_argument(
+    '--focal_gamma',
+    type=float,
+    default=2.0,
+    help='Gamma parameter for focal loss',
+)
+parser.add_argument(
     '--modalities',
     type=str,
     default='metric,trace,log',

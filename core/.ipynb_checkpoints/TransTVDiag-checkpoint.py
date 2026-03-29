@@ -9,6 +9,7 @@ from torch.utils.tensorboard import SummaryWriter
 from core.loss.UnsupervisedContrastiveLoss import UspConLoss
 from core.loss.SupervisedContrastiveLoss import SupConLoss
 from core.loss.AutomaticWeightedLoss import AutomaticWeightedLoss
+from core.loss.ClassificationLoss import ClassificationLossFactory
 from core.model.MainModel import MainModel
 
 from helper.eval import *
@@ -59,12 +60,16 @@ class TransTVDiag(object):
         modality_order = ("metric", "trace", "log")
         active = self.active_modalities()
         modality_suffix = "-".join([modality for modality in modality_order if modality in active])
-        return os.path.join(self.writer.log_dir, f"TransTVDiag-{modality_suffix}.pt")
+        loss_suffix = f"root_{self.args.root_loss}_type_{self.args.type_loss}"
+        return os.path.join(self.writer.log_dir, f"TransTVDiag-{modality_suffix}-{loss_suffix}.pt")
 
     def printParams(self):
         self.logger.info(f"Training with: {self.device}")
         self.logger.info(f"batch size: {self.args.batch_size}")
         self.logger.info(f"modalities: {self.args.modalities}")
+        self.logger.info(f"root cause localization loss: {self.args.root_loss}")
+        self.logger.info(f"fault type classification loss: {self.args.type_loss}")
+        self.logger.info(f"focal loss gamma: {self.args.focal_gamma}")
         self.logger.info(f"Status of task-oriented learning: {self.args.TO}")
         self.logger.info(f"Status of cross-modal association: {self.args.CM}")
         self.logger.info(f"guide weight: {self.args.guide_weight}")
@@ -72,6 +77,26 @@ class TransTVDiag(object):
         self.logger.info(f"Status of dynamic_weight: {self.args.dynamic_weight}")
         self.logger.info(f"aug percent: {self.args.aug_percent}")
         self.logger.info(f"lr: {self.args.lr}, weight_decay: {self.args.weight_decay}")
+
+    @staticmethod
+    def compute_class_weights(labels, num_classes, device):
+        labels = torch.as_tensor(labels, dtype=torch.long)
+        counts = torch.bincount(labels, minlength=num_classes).float()
+        counts = torch.clamp(counts, min=1.0)
+        weights = counts.sum() / (num_classes * counts)
+        return weights.to(device)
+
+    def get_train_label_weights(self, train_dl):
+        root_labels = []
+        type_labels = []
+
+        for _, (root, failure_type) in train_dl.dataset.data:
+            root_labels.append(root)
+            type_labels.append(failure_type)
+
+        root_weights = self.compute_class_weights(root_labels, self.args.N_I, self.device)
+        type_weights = self.compute_class_weights(type_labels, self.args.N_T, self.device)
+        return root_weights, type_weights
 
     def train(self, train_dl):
         model = MainModel(self.args).to(self.device)
@@ -81,8 +106,21 @@ class TransTVDiag(object):
         awl = AutomaticWeightedLoss(3)
         supConLoss = SupConLoss(self.tau, self.device).to(self.device)
         uspConLoss = UspConLoss(self.tau, self.device).to(self.device)
-
+        root_weights, type_weights = self.get_train_label_weights(train_dl)
+        root_criterion = ClassificationLossFactory.create(
+            self.args.root_loss,
+            weight=root_weights,
+            focal_gamma=self.args.focal_gamma,
+        ).to(self.device)
+        type_criterion = ClassificationLossFactory.create(
+            self.args.type_loss,
+            weight=type_weights,
+            focal_gamma=self.args.focal_gamma,
+        ).to(self.device)
+        
         self.logger.info(model)
+        self.logger.info(f"Root class weights: {root_weights.detach().cpu().tolist()}")
+        self.logger.info(f"Type class weights: {type_weights.detach().cpu().tolist()}")
         self.logger.info(f"Start training for {self.epochs} epochs.")
         
         # Overhead
@@ -138,8 +176,10 @@ class TransTVDiag(object):
                 gamma = self.args.guide_weight
                 l_con = gamma * (l_to + l_cm)
 
-                l_rcl = F.cross_entropy(root_logit, instance_labels)
-                l_fti = F.cross_entropy(type_logit, type_labels)
+                # l_rcl = F.cross_entropy(root_logit, instance_labels)
+                # l_fti = F.cross_entropy(type_logit, type_labels)
+                l_rcl = root_criterion(root_logit, instance_labels)
+                l_fti = type_criterion(type_logit, type_labels)
                 if self.args.dynamic_weight:
                     total_loss = awl(l_rcl, l_fti, l_con)
                 else:
