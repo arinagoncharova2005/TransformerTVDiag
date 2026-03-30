@@ -13,6 +13,7 @@ class MainModel(nn.Module):
         self.args = args
         self.active_modalities = self.parse_modalities(getattr(args, "modalities", "metric,trace,log"))
         print('From Main Model: ', self.active_modalities)
+        print('Root loss: ', args.root_loss, 'fault type loss: ',  args.type_loss)
 
         self.metric_encoder = Encoder(in_dim=args.embedding_dim,
                                       attn_drop=args.attn_drop,
