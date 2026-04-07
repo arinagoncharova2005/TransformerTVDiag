@@ -1,0 +1,249 @@
+2026-03-31 22:58:42 [INFO]: Currently using GPU 0
+2026-03-31 22:58:42 [INFO]: Load dataset
+2026-03-31 22:58:42 [INFO]: Load raw events from gaia dataset
+2026-03-31 22:58:47 [INFO]: Build embedding for raw events
+2026-03-31 22:59:12 [INFO]: Build dataset for training
+2026-03-31 22:59:30 [INFO]: Training...
+2026-03-31 22:59:30 [INFO]: Training with: cuda
+2026-03-31 22:59:30 [INFO]: batch size: 128
+2026-03-31 22:59:30 [INFO]: modalities: metric,trace,log
+2026-03-31 22:59:30 [INFO]: root cause localization loss: weighted_focal
+2026-03-31 22:59:30 [INFO]: fault type classification loss: weighted_focal
+2026-03-31 22:59:30 [INFO]: focal loss gamma: 0.25
+2026-03-31 22:59:30 [INFO]: Status of task-oriented learning: True
+2026-03-31 22:59:30 [INFO]: Status of cross-modal association: True
+2026-03-31 22:59:30 [INFO]: guide weight: 0.1
+2026-03-31 22:59:30 [INFO]: temperature: 0.3
+2026-03-31 22:59:30 [INFO]: Status of dynamic_weight: True
+2026-03-31 22:59:30 [INFO]: aug percent: 0.2
+2026-03-31 22:59:30 [INFO]: lr: 0.001, weight_decay: 0.0001
+2026-03-31 22:59:31 [INFO]: MainModel(
+  (metric_encoder): Encoder(
+    (graph_encoder): GraphormerEncoder(
+      (dropout): Dropout(p=0, inplace=False)
+      (graph_token): Embedding(1, 128)
+      (degree_encoder): DegreeEncoder(
+        (encoder1): Embedding(513, 128, padding_idx=0)
+        (encoder2): Embedding(513, 128, padding_idx=0)
+      )
+      (path_encoder): PathEncoder(
+        (embedding_table): Embedding(80, 1)
+      )
+      (spatial_encoder): SpatialEncoder(
+        (embedding_table): Embedding(513, 16, padding_idx=0)
+      )
+      (graph_token_virtual_distance): Embedding(1, 16)
+      (emb_layer_norm): LayerNorm((128,), eps=1e-05, elementwise_affine=True)
+      (layers): ModuleList(
+        (0-1): 2 x GraphormerLayer(
+          (attn): BiasedMHA(
+            (q_proj): Linear(in_features=128, out_features=128, bias=True)
+            (k_proj): Linear(in_features=128, out_features=128, bias=True)
+            (v_proj): Linear(in_features=128, out_features=128, bias=True)
+            (out_proj): Linear(in_features=128, out_features=128, bias=True)
+            (dropout): Dropout(p=0.1, inplace=False)
+          )
+          (ffn): Sequential(
+            (0): Linear(in_features=128, out_features=128, bias=True)
+            (1): GELU(approximate='none')
+            (2): Dropout(p=0, inplace=False)
+            (3): Linear(in_features=128, out_features=128, bias=True)
+            (4): Dropout(p=0, inplace=False)
+          )
+          (dropout): Dropout(p=0, inplace=False)
+          (attn_layer_norm): LayerNorm((128,), eps=1e-05, elementwise_affine=True)
+          (ffn_layer_norm): LayerNorm((128,), eps=1e-05, elementwise_affine=True)
+        )
+      )
+      (lm_head_transform_weight): Linear(in_features=128, out_features=128, bias=True)
+      (layer_norm): LayerNorm((128,), eps=1e-05, elementwise_affine=True)
+      (activation_fn): GELU(approximate='none')
+      (embed_out): Linear(in_features=128, out_features=32, bias=False)
+    )
+  )
+  (trace_encoder): Encoder(
+    (graph_encoder): GraphormerEncoder(
+      (dropout): Dropout(p=0, inplace=False)
+      (graph_token): Embedding(1, 128)
+      (degree_encoder): DegreeEncoder(
+        (encoder1): Embedding(513, 128, padding_idx=0)
+        (encoder2): Embedding(513, 128, padding_idx=0)
+      )
+      (path_encoder): PathEncoder(
+        (embedding_table): Embedding(80, 1)
+      )
+      (spatial_encoder): SpatialEncoder(
+        (embedding_table): Embedding(513, 16, padding_idx=0)
+      )
+      (graph_token_virtual_distance): Embedding(1, 16)
+      (emb_layer_norm): LayerNorm((128,), eps=1e-05, elementwise_affine=True)
+      (layers): ModuleList(
+        (0-1): 2 x GraphormerLayer(
+          (attn): BiasedMHA(
+            (q_proj): Linear(in_features=128, out_features=128, bias=True)
+            (k_proj): Linear(in_features=128, out_features=128, bias=True)
+            (v_proj): Linear(in_features=128, out_features=128, bias=True)
+            (out_proj): Linear(in_features=128, out_features=128, bias=True)
+            (dropout): Dropout(p=0.1, inplace=False)
+          )
+          (ffn): Sequential(
+            (0): Linear(in_features=128, out_features=128, bias=True)
+            (1): GELU(approximate='none')
+            (2): Dropout(p=0, inplace=False)
+            (3): Linear(in_features=128, out_features=128, bias=True)
+            (4): Dropout(p=0, inplace=False)
+          )
+          (dropout): Dropout(p=0, inplace=False)
+          (attn_layer_norm): LayerNorm((128,), eps=1e-05, elementwise_affine=True)
+          (ffn_layer_norm): LayerNorm((128,), eps=1e-05, elementwise_affine=True)
+        )
+      )
+      (lm_head_transform_weight): Linear(in_features=128, out_features=128, bias=True)
+      (layer_norm): LayerNorm((128,), eps=1e-05, elementwise_affine=True)
+      (activation_fn): GELU(approximate='none')
+      (embed_out): Linear(in_features=128, out_features=32, bias=False)
+    )
+  )
+  (log_encoder): Encoder(
+    (graph_encoder): GraphormerEncoder(
+      (dropout): Dropout(p=0, inplace=False)
+      (graph_token): Embedding(1, 128)
+      (degree_encoder): DegreeEncoder(
+        (encoder1): Embedding(513, 128, padding_idx=0)
+        (encoder2): Embedding(513, 128, padding_idx=0)
+      )
+      (path_encoder): PathEncoder(
+        (embedding_table): Embedding(80, 1)
+      )
+      (spatial_encoder): SpatialEncoder(
+        (embedding_table): Embedding(513, 16, padding_idx=0)
+      )
+      (graph_token_virtual_distance): Embedding(1, 16)
+      (emb_layer_norm): LayerNorm((128,), eps=1e-05, elementwise_affine=True)
+      (layers): ModuleList(
+        (0-1): 2 x GraphormerLayer(
+          (attn): BiasedMHA(
+            (q_proj): Linear(in_features=128, out_features=128, bias=True)
+            (k_proj): Linear(in_features=128, out_features=128, bias=True)
+            (v_proj): Linear(in_features=128, out_features=128, bias=True)
+            (out_proj): Linear(in_features=128, out_features=128, bias=True)
+            (dropout): Dropout(p=0.1, inplace=False)
+          )
+          (ffn): Sequential(
+            (0): Linear(in_features=128, out_features=128, bias=True)
+            (1): GELU(approximate='none')
+            (2): Dropout(p=0, inplace=False)
+            (3): Linear(in_features=128, out_features=128, bias=True)
+            (4): Dropout(p=0, inplace=False)
+          )
+          (dropout): Dropout(p=0, inplace=False)
+          (attn_layer_norm): LayerNorm((128,), eps=1e-05, elementwise_affine=True)
+          (ffn_layer_norm): LayerNorm((128,), eps=1e-05, elementwise_affine=True)
+        )
+      )
+      (lm_head_transform_weight): Linear(in_features=128, out_features=128, bias=True)
+      (layer_norm): LayerNorm((128,), eps=1e-05, elementwise_affine=True)
+      (activation_fn): GELU(approximate='none')
+      (embed_out): Linear(in_features=128, out_features=32, bias=False)
+    )
+  )
+  (locator): Voter(
+    (net): FullyConnected(
+      (net): Sequential(
+        (0): Linear(in_features=96, out_features=64, bias=True)
+        (1): ReLU()
+        (2): Linear(in_features=64, out_features=10, bias=True)
+      )
+    )
+  )
+  (typeClassifier): Classifyer(
+    (net): FullyConnected(
+      (net): Sequential(
+        (0): Linear(in_features=96, out_features=64, bias=True)
+        (1): ReLU()
+        (2): Linear(in_features=64, out_features=5, bias=True)
+      )
+    )
+  )
+)
+2026-03-31 22:59:31 [INFO]: Root class weights: [27.011110305786133, 27.011110305786133, 20.258333206176758, 18.700000762939453, 0.20428571105003357, 0.20974978804588318, 27.011110305786133, 24.309999465942383, 30.387500762939453, 20.258333206176758]
+2026-03-31 22:59:31 [INFO]: Type class weights: [972.5999755859375, 81.05000305175781, 0.2082655280828476, 5.52613639831543, 243.14999389648438]
+2026-03-31 22:59:31 [INFO]: Start training for 3000 epochs.
+2026-03-31 22:59:31 [DEBUG]: con_loss: 2.598, RCL_loss: 0.794, FTI_loss: 0.310
+2026-03-31 22:59:32 [DEBUG]: con_loss: 2.298, RCL_loss: 3.171, FTI_loss: 0.694
+2026-03-31 22:59:32 [DEBUG]: con_loss: 2.208, RCL_loss: 2.660, FTI_loss: 0.479
+2026-03-31 22:59:32 [DEBUG]: con_loss: 2.207, RCL_loss: 3.199, FTI_loss: 4.235
+2026-03-31 22:59:33 [DEBUG]: con_loss: 2.074, RCL_loss: 0.767, FTI_loss: 0.272
+2026-03-31 22:59:33 [DEBUG]: con_loss: 2.232, RCL_loss: 3.573, FTI_loss: 0.528
+2026-03-31 22:59:33 [DEBUG]: con_loss: 2.162, RCL_loss: 0.850, FTI_loss: 0.361
+2026-03-31 22:59:34 [DEBUG]: con_loss: 2.209, RCL_loss: 2.029, FTI_loss: 0.430
+2026-03-31 22:59:34 [DEBUG]: con_loss: 2.208, RCL_loss: 2.693, FTI_loss: 0.484
+2026-03-31 22:59:34 [DEBUG]: con_loss: 2.117, RCL_loss: 1.286, FTI_loss: 0.288
+2026-03-31 22:59:34 [DEBUG]: con_loss: 2.106, RCL_loss: 1.169, FTI_loss: 0.271
+2026-03-31 22:59:35 [DEBUG]: con_loss: 2.228, RCL_loss: 4.190, FTI_loss: 2.278
+2026-03-31 22:59:35 [DEBUG]: con_loss: 2.115, RCL_loss: 1.829, FTI_loss: 0.290
+2026-03-31 22:59:35 [DEBUG]: con_loss: 2.180, RCL_loss: 2.270, FTI_loss: 0.410
+2026-03-31 22:59:36 [DEBUG]: con_loss: 2.132, RCL_loss: 1.735, FTI_loss: 0.281
+2026-03-31 22:59:36 [DEBUG]: con_loss: 2.137, RCL_loss: 1.514, FTI_loss: 0.278
+2026-03-31 22:59:36 [DEBUG]: con_loss: 2.162, RCL_loss: 2.018, FTI_loss: 0.311
+2026-03-31 22:59:37 [DEBUG]: con_loss: 2.193, RCL_loss: 2.886, FTI_loss: 1.788
+2026-03-31 22:59:37 [DEBUG]: con_loss: 2.130, RCL_loss: 1.594, FTI_loss: 0.256
+2026-03-31 22:59:37 [DEBUG]: con_loss: 2.099, RCL_loss: 1.069, FTI_loss: 2.666
+2026-03-31 22:59:38 [DEBUG]: con_loss: 2.131, RCL_loss: 1.563, FTI_loss: 1.336
+2026-03-31 22:59:38 [DEBUG]: con_loss: 2.231, RCL_loss: 2.715, FTI_loss: 1.464
+2026-03-31 22:59:38 [DEBUG]: con_loss: 2.227, RCL_loss: 3.449, FTI_loss: 0.472
+2026-03-31 22:59:38 [DEBUG]: con_loss: 2.253, RCL_loss: 3.036, FTI_loss: 0.552
+2026-03-31 22:59:39 [DEBUG]: con_loss: 2.225, RCL_loss: 2.047, FTI_loss: 0.436
+2026-03-31 22:59:39 [DEBUG]: con_loss: 2.218, RCL_loss: 2.693, FTI_loss: 0.441
+2026-03-31 22:59:39 [DEBUG]: con_loss: 2.218, RCL_loss: 2.231, FTI_loss: 1.114
+2026-03-31 22:59:40 [DEBUG]: con_loss: 2.234, RCL_loss: 4.013, FTI_loss: 6.547
+2026-03-31 22:59:40 [DEBUG]: con_loss: 2.105, RCL_loss: 0.840, FTI_loss: 0.218
+2026-03-31 22:59:40 [DEBUG]: con_loss: 2.123, RCL_loss: 1.400, FTI_loss: 0.220
+2026-03-31 22:59:41 [DEBUG]: con_loss: 2.211, RCL_loss: 2.956, FTI_loss: 4.234
+2026-03-31 22:59:41 [DEBUG]: con_loss: 2.256, RCL_loss: 3.663, FTI_loss: 0.554
+2026-03-31 22:59:41 [DEBUG]: con_loss: 2.231, RCL_loss: 2.114, FTI_loss: 0.360
+2026-03-31 22:59:42 [DEBUG]: con_loss: 2.065, RCL_loss: 0.350, FTI_loss: 0.171
+2026-03-31 22:59:42 [DEBUG]: con_loss: 2.248, RCL_loss: 1.802, FTI_loss: 3.147
+2026-03-31 22:59:42 [DEBUG]: con_loss: 2.278, RCL_loss: 3.008, FTI_loss: 2.047
+2026-03-31 22:59:43 [DEBUG]: con_loss: 2.225, RCL_loss: 2.892, FTI_loss: 1.130
+2026-03-31 22:59:43 [DEBUG]: con_loss: 2.189, RCL_loss: 2.042, FTI_loss: 0.347
+2026-03-31 22:59:43 [INFO]: Epoch 0 done. Loss: 4.833, Time per epoch: 12.107[s]
+2026-03-31 22:59:43 [DEBUG]: con_loss: 2.193, RCL_loss: 3.013, FTI_loss: 1.580
+2026-03-31 22:59:44 [DEBUG]: con_loss: 2.064, RCL_loss: 0.805, FTI_loss: 0.161
+2026-03-31 22:59:44 [DEBUG]: con_loss: 2.135, RCL_loss: 2.330, FTI_loss: 0.339
+2026-03-31 22:59:44 [DEBUG]: con_loss: 2.074, RCL_loss: 2.298, FTI_loss: 0.932
+2026-03-31 22:59:44 [DEBUG]: con_loss: 2.012, RCL_loss: 1.484, FTI_loss: 0.194
+2026-03-31 22:59:45 [DEBUG]: con_loss: 2.096, RCL_loss: 2.290, FTI_loss: 0.288
+2026-03-31 22:59:45 [DEBUG]: con_loss: 2.063, RCL_loss: 1.288, FTI_loss: 0.835
+2026-03-31 22:59:45 [DEBUG]: con_loss: 2.006, RCL_loss: 1.458, FTI_loss: 0.166
+2026-03-31 22:59:46 [DEBUG]: con_loss: 2.014, RCL_loss: 1.881, FTI_loss: 0.240
+2026-03-31 22:59:46 [DEBUG]: con_loss: 1.993, RCL_loss: 0.588, FTI_loss: 0.168
+2026-03-31 22:59:46 [DEBUG]: con_loss: 1.991, RCL_loss: 1.404, FTI_loss: 0.767
+2026-03-31 22:59:47 [DEBUG]: con_loss: 2.002, RCL_loss: 2.209, FTI_loss: 0.295
+2026-03-31 22:59:47 [DEBUG]: con_loss: 1.999, RCL_loss: 1.010, FTI_loss: 1.587
+2026-03-31 22:59:47 [DEBUG]: con_loss: 1.993, RCL_loss: 2.095, FTI_loss: 0.247
+2026-03-31 22:59:48 [DEBUG]: con_loss: 1.998, RCL_loss: 2.685, FTI_loss: 0.784
+2026-03-31 22:59:48 [DEBUG]: con_loss: 2.018, RCL_loss: 5.251, FTI_loss: 2.074
+2026-03-31 22:59:48 [DEBUG]: con_loss: 1.981, RCL_loss: 1.782, FTI_loss: 1.339
+2026-03-31 22:59:48 [DEBUG]: con_loss: 1.993, RCL_loss: 2.154, FTI_loss: 0.220
+2026-03-31 22:59:49 [DEBUG]: con_loss: 1.996, RCL_loss: 1.024, FTI_loss: 0.155
+2026-03-31 22:59:49 [DEBUG]: con_loss: 1.990, RCL_loss: 0.985, FTI_loss: 0.665
+2026-03-31 22:59:49 [DEBUG]: con_loss: 2.018, RCL_loss: 2.166, FTI_loss: 0.778
+2026-03-31 22:59:50 [DEBUG]: con_loss: 1.996, RCL_loss: 0.958, FTI_loss: 0.232
+2026-03-31 22:59:50 [DEBUG]: con_loss: 2.016, RCL_loss: 2.531, FTI_loss: 0.689
+2026-03-31 22:59:50 [DEBUG]: con_loss: 2.006, RCL_loss: 2.498, FTI_loss: 0.447
+2026-03-31 22:59:51 [DEBUG]: con_loss: 2.004, RCL_loss: 1.687, FTI_loss: 0.712
+2026-03-31 22:59:51 [DEBUG]: con_loss: 1.984, RCL_loss: 1.696, FTI_loss: 0.685
+2026-03-31 22:59:51 [DEBUG]: con_loss: 1.982, RCL_loss: 2.873, FTI_loss: 0.715
+2026-03-31 22:59:52 [DEBUG]: con_loss: 2.052, RCL_loss: 2.339, FTI_loss: 0.491
+2026-03-31 22:59:52 [DEBUG]: con_loss: 2.089, RCL_loss: 3.108, FTI_loss: 0.811
+2026-03-31 22:59:52 [DEBUG]: con_loss: 2.045, RCL_loss: 1.814, FTI_loss: 0.298
+2026-03-31 22:59:53 [DEBUG]: con_loss: 1.965, RCL_loss: 1.340, FTI_loss: 0.232
+2026-03-31 22:59:53 [DEBUG]: con_loss: 1.980, RCL_loss: 1.161, FTI_loss: 0.108
+2026-03-31 22:59:53 [DEBUG]: con_loss: 2.012, RCL_loss: 0.802, FTI_loss: 0.546
+2026-03-31 22:59:54 [DEBUG]: con_loss: 2.003, RCL_loss: 3.561, FTI_loss: 0.590
+2026-03-31 22:59:54 [DEBUG]: con_loss: 1.970, RCL_loss: 1.546, FTI_loss: 0.155
+2026-03-31 22:59:54 [DEBUG]: con_loss: 1.991, RCL_loss: 2.687, FTI_loss: 0.427
+2026-03-31 22:59:54 [DEBUG]: con_loss: 1.951, RCL_loss: 0.605, FTI_loss: 0.110
+2026-03-31 22:59:55 [DEBUG]: con_loss: 1.970, RCL_loss: 2.363, FTI_loss: 0.346
+2026-03-31 22:59:55 [INFO]: Epoch 1 done. Loss: 4.340, Time per epoch: 11.835[s]

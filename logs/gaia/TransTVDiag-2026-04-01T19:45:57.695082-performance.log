@@ -1,0 +1,226 @@
+2026-04-01 19:45:57 [INFO]: Currently using GPU 0
+2026-04-01 19:45:57 [INFO]: Load dataset
+2026-04-01 19:45:57 [INFO]: Load raw events from gaia dataset
+2026-04-01 19:46:02 [INFO]: Build embedding for raw events
+2026-04-01 19:46:10 [INFO]: Build dataset for training
+2026-04-01 19:46:11 [INFO]: Training...
+2026-04-01 19:46:11 [INFO]: Training with: cuda
+2026-04-01 19:46:11 [INFO]: batch size: 128
+2026-04-01 19:46:11 [INFO]: modalities: metric,trace,log
+2026-04-01 19:46:11 [INFO]: root cause localization loss: ce
+2026-04-01 19:46:11 [INFO]: fault type classification loss: ce
+2026-04-01 19:46:11 [INFO]: focal loss gamma: 0.5
+2026-04-01 19:46:11 [INFO]: Status of task-oriented learning: True
+2026-04-01 19:46:11 [INFO]: Status of cross-modal association: True
+2026-04-01 19:46:11 [INFO]: guide weight: 0.1
+2026-04-01 19:46:11 [INFO]: temperature: 0.3
+2026-04-01 19:46:11 [INFO]: Status of dynamic_weight: True
+2026-04-01 19:46:11 [INFO]: aug percent: 0.2
+2026-04-01 19:46:11 [INFO]: lr: 0.001, weight_decay: 0.0001
+2026-04-01 19:46:12 [INFO]: MainModel(
+  (metric_encoder): Encoder(
+    (graph_encoder): GraphormerEncoder(
+      (dropout): Dropout(p=0, inplace=False)
+      (graph_token): Embedding(1, 128)
+      (degree_encoder): DegreeEncoder(
+        (encoder1): Embedding(513, 128, padding_idx=0)
+        (encoder2): Embedding(513, 128, padding_idx=0)
+      )
+      (path_encoder): PathEncoder(
+        (embedding_table): Embedding(80, 1)
+      )
+      (spatial_encoder): SpatialEncoder(
+        (embedding_table): Embedding(513, 16, padding_idx=0)
+      )
+      (graph_token_virtual_distance): Embedding(1, 16)
+      (emb_layer_norm): LayerNorm((128,), eps=1e-05, elementwise_affine=True)
+      (layers): ModuleList(
+        (0-1): 2 x GraphormerLayer(
+          (attn): BiasedMHA(
+            (q_proj): Linear(in_features=128, out_features=128, bias=True)
+            (k_proj): Linear(in_features=128, out_features=128, bias=True)
+            (v_proj): Linear(in_features=128, out_features=128, bias=True)
+            (out_proj): Linear(in_features=128, out_features=128, bias=True)
+            (dropout): Dropout(p=0.1, inplace=False)
+          )
+          (ffn): Sequential(
+            (0): Linear(in_features=128, out_features=128, bias=True)
+            (1): GELU(approximate='none')
+            (2): Dropout(p=0, inplace=False)
+            (3): Linear(in_features=128, out_features=128, bias=True)
+            (4): Dropout(p=0, inplace=False)
+          )
+          (dropout): Dropout(p=0, inplace=False)
+          (attn_layer_norm): LayerNorm((128,), eps=1e-05, elementwise_affine=True)
+          (ffn_layer_norm): LayerNorm((128,), eps=1e-05, elementwise_affine=True)
+        )
+      )
+      (lm_head_transform_weight): Linear(in_features=128, out_features=128, bias=True)
+      (layer_norm): LayerNorm((128,), eps=1e-05, elementwise_affine=True)
+      (activation_fn): GELU(approximate='none')
+      (embed_out): Linear(in_features=128, out_features=32, bias=False)
+    )
+  )
+  (trace_encoder): Encoder(
+    (graph_encoder): GraphormerEncoder(
+      (dropout): Dropout(p=0, inplace=False)
+      (graph_token): Embedding(1, 128)
+      (degree_encoder): DegreeEncoder(
+        (encoder1): Embedding(513, 128, padding_idx=0)
+        (encoder2): Embedding(513, 128, padding_idx=0)
+      )
+      (path_encoder): PathEncoder(
+        (embedding_table): Embedding(80, 1)
+      )
+      (spatial_encoder): SpatialEncoder(
+        (embedding_table): Embedding(513, 16, padding_idx=0)
+      )
+      (graph_token_virtual_distance): Embedding(1, 16)
+      (emb_layer_norm): LayerNorm((128,), eps=1e-05, elementwise_affine=True)
+      (layers): ModuleList(
+        (0-1): 2 x GraphormerLayer(
+          (attn): BiasedMHA(
+            (q_proj): Linear(in_features=128, out_features=128, bias=True)
+            (k_proj): Linear(in_features=128, out_features=128, bias=True)
+            (v_proj): Linear(in_features=128, out_features=128, bias=True)
+            (out_proj): Linear(in_features=128, out_features=128, bias=True)
+            (dropout): Dropout(p=0.1, inplace=False)
+          )
+          (ffn): Sequential(
+            (0): Linear(in_features=128, out_features=128, bias=True)
+            (1): GELU(approximate='none')
+            (2): Dropout(p=0, inplace=False)
+            (3): Linear(in_features=128, out_features=128, bias=True)
+            (4): Dropout(p=0, inplace=False)
+          )
+          (dropout): Dropout(p=0, inplace=False)
+          (attn_layer_norm): LayerNorm((128,), eps=1e-05, elementwise_affine=True)
+          (ffn_layer_norm): LayerNorm((128,), eps=1e-05, elementwise_affine=True)
+        )
+      )
+      (lm_head_transform_weight): Linear(in_features=128, out_features=128, bias=True)
+      (layer_norm): LayerNorm((128,), eps=1e-05, elementwise_affine=True)
+      (activation_fn): GELU(approximate='none')
+      (embed_out): Linear(in_features=128, out_features=32, bias=False)
+    )
+  )
+  (log_encoder): Encoder(
+    (graph_encoder): GraphormerEncoder(
+      (dropout): Dropout(p=0, inplace=False)
+      (graph_token): Embedding(1, 128)
+      (degree_encoder): DegreeEncoder(
+        (encoder1): Embedding(513, 128, padding_idx=0)
+        (encoder2): Embedding(513, 128, padding_idx=0)
+      )
+      (path_encoder): PathEncoder(
+        (embedding_table): Embedding(80, 1)
+      )
+      (spatial_encoder): SpatialEncoder(
+        (embedding_table): Embedding(513, 16, padding_idx=0)
+      )
+      (graph_token_virtual_distance): Embedding(1, 16)
+      (emb_layer_norm): LayerNorm((128,), eps=1e-05, elementwise_affine=True)
+      (layers): ModuleList(
+        (0-1): 2 x GraphormerLayer(
+          (attn): BiasedMHA(
+            (q_proj): Linear(in_features=128, out_features=128, bias=True)
+            (k_proj): Linear(in_features=128, out_features=128, bias=True)
+            (v_proj): Linear(in_features=128, out_features=128, bias=True)
+            (out_proj): Linear(in_features=128, out_features=128, bias=True)
+            (dropout): Dropout(p=0.1, inplace=False)
+          )
+          (ffn): Sequential(
+            (0): Linear(in_features=128, out_features=128, bias=True)
+            (1): GELU(approximate='none')
+            (2): Dropout(p=0, inplace=False)
+            (3): Linear(in_features=128, out_features=128, bias=True)
+            (4): Dropout(p=0, inplace=False)
+          )
+          (dropout): Dropout(p=0, inplace=False)
+          (attn_layer_norm): LayerNorm((128,), eps=1e-05, elementwise_affine=True)
+          (ffn_layer_norm): LayerNorm((128,), eps=1e-05, elementwise_affine=True)
+        )
+      )
+      (lm_head_transform_weight): Linear(in_features=128, out_features=128, bias=True)
+      (layer_norm): LayerNorm((128,), eps=1e-05, elementwise_affine=True)
+      (activation_fn): GELU(approximate='none')
+      (embed_out): Linear(in_features=128, out_features=32, bias=False)
+    )
+  )
+  (locator): Voter(
+    (net): FullyConnected(
+      (net): Sequential(
+        (0): Linear(in_features=96, out_features=64, bias=True)
+        (1): ReLU()
+        (2): Linear(in_features=64, out_features=10, bias=True)
+      )
+    )
+  )
+  (typeClassifier): Classifyer(
+    (net): FullyConnected(
+      (net): Sequential(
+        (0): Linear(in_features=96, out_features=64, bias=True)
+        (1): ReLU()
+        (2): Linear(in_features=64, out_features=5, bias=True)
+      )
+    )
+  )
+)
+2026-04-01 19:46:12 [INFO]: Root class weights: [0.9222221970558167, 0.9222221970558167, 0.6916666626930237, 0.6384615302085876, 0.9222221970558167, 0.8299999833106995, 1.037500023841858, 0.6916666626930237, 16.600000381469727, 16.600000381469727]
+2026-04-01 19:46:12 [INFO]: Type class weights: [33.20000076293945, 2.7666666507720947, 0.2243243306875229, 8.300000190734863, 33.20000076293945]
+2026-04-01 19:46:12 [INFO]: Start training for 3000 epochs.
+2026-04-01 19:46:12 [DEBUG]: con_loss: 2.884, RCL_loss: 2.282, FTI_loss: 1.645
+2026-04-01 19:46:13 [DEBUG]: con_loss: 1.904, RCL_loss: 2.268, FTI_loss: 1.164
+2026-04-01 19:46:13 [INFO]: Epoch 0 done. Loss: 5.116, Time per epoch: 0.702[s]
+2026-04-01 19:46:13 [DEBUG]: con_loss: 2.488, RCL_loss: 2.238, FTI_loss: 0.897
+2026-04-01 19:46:13 [DEBUG]: con_loss: 1.885, RCL_loss: 2.195, FTI_loss: 0.786
+2026-04-01 19:46:13 [INFO]: Epoch 1 done. Loss: 4.702, Time per epoch: 0.434[s]
+2026-04-01 19:46:13 [DEBUG]: con_loss: 2.448, RCL_loss: 2.184, FTI_loss: 0.588
+2026-04-01 19:46:13 [DEBUG]: con_loss: 1.825, RCL_loss: 2.180, FTI_loss: 0.559
+2026-04-01 19:46:13 [INFO]: Epoch 2 done. Loss: 4.525, Time per epoch: 0.419[s]
+2026-04-01 19:46:14 [DEBUG]: con_loss: 2.432, RCL_loss: 2.189, FTI_loss: 0.503
+2026-04-01 19:46:14 [DEBUG]: con_loss: 1.728, RCL_loss: 2.100, FTI_loss: 0.318
+2026-04-01 19:46:14 [INFO]: Epoch 3 done. Loss: 4.397, Time per epoch: 0.416[s]
+2026-04-01 19:46:14 [DEBUG]: con_loss: 2.403, RCL_loss: 2.160, FTI_loss: 0.441
+2026-04-01 19:46:14 [DEBUG]: con_loss: 1.750, RCL_loss: 2.074, FTI_loss: 0.376
+2026-04-01 19:46:14 [INFO]: Epoch 4 done. Loss: 4.380, Time per epoch: 0.468[s]
+2026-04-01 19:46:15 [DEBUG]: con_loss: 2.376, RCL_loss: 2.134, FTI_loss: 0.400
+2026-04-01 19:46:15 [DEBUG]: con_loss: 1.750, RCL_loss: 2.072, FTI_loss: 0.481
+2026-04-01 19:46:15 [INFO]: Epoch 5 done. Loss: 4.382, Time per epoch: 0.431[s]
+2026-04-01 19:46:15 [DEBUG]: con_loss: 2.364, RCL_loss: 2.116, FTI_loss: 0.420
+2026-04-01 19:46:15 [DEBUG]: con_loss: 1.717, RCL_loss: 2.072, FTI_loss: 0.360
+2026-04-01 19:46:15 [INFO]: Epoch 6 done. Loss: 4.342, Time per epoch: 0.423[s]
+2026-04-01 19:46:16 [DEBUG]: con_loss: 2.344, RCL_loss: 2.109, FTI_loss: 0.389
+2026-04-01 19:46:16 [DEBUG]: con_loss: 1.727, RCL_loss: 2.049, FTI_loss: 0.410
+2026-04-01 19:46:16 [INFO]: Epoch 7 done. Loss: 4.337, Time per epoch: 0.443[s]
+2026-04-01 19:46:16 [DEBUG]: con_loss: 2.347, RCL_loss: 2.078, FTI_loss: 0.423
+2026-04-01 19:46:16 [DEBUG]: con_loss: 1.671, RCL_loss: 2.098, FTI_loss: 0.258
+2026-04-01 19:46:16 [INFO]: Epoch 8 done. Loss: 4.298, Time per epoch: 0.415[s]
+2026-04-01 19:46:16 [DEBUG]: con_loss: 2.354, RCL_loss: 2.069, FTI_loss: 0.454
+2026-04-01 19:46:17 [DEBUG]: con_loss: 1.555, RCL_loss: 2.090, FTI_loss: 0.124
+2026-04-01 19:46:17 [INFO]: Epoch 9 done. Loss: 4.241, Time per epoch: 0.416[s]
+2026-04-01 19:46:17 [DEBUG]: con_loss: 2.314, RCL_loss: 2.062, FTI_loss: 0.354
+2026-04-01 19:46:17 [DEBUG]: con_loss: 1.732, RCL_loss: 2.073, FTI_loss: 0.458
+2026-04-01 19:46:17 [INFO]: Epoch 10 done. Loss: 4.328, Time per epoch: 0.424[s]
+2026-04-01 19:46:17 [DEBUG]: con_loss: 2.309, RCL_loss: 2.036, FTI_loss: 0.330
+2026-04-01 19:46:17 [DEBUG]: con_loss: 1.718, RCL_loss: 2.112, FTI_loss: 0.539
+2026-04-01 19:46:17 [INFO]: Epoch 11 done. Loss: 4.341, Time per epoch: 0.416[s]
+2026-04-01 19:46:18 [DEBUG]: con_loss: 2.318, RCL_loss: 2.042, FTI_loss: 0.362
+2026-04-01 19:46:18 [DEBUG]: con_loss: 1.712, RCL_loss: 2.028, FTI_loss: 0.399
+2026-04-01 19:46:18 [INFO]: Epoch 12 done. Loss: 4.295, Time per epoch: 0.441[s]
+2026-04-01 19:46:18 [DEBUG]: con_loss: 2.317, RCL_loss: 2.045, FTI_loss: 0.343
+2026-04-01 19:46:18 [DEBUG]: con_loss: 1.705, RCL_loss: 1.998, FTI_loss: 0.434
+2026-04-01 19:46:18 [INFO]: Epoch 13 done. Loss: 4.290, Time per epoch: 0.417[s]
+2026-04-01 19:46:19 [DEBUG]: con_loss: 2.332, RCL_loss: 2.038, FTI_loss: 0.393
+2026-04-01 19:46:19 [DEBUG]: con_loss: 1.655, RCL_loss: 1.998, FTI_loss: 0.248
+2026-04-01 19:46:19 [INFO]: Epoch 14 done. Loss: 4.245, Time per epoch: 0.439[s]
+2026-04-01 19:46:19 [INFO]: Early stop at epoch 14 due to lack of improvement.
+2026-04-01 19:46:19 [INFO]: Training has finished.
+2026-04-01 19:46:19 [DEBUG]: The training time is 6.7045886516571045[s]
+2026-04-01 19:46:19 [DEBUG]: The training time per epoch is 0.4469725767771403[s]
+2026-04-01 19:46:19 [INFO]: Model checkpoint and metadata has been saved at logs/gaia/TransTVDiag-metric-trace-log-root_ce_type_ce.pt.
+2026-04-01 19:46:24 [INFO]: [Root localization] top1: 9.980%, top2: 20.744%, top3: 35.421%, top4: 49.315%, top5: 63.014%,avg@3: 0.220, avg@5: 0.357, NDCG@3: 0.241
+2026-04-01 19:46:24 [INFO]: [Failure type classification] precision: 76.178%, recall: 87.280%, f1-score: 81.352%
+2026-04-01 19:46:24 [INFO]: Evaluated checkpoint: logs/gaia/TransTVDiag-metric-trace-log-root_ce_type_ce.pt
+2026-04-01 19:46:24 [INFO]: The average test time is 0.007087540953126672[s]
+2026-04-01 19:46:24 [INFO]: The total test time is 3.6217334270477295[s]

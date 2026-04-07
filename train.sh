@@ -2,8 +2,10 @@
 
 # configuration
 # labels_file='labels_without_login.csv'
-# labels_file='gaia.csv'
-labels_file='label_15_85_corrected_index.csv'
+labels_file='gaia.csv'
+# labels_file='label_without_mobservice_correct_index.csv'
+# labels_file='label_without_mobservice.csv'
+# labels_file='gaia_without_mobservice.csv'
 dataset='gaia'
 # labels_file='label_15_85.csv'
 epochs=3000
@@ -18,9 +20,9 @@ seed=42
 # root_loss='weighted_ce'
 # root_loss='focal'
 # root_loss='weighted_focal'
-root_loss='weighted_focal'
-type_loss='weighted_focal'
-focal_gamma=2.0
+root_loss='focal'
+type_loss='focal'
+focal_gamma=0.5
 
 if [ "$dataset" = "gaia" ]; then
     python main.py --seed $seed --dataset $dataset --labels_file $labels_file  \
@@ -29,6 +31,7 @@ if [ "$dataset" = "gaia" ]; then
     --root_loss $root_loss --type_loss $type_loss --focal_gamma $focal_gamma \
     --dynamic_weight --TO --CM --modalities metric,trace,log \
     --num_heads 16 --num_layers 2 --graph_hidden 128 --experiment_label "performance" \
+    --model_filename "corrected_index_data_trained_model_gaia_focal.pt"
     #--no_train --no_reconstruct \
     #--no_evaluate
 fi

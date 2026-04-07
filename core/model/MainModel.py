@@ -14,6 +14,8 @@ class MainModel(nn.Module):
         self.active_modalities = self.parse_modalities(getattr(args, "modalities", "metric,trace,log"))
         print('From Main Model: ', self.active_modalities)
         print('Root loss: ', args.root_loss, 'fault type loss: ',  args.type_loss)
+        if args.root_loss == 'focal' or args.root_loss == 'weighted_focal' or args.type_loss == 'focal' or args.type_loss == 'weighted_focal':
+            print('Focal gamma: ', args.focal_gamma)
 
         self.metric_encoder = Encoder(in_dim=args.embedding_dim,
                                       attn_drop=args.attn_drop,

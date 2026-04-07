@@ -1,0 +1,9 @@
+,dbservice1,dbservice2,logservice1,logservice2,redisservice1,redisservice2,webservice1,webservice2
+dbservice1,0,0,0,1,0,65,0,3
+dbservice2,0,0,0,0,0,81,0,6
+logservice1,0,0,1,0,0,49,0,5
+logservice2,0,0,0,0,0,45,0,6
+redisservice1,0,0,0,0,0,41,0,6
+redisservice2,0,0,0,0,0,43,0,5
+webservice1,0,0,0,0,0,69,0,9
+webservice2,0,0,1,1,0,68,0,6

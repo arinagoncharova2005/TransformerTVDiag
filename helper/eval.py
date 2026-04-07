@@ -49,6 +49,7 @@ def target_rank(output, target, k=10):
 
 
 def precision(output, target, k=5):
+    print(k)
     _, pred = output.topk(k, 1, True, True)
     y_pred = pred.cpu().detach().numpy()
     y_true = target.cpu().detach().numpy().reshape(-1, 1)

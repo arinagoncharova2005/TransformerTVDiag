@@ -84,6 +84,10 @@ parser.add_argument(
     default='metric,trace,log',
     help='Comma-separated subset of modalities to use: metric,trace,log',
 )
+parser.add_argument(
+    '--model_filename',
+    type=str
+)
 args = parser.parse_args()
 print('parsed modalities: ', args.modalities)
 
@@ -105,6 +109,7 @@ def collate(samples):
 def build_dataloader(args, logger):
     reconstruct = args.reconstruct
     processor = EventProcess(args, logger)
+    print('reconstruct', reconstruct)
     train_data, test_data = processor.process(reconstruct=reconstruct)
 
     train_dataloader = DataLoader(train_data, batch_size=args.batch_size, shuffle=True, collate_fn=collate) if args.train else None

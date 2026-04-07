@@ -61,6 +61,8 @@ class TransTVDiag(object):
         active = self.active_modalities()
         modality_suffix = "-".join([modality for modality in modality_order if modality in active])
         loss_suffix = f"root_{self.args.root_loss}_type_{self.args.type_loss}"
+        if self.args.root_loss == "focal" or self.args.type_loss == "focal" or self.args.root_loss == "weighted_focal" and self.args.type_loss == "weighted_focal":
+            return os.path.join(self.writer.log_dir, f"TransTVDiag-{modality_suffix}-{loss_suffix}-focal_gamma_{self.args.focal_gamma}.pt")
         return os.path.join(self.writer.log_dir, f"TransTVDiag-{modality_suffix}-{loss_suffix}.pt")
 
     def printParams(self):
@@ -207,18 +209,21 @@ class TransTVDiag(object):
             self.logger.info("Epoch {} done. Loss: {:.3f}, Time per epoch: {:.3f}[s]"
                          .format(epoch, mean_epoch_loss, time_per_epoch))
 
-            top1, top3, top5 = HR(root_logit, instance_labels, topk=(1, 3, 5))
+            # TODO: return back
+            # top1, top3, top5 = HR(root_logit, instance_labels, topk=(1, 3, 5))
+            top1, top3 = HR(root_logit, instance_labels, topk=(1, 3))
             NDCG_3 = NDCG(root_logit.cpu(), instance_labels.cpu(), topk=(3,))[0]
-            pre = precision(type_logit, type_labels, k=5)
-            rec = recall(type_logit, type_labels, k=5)
-            f1 = f1score(type_logit, type_labels, k=5)
+            pre = precision(type_logit, type_labels, k=1)
+            rec = recall(type_logit, type_labels, k=1)
+            f1 = f1score(type_logit, type_labels, k=1)
             self.writer.add_scalar('loss/mean total loss', mean_epoch_loss, global_step=epoch)
             self.writer.add_scalar('loss/mean con loss', mean_con_loss, global_step=epoch)
             self.writer.add_scalar('loss/mean RCL loss', mean_rcl_loss, global_step=epoch)
             self.writer.add_scalar('loss/mean FTI loss', mean_fti_loss, global_step=epoch)
             self.writer.add_scalar('train/top1', top1, global_step=epoch)
             self.writer.add_scalar('train/top3', top3, global_step=epoch)
-            self.writer.add_scalar('train/top5', top5, global_step=epoch)
+            # TODO: return back
+            # self.writer.add_scalar('train/top5', top5, global_step=epoch)
             self.writer.add_scalar('train/NDCG_3', NDCG_3, global_step=epoch)
             self.writer.add_scalar('train/precision', pre, global_step=epoch)
             self.writer.add_scalar('train/recall', rec, global_step=epoch)
@@ -236,7 +241,10 @@ class TransTVDiag(object):
             'model': model.state_dict(),
             'opt': opt.state_dict(),
         }
-        checkpoint_path = self.checkpoint_path()
+        if self.args.model_filename is None:
+            checkpoint_path = self.checkpoint_path()
+        else:
+            checkpoint_path = self.args.model_filename
         torch.save(state, checkpoint_path)
         
         # torch.save(state, os.path.join(self.writer.log_dir, 'TransTVDiag.pt'))
@@ -249,7 +257,10 @@ class TransTVDiag(object):
 
 
     def evaluate(self, test_dl):
-        checkpoint_path = self.checkpoint_path()
+        if self.args.model_filename is None:
+            checkpoint_path = self.checkpoint_path()
+        else:
+            checkpoint_path = self.args.model_filename
         checkpoint = torch.load(checkpoint_path)
         # checkpoint = torch.load(os.path.join(self.writer.log_dir, 'TransTVDiag.pt'))
         model = MainModel(self.args).to(self.device)
@@ -278,16 +289,20 @@ class TransTVDiag(object):
         type_logits = torch.vstack(type_logits).cpu()
         roots = torch.tensor(roots)
         types = torch.tensor(types)
-
-        top1, top2, top3, top4, top5 = HR(root_logits, roots, topk=(1, 2, 3, 4, 5))
+        
+        # TODO: return back
+        # top1, top2, top3, top4, top5 = HR(root_logits, roots, topk=(1, 2, 3, 4, 5))
+        top1, top2, top3, top4 = HR(root_logits, roots, topk=(1, 2, 3, 4))
         NDCG_3 = NDCG(root_logits, roots, topk=(3,))[0]
-        avg_5 = np.mean([top1, top2, top3, top4, top5])
+        # TODO: return back
+        # avg_5 = np.mean([top1, top2, top3, top4, top5])
         avg_3 = np.mean([top1, top2, top3])
-        pre = precision(type_logits, types, k=5)
-        rec = recall(type_logits, types, k=5)
-        f1 = f1score(type_logits, types, k=5)
-
-        self.logger.info("[Root localization] top1: {:.3%}, top2: {:.3%}, top3: {:.3%}, top4: {:.3%}, top5: {:.3%},avg@3: {:.3f}, avg@5: {:.3f}, NDCG@3: {:.3f}".format(top1, top2, top3, top4, top5,avg_3, avg_5, NDCG_3))
+        pre = precision(type_logits, types, k=1)
+        rec = recall(type_logits, types, k=1)
+        f1 = f1score(type_logits, types, k=1)
+        # TODO: return back
+        # self.logger.info("[Root localization] top1: {:.3%}, top2: {:.3%}, top3: {:.3%}, top4: {:.3%}, top5: {:.3%},avg@3: {:.3f}, avg@5: {:.3f}, NDCG@3: {:.3f}".format(top1, top2, top3, top4, top5,avg_3, avg_5, NDCG_3))
+        self.logger.info("[Root localization] top1: {:.3%}, top2: {:.3%}, top3: {:.3%}, top4: {:.3%},avg@3: {:.3f}, NDCG@3: {:.3f}".format(top1, top2, top3, top4,avg_3, NDCG_3))
         self.logger.info("[Failure type classification] precision: {:.3%}, recall: {:.3%}, f1-score: {:.3%}".format(pre, rec, f1))
         self.logger.info(f"Evaluated checkpoint: {checkpoint_path}")
         self.logger.info(f"The average test time is {np.mean(inference_times)}[s]")

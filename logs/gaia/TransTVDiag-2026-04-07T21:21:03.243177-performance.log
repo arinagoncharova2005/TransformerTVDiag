@@ -1,0 +1,1975 @@
+2026-04-07 21:21:03 [INFO]: Currently using GPU 0
+2026-04-07 21:21:03 [INFO]: Load dataset
+2026-04-07 21:21:03 [INFO]: Load raw events from gaia dataset
+2026-04-07 21:21:08 [INFO]: Build embedding for raw events
+2026-04-07 21:21:33 [INFO]: Build dataset for training
+2026-04-07 21:21:52 [INFO]: Training...
+2026-04-07 21:21:52 [INFO]: Training with: cuda
+2026-04-07 21:21:52 [INFO]: batch size: 128
+2026-04-07 21:21:52 [INFO]: modalities: metric,trace,log
+2026-04-07 21:21:52 [INFO]: root cause localization loss: weighted_ce
+2026-04-07 21:21:52 [INFO]: fault type classification loss: weighted_ce
+2026-04-07 21:21:52 [INFO]: focal loss gamma: 0.5
+2026-04-07 21:21:52 [INFO]: Status of task-oriented learning: True
+2026-04-07 21:21:52 [INFO]: Status of cross-modal association: True
+2026-04-07 21:21:52 [INFO]: guide weight: 0.1
+2026-04-07 21:21:52 [INFO]: temperature: 0.3
+2026-04-07 21:21:52 [INFO]: Status of dynamic_weight: True
+2026-04-07 21:21:52 [INFO]: aug percent: 0.2
+2026-04-07 21:21:52 [INFO]: lr: 0.001, weight_decay: 0.0001
+2026-04-07 21:21:52 [INFO]: MainModel(
+  (metric_encoder): Encoder(
+    (graph_encoder): GraphormerEncoder(
+      (dropout): Dropout(p=0, inplace=False)
+      (graph_token): Embedding(1, 128)
+      (degree_encoder): DegreeEncoder(
+        (encoder1): Embedding(513, 128, padding_idx=0)
+        (encoder2): Embedding(513, 128, padding_idx=0)
+      )
+      (path_encoder): PathEncoder(
+        (embedding_table): Embedding(80, 1)
+      )
+      (spatial_encoder): SpatialEncoder(
+        (embedding_table): Embedding(513, 16, padding_idx=0)
+      )
+      (graph_token_virtual_distance): Embedding(1, 16)
+      (emb_layer_norm): LayerNorm((128,), eps=1e-05, elementwise_affine=True)
+      (layers): ModuleList(
+        (0-1): 2 x GraphormerLayer(
+          (attn): BiasedMHA(
+            (q_proj): Linear(in_features=128, out_features=128, bias=True)
+            (k_proj): Linear(in_features=128, out_features=128, bias=True)
+            (v_proj): Linear(in_features=128, out_features=128, bias=True)
+            (out_proj): Linear(in_features=128, out_features=128, bias=True)
+            (dropout): Dropout(p=0.1, inplace=False)
+          )
+          (ffn): Sequential(
+            (0): Linear(in_features=128, out_features=128, bias=True)
+            (1): GELU(approximate='none')
+            (2): Dropout(p=0, inplace=False)
+            (3): Linear(in_features=128, out_features=128, bias=True)
+            (4): Dropout(p=0, inplace=False)
+          )
+          (dropout): Dropout(p=0, inplace=False)
+          (attn_layer_norm): LayerNorm((128,), eps=1e-05, elementwise_affine=True)
+          (ffn_layer_norm): LayerNorm((128,), eps=1e-05, elementwise_affine=True)
+        )
+      )
+      (lm_head_transform_weight): Linear(in_features=128, out_features=128, bias=True)
+      (layer_norm): LayerNorm((128,), eps=1e-05, elementwise_affine=True)
+      (activation_fn): GELU(approximate='none')
+      (embed_out): Linear(in_features=128, out_features=32, bias=False)
+    )
+  )
+  (trace_encoder): Encoder(
+    (graph_encoder): GraphormerEncoder(
+      (dropout): Dropout(p=0, inplace=False)
+      (graph_token): Embedding(1, 128)
+      (degree_encoder): DegreeEncoder(
+        (encoder1): Embedding(513, 128, padding_idx=0)
+        (encoder2): Embedding(513, 128, padding_idx=0)
+      )
+      (path_encoder): PathEncoder(
+        (embedding_table): Embedding(80, 1)
+      )
+      (spatial_encoder): SpatialEncoder(
+        (embedding_table): Embedding(513, 16, padding_idx=0)
+      )
+      (graph_token_virtual_distance): Embedding(1, 16)
+      (emb_layer_norm): LayerNorm((128,), eps=1e-05, elementwise_affine=True)
+      (layers): ModuleList(
+        (0-1): 2 x GraphormerLayer(
+          (attn): BiasedMHA(
+            (q_proj): Linear(in_features=128, out_features=128, bias=True)
+            (k_proj): Linear(in_features=128, out_features=128, bias=True)
+            (v_proj): Linear(in_features=128, out_features=128, bias=True)
+            (out_proj): Linear(in_features=128, out_features=128, bias=True)
+            (dropout): Dropout(p=0.1, inplace=False)
+          )
+          (ffn): Sequential(
+            (0): Linear(in_features=128, out_features=128, bias=True)
+            (1): GELU(approximate='none')
+            (2): Dropout(p=0, inplace=False)
+            (3): Linear(in_features=128, out_features=128, bias=True)
+            (4): Dropout(p=0, inplace=False)
+          )
+          (dropout): Dropout(p=0, inplace=False)
+          (attn_layer_norm): LayerNorm((128,), eps=1e-05, elementwise_affine=True)
+          (ffn_layer_norm): LayerNorm((128,), eps=1e-05, elementwise_affine=True)
+        )
+      )
+      (lm_head_transform_weight): Linear(in_features=128, out_features=128, bias=True)
+      (layer_norm): LayerNorm((128,), eps=1e-05, elementwise_affine=True)
+      (activation_fn): GELU(approximate='none')
+      (embed_out): Linear(in_features=128, out_features=32, bias=False)
+    )
+  )
+  (log_encoder): Encoder(
+    (graph_encoder): GraphormerEncoder(
+      (dropout): Dropout(p=0, inplace=False)
+      (graph_token): Embedding(1, 128)
+      (degree_encoder): DegreeEncoder(
+        (encoder1): Embedding(513, 128, padding_idx=0)
+        (encoder2): Embedding(513, 128, padding_idx=0)
+      )
+      (path_encoder): PathEncoder(
+        (embedding_table): Embedding(80, 1)
+      )
+      (spatial_encoder): SpatialEncoder(
+        (embedding_table): Embedding(513, 16, padding_idx=0)
+      )
+      (graph_token_virtual_distance): Embedding(1, 16)
+      (emb_layer_norm): LayerNorm((128,), eps=1e-05, elementwise_affine=True)
+      (layers): ModuleList(
+        (0-1): 2 x GraphormerLayer(
+          (attn): BiasedMHA(
+            (q_proj): Linear(in_features=128, out_features=128, bias=True)
+            (k_proj): Linear(in_features=128, out_features=128, bias=True)
+            (v_proj): Linear(in_features=128, out_features=128, bias=True)
+            (out_proj): Linear(in_features=128, out_features=128, bias=True)
+            (dropout): Dropout(p=0.1, inplace=False)
+          )
+          (ffn): Sequential(
+            (0): Linear(in_features=128, out_features=128, bias=True)
+            (1): GELU(approximate='none')
+            (2): Dropout(p=0, inplace=False)
+            (3): Linear(in_features=128, out_features=128, bias=True)
+            (4): Dropout(p=0, inplace=False)
+          )
+          (dropout): Dropout(p=0, inplace=False)
+          (attn_layer_norm): LayerNorm((128,), eps=1e-05, elementwise_affine=True)
+          (ffn_layer_norm): LayerNorm((128,), eps=1e-05, elementwise_affine=True)
+        )
+      )
+      (lm_head_transform_weight): Linear(in_features=128, out_features=128, bias=True)
+      (layer_norm): LayerNorm((128,), eps=1e-05, elementwise_affine=True)
+      (activation_fn): GELU(approximate='none')
+      (embed_out): Linear(in_features=128, out_features=32, bias=False)
+    )
+  )
+  (locator): Voter(
+    (net): FullyConnected(
+      (net): Sequential(
+        (0): Linear(in_features=96, out_features=64, bias=True)
+        (1): ReLU()
+        (2): Linear(in_features=64, out_features=10, bias=True)
+      )
+    )
+  )
+  (typeClassifier): Classifyer(
+    (net): FullyConnected(
+      (net): Sequential(
+        (0): Linear(in_features=96, out_features=64, bias=True)
+        (1): ReLU()
+        (2): Linear(in_features=64, out_features=5, bias=True)
+      )
+    )
+  )
+)
+2026-04-07 21:21:52 [INFO]: Root class weights: [27.011110305786133, 27.011110305786133, 20.258333206176758, 18.700000762939453, 0.20428571105003357, 0.20974978804588318, 27.011110305786133, 24.309999465942383, 30.387500762939453, 20.258333206176758]
+2026-04-07 21:21:52 [INFO]: Type class weights: [972.5999755859375, 81.05000305175781, 0.2082655280828476, 5.52613639831543, 243.14999389648438]
+2026-04-07 21:21:52 [INFO]: Start training for 3000 epochs.
+2026-04-07 21:21:53 [DEBUG]: con_loss: 2.716, RCL_loss: 2.280, FTI_loss: 1.460
+2026-04-07 21:21:53 [DEBUG]: con_loss: 2.211, RCL_loss: 2.362, FTI_loss: 1.330
+2026-04-07 21:21:54 [DEBUG]: con_loss: 2.253, RCL_loss: 2.352, FTI_loss: 1.717
+2026-04-07 21:21:54 [DEBUG]: con_loss: 2.246, RCL_loss: 2.572, FTI_loss: 1.688
+2026-04-07 21:21:54 [DEBUG]: con_loss: 2.247, RCL_loss: 2.237, FTI_loss: 1.410
+2026-04-07 21:21:54 [DEBUG]: con_loss: 2.332, RCL_loss: 2.249, FTI_loss: 1.313
+2026-04-07 21:21:55 [DEBUG]: con_loss: 2.286, RCL_loss: 2.237, FTI_loss: 2.168
+2026-04-07 21:21:55 [DEBUG]: con_loss: 2.201, RCL_loss: 2.342, FTI_loss: 1.381
+2026-04-07 21:21:55 [DEBUG]: con_loss: 2.242, RCL_loss: 2.468, FTI_loss: 1.384
+2026-04-07 21:21:56 [DEBUG]: con_loss: 2.134, RCL_loss: 2.437, FTI_loss: 1.279
+2026-04-07 21:21:56 [DEBUG]: con_loss: 2.179, RCL_loss: 2.285, FTI_loss: 1.229
+2026-04-07 21:21:56 [DEBUG]: con_loss: 2.060, RCL_loss: 2.417, FTI_loss: 1.361
+2026-04-07 21:21:57 [DEBUG]: con_loss: 2.191, RCL_loss: 2.274, FTI_loss: 1.124
+2026-04-07 21:21:57 [DEBUG]: con_loss: 2.185, RCL_loss: 2.274, FTI_loss: 1.069
+2026-04-07 21:21:57 [DEBUG]: con_loss: 2.098, RCL_loss: 2.171, FTI_loss: 0.982
+2026-04-07 21:21:58 [DEBUG]: con_loss: 2.145, RCL_loss: 2.293, FTI_loss: 0.927
+2026-04-07 21:21:58 [DEBUG]: con_loss: 2.146, RCL_loss: 2.353, FTI_loss: 0.827
+2026-04-07 21:21:58 [DEBUG]: con_loss: 2.161, RCL_loss: 2.361, FTI_loss: 0.831
+2026-04-07 21:21:59 [DEBUG]: con_loss: 2.102, RCL_loss: 2.426, FTI_loss: 0.683
+2026-04-07 21:21:59 [DEBUG]: con_loss: 2.136, RCL_loss: 2.157, FTI_loss: 1.618
+2026-04-07 21:21:59 [DEBUG]: con_loss: 2.161, RCL_loss: 2.254, FTI_loss: 0.655
+2026-04-07 21:22:00 [DEBUG]: con_loss: 2.100, RCL_loss: 2.191, FTI_loss: 0.511
+2026-04-07 21:22:00 [DEBUG]: con_loss: 2.027, RCL_loss: 2.203, FTI_loss: 0.457
+2026-04-07 21:22:00 [DEBUG]: con_loss: 2.087, RCL_loss: 2.098, FTI_loss: 0.546
+2026-04-07 21:22:01 [DEBUG]: con_loss: 2.019, RCL_loss: 2.301, FTI_loss: 0.313
+2026-04-07 21:22:01 [DEBUG]: con_loss: 1.992, RCL_loss: 2.397, FTI_loss: 1.811
+2026-04-07 21:22:01 [DEBUG]: con_loss: 2.000, RCL_loss: 2.243, FTI_loss: 0.223
+2026-04-07 21:22:02 [DEBUG]: con_loss: 2.006, RCL_loss: 2.336, FTI_loss: 1.350
+2026-04-07 21:22:02 [DEBUG]: con_loss: 2.012, RCL_loss: 2.348, FTI_loss: 0.218
+2026-04-07 21:22:02 [DEBUG]: con_loss: 2.015, RCL_loss: 2.249, FTI_loss: 0.189
+2026-04-07 21:22:02 [DEBUG]: con_loss: 2.018, RCL_loss: 2.465, FTI_loss: 0.243
+2026-04-07 21:22:03 [DEBUG]: con_loss: 2.020, RCL_loss: 2.167, FTI_loss: 0.311
+2026-04-07 21:22:03 [DEBUG]: con_loss: 2.018, RCL_loss: 2.190, FTI_loss: 0.278
+2026-04-07 21:22:03 [DEBUG]: con_loss: 2.007, RCL_loss: 2.148, FTI_loss: 1.211
+2026-04-07 21:22:04 [DEBUG]: con_loss: 2.009, RCL_loss: 2.047, FTI_loss: 2.827
+2026-04-07 21:22:04 [DEBUG]: con_loss: 2.086, RCL_loss: 2.253, FTI_loss: 3.787
+2026-04-07 21:22:04 [DEBUG]: con_loss: 2.022, RCL_loss: 2.153, FTI_loss: 0.316
+2026-04-07 21:22:05 [DEBUG]: con_loss: 2.030, RCL_loss: 2.103, FTI_loss: 2.066
+2026-04-07 21:22:05 [INFO]: Epoch 0 done. Loss: 4.852, Time per epoch: 12.361[s]
+2026-04-07 21:22:05 [DEBUG]: con_loss: 2.076, RCL_loss: 2.092, FTI_loss: 1.720
+2026-04-07 21:22:05 [DEBUG]: con_loss: 2.038, RCL_loss: 1.996, FTI_loss: 1.020
+2026-04-07 21:22:06 [DEBUG]: con_loss: 2.060, RCL_loss: 2.064, FTI_loss: 1.145
+2026-04-07 21:22:06 [DEBUG]: con_loss: 2.061, RCL_loss: 2.018, FTI_loss: 0.549
+2026-04-07 21:22:06 [DEBUG]: con_loss: 2.037, RCL_loss: 1.510, FTI_loss: 0.212
+2026-04-07 21:22:07 [DEBUG]: con_loss: 2.049, RCL_loss: 2.029, FTI_loss: 0.460
+2026-04-07 21:22:07 [DEBUG]: con_loss: 2.062, RCL_loss: 2.057, FTI_loss: 1.364
+2026-04-07 21:22:07 [DEBUG]: con_loss: 2.058, RCL_loss: 1.890, FTI_loss: 1.280
+2026-04-07 21:22:08 [DEBUG]: con_loss: 2.038, RCL_loss: 2.036, FTI_loss: 0.636
+2026-04-07 21:22:08 [DEBUG]: con_loss: 2.080, RCL_loss: 1.787, FTI_loss: 1.245
+2026-04-07 21:22:08 [DEBUG]: con_loss: 2.124, RCL_loss: 2.352, FTI_loss: 1.167
+2026-04-07 21:22:08 [DEBUG]: con_loss: 2.079, RCL_loss: 2.247, FTI_loss: 0.545
+2026-04-07 21:22:09 [DEBUG]: con_loss: 2.205, RCL_loss: 1.810, FTI_loss: 0.668
+2026-04-07 21:22:09 [DEBUG]: con_loss: 2.104, RCL_loss: 1.593, FTI_loss: 0.600
+2026-04-07 21:22:09 [DEBUG]: con_loss: 2.145, RCL_loss: 2.048, FTI_loss: 0.608
+2026-04-07 21:22:10 [DEBUG]: con_loss: 2.057, RCL_loss: 1.679, FTI_loss: 0.421
+2026-04-07 21:22:10 [DEBUG]: con_loss: 2.049, RCL_loss: 2.108, FTI_loss: 0.399
+2026-04-07 21:22:10 [DEBUG]: con_loss: 2.010, RCL_loss: 2.165, FTI_loss: 0.885
+2026-04-07 21:22:11 [DEBUG]: con_loss: 2.033, RCL_loss: 2.116, FTI_loss: 0.229
+2026-04-07 21:22:11 [DEBUG]: con_loss: 2.028, RCL_loss: 2.280, FTI_loss: 0.342
+2026-04-07 21:22:11 [DEBUG]: con_loss: 2.081, RCL_loss: 2.376, FTI_loss: 0.728
+2026-04-07 21:22:12 [DEBUG]: con_loss: 2.062, RCL_loss: 2.110, FTI_loss: 0.418
+2026-04-07 21:22:12 [DEBUG]: con_loss: 2.091, RCL_loss: 2.125, FTI_loss: 1.278
+2026-04-07 21:22:12 [DEBUG]: con_loss: 2.068, RCL_loss: 2.370, FTI_loss: 1.278
+2026-04-07 21:22:13 [DEBUG]: con_loss: 2.030, RCL_loss: 1.748, FTI_loss: 0.191
+2026-04-07 21:22:13 [DEBUG]: con_loss: 1.995, RCL_loss: 1.977, FTI_loss: 0.169
+2026-04-07 21:22:13 [DEBUG]: con_loss: 2.000, RCL_loss: 2.096, FTI_loss: 1.066
+2026-04-07 21:22:13 [DEBUG]: con_loss: 2.104, RCL_loss: 2.166, FTI_loss: 0.589
+2026-04-07 21:22:14 [DEBUG]: con_loss: 2.113, RCL_loss: 2.000, FTI_loss: 1.195
+2026-04-07 21:22:14 [DEBUG]: con_loss: 1.998, RCL_loss: 1.842, FTI_loss: 0.180
+2026-04-07 21:22:14 [DEBUG]: con_loss: 1.995, RCL_loss: 1.935, FTI_loss: 1.061
+2026-04-07 21:22:15 [DEBUG]: con_loss: 1.995, RCL_loss: 1.908, FTI_loss: 0.283
+2026-04-07 21:22:15 [DEBUG]: con_loss: 1.968, RCL_loss: 1.855, FTI_loss: 0.232
+2026-04-07 21:22:15 [DEBUG]: con_loss: 1.994, RCL_loss: 2.030, FTI_loss: 0.290
+2026-04-07 21:22:16 [DEBUG]: con_loss: 1.971, RCL_loss: 1.593, FTI_loss: 0.987
+2026-04-07 21:22:16 [DEBUG]: con_loss: 1.974, RCL_loss: 1.951, FTI_loss: 0.949
+2026-04-07 21:22:16 [DEBUG]: con_loss: 2.016, RCL_loss: 1.935, FTI_loss: 0.357
+2026-04-07 21:22:17 [DEBUG]: con_loss: 2.007, RCL_loss: 1.933, FTI_loss: 0.511
+2026-04-07 21:22:17 [INFO]: Epoch 1 done. Loss: 4.460, Time per epoch: 11.907[s]
+2026-04-07 21:22:17 [DEBUG]: con_loss: 1.989, RCL_loss: 1.926, FTI_loss: 0.979
+2026-04-07 21:22:17 [DEBUG]: con_loss: 1.994, RCL_loss: 2.037, FTI_loss: 0.829
+2026-04-07 21:22:18 [DEBUG]: con_loss: 2.012, RCL_loss: 1.979, FTI_loss: 0.498
+2026-04-07 21:22:18 [DEBUG]: con_loss: 1.979, RCL_loss: 1.790, FTI_loss: 0.601
+2026-04-07 21:22:18 [DEBUG]: con_loss: 1.975, RCL_loss: 1.651, FTI_loss: 0.441
+2026-04-07 21:22:18 [DEBUG]: con_loss: 2.062, RCL_loss: 1.963, FTI_loss: 0.610
+2026-04-07 21:22:19 [DEBUG]: con_loss: 1.974, RCL_loss: 1.690, FTI_loss: 0.512
+2026-04-07 21:22:19 [DEBUG]: con_loss: 2.015, RCL_loss: 1.709, FTI_loss: 0.519
+2026-04-07 21:22:19 [DEBUG]: con_loss: 1.972, RCL_loss: 1.462, FTI_loss: 1.140
+2026-04-07 21:22:20 [DEBUG]: con_loss: 1.959, RCL_loss: 1.270, FTI_loss: 0.432
+2026-04-07 21:22:20 [DEBUG]: con_loss: 1.983, RCL_loss: 1.915, FTI_loss: 0.510
+2026-04-07 21:22:20 [DEBUG]: con_loss: 1.985, RCL_loss: 1.436, FTI_loss: 0.461
+2026-04-07 21:22:21 [DEBUG]: con_loss: 1.974, RCL_loss: 1.810, FTI_loss: 0.663
+2026-04-07 21:22:21 [DEBUG]: con_loss: 1.985, RCL_loss: 2.104, FTI_loss: 0.638
+2026-04-07 21:22:21 [DEBUG]: con_loss: 1.976, RCL_loss: 2.062, FTI_loss: 0.424
+2026-04-07 21:22:22 [DEBUG]: con_loss: 1.992, RCL_loss: 1.430, FTI_loss: 0.585
+2026-04-07 21:22:22 [DEBUG]: con_loss: 2.032, RCL_loss: 2.132, FTI_loss: 0.715
+2026-04-07 21:22:22 [DEBUG]: con_loss: 1.961, RCL_loss: 2.024, FTI_loss: 0.387
+2026-04-07 21:22:22 [DEBUG]: con_loss: 1.965, RCL_loss: 2.199, FTI_loss: 0.262
+2026-04-07 21:22:23 [DEBUG]: con_loss: 1.956, RCL_loss: 1.808, FTI_loss: 0.237
+2026-04-07 21:22:23 [DEBUG]: con_loss: 1.953, RCL_loss: 1.940, FTI_loss: 1.471
+2026-04-07 21:22:23 [DEBUG]: con_loss: 1.973, RCL_loss: 1.991, FTI_loss: 0.892
+2026-04-07 21:22:24 [DEBUG]: con_loss: 1.955, RCL_loss: 1.669, FTI_loss: 0.103
+2026-04-07 21:22:24 [DEBUG]: con_loss: 1.948, RCL_loss: 1.660, FTI_loss: 0.288
+2026-04-07 21:22:24 [DEBUG]: con_loss: 1.946, RCL_loss: 1.948, FTI_loss: 0.124
+2026-04-07 21:22:25 [DEBUG]: con_loss: 2.028, RCL_loss: 1.679, FTI_loss: 0.253
+2026-04-07 21:22:25 [DEBUG]: con_loss: 1.958, RCL_loss: 1.534, FTI_loss: 0.152
+2026-04-07 21:22:25 [DEBUG]: con_loss: 1.966, RCL_loss: 1.994, FTI_loss: 0.125
+2026-04-07 21:22:26 [DEBUG]: con_loss: 1.985, RCL_loss: 2.142, FTI_loss: 0.155
+2026-04-07 21:22:26 [DEBUG]: con_loss: 1.969, RCL_loss: 1.659, FTI_loss: 0.143
+2026-04-07 21:22:26 [DEBUG]: con_loss: 1.987, RCL_loss: 1.996, FTI_loss: 0.114
+2026-04-07 21:22:26 [DEBUG]: con_loss: 1.973, RCL_loss: 1.827, FTI_loss: 0.134
+2026-04-07 21:22:27 [DEBUG]: con_loss: 2.041, RCL_loss: 2.035, FTI_loss: 0.162
+2026-04-07 21:22:27 [DEBUG]: con_loss: 1.973, RCL_loss: 1.536, FTI_loss: 1.672
+2026-04-07 21:22:27 [DEBUG]: con_loss: 1.987, RCL_loss: 1.910, FTI_loss: 1.349
+2026-04-07 21:22:28 [DEBUG]: con_loss: 1.978, RCL_loss: 1.823, FTI_loss: 0.136
+2026-04-07 21:22:28 [DEBUG]: con_loss: 1.966, RCL_loss: 1.821, FTI_loss: 0.114
+2026-04-07 21:22:28 [DEBUG]: con_loss: 1.981, RCL_loss: 1.752, FTI_loss: 0.153
+2026-04-07 21:22:28 [INFO]: Epoch 2 done. Loss: 4.232, Time per epoch: 11.725[s]
+2026-04-07 21:22:29 [DEBUG]: con_loss: 1.941, RCL_loss: 1.766, FTI_loss: 0.070
+2026-04-07 21:22:29 [DEBUG]: con_loss: 1.971, RCL_loss: 1.419, FTI_loss: 0.139
+2026-04-07 21:22:29 [DEBUG]: con_loss: 1.992, RCL_loss: 1.644, FTI_loss: 0.188
+2026-04-07 21:22:30 [DEBUG]: con_loss: 1.967, RCL_loss: 1.929, FTI_loss: 1.454
+2026-04-07 21:22:30 [DEBUG]: con_loss: 1.965, RCL_loss: 1.524, FTI_loss: 0.067
+2026-04-07 21:22:30 [DEBUG]: con_loss: 1.957, RCL_loss: 0.723, FTI_loss: 0.031
+2026-04-07 21:22:31 [DEBUG]: con_loss: 1.972, RCL_loss: 2.303, FTI_loss: 0.301
+2026-04-07 21:22:31 [DEBUG]: con_loss: 1.974, RCL_loss: 2.238, FTI_loss: 0.782
+2026-04-07 21:22:31 [DEBUG]: con_loss: 1.954, RCL_loss: 1.462, FTI_loss: 0.247
+2026-04-07 21:22:32 [DEBUG]: con_loss: 1.972, RCL_loss: 1.851, FTI_loss: 0.310
+2026-04-07 21:22:32 [DEBUG]: con_loss: 1.956, RCL_loss: 1.834, FTI_loss: 1.127
+2026-04-07 21:22:32 [DEBUG]: con_loss: 1.961, RCL_loss: 1.930, FTI_loss: 0.389
+2026-04-07 21:22:32 [DEBUG]: con_loss: 1.953, RCL_loss: 1.985, FTI_loss: 0.960
+2026-04-07 21:22:33 [DEBUG]: con_loss: 1.955, RCL_loss: 2.028, FTI_loss: 0.349
+2026-04-07 21:22:33 [DEBUG]: con_loss: 1.967, RCL_loss: 1.957, FTI_loss: 0.378
+2026-04-07 21:22:33 [DEBUG]: con_loss: 1.960, RCL_loss: 1.697, FTI_loss: 0.372
+2026-04-07 21:22:34 [DEBUG]: con_loss: 1.985, RCL_loss: 1.712, FTI_loss: 0.804
+2026-04-07 21:22:34 [DEBUG]: con_loss: 1.980, RCL_loss: 2.098, FTI_loss: 0.420
+2026-04-07 21:22:34 [DEBUG]: con_loss: 1.969, RCL_loss: 1.969, FTI_loss: 0.497
+2026-04-07 21:22:35 [DEBUG]: con_loss: 1.983, RCL_loss: 1.765, FTI_loss: 0.634
+2026-04-07 21:22:35 [DEBUG]: con_loss: 1.965, RCL_loss: 1.920, FTI_loss: 0.645
+2026-04-07 21:22:35 [DEBUG]: con_loss: 1.988, RCL_loss: 1.908, FTI_loss: 0.579
+2026-04-07 21:22:36 [DEBUG]: con_loss: 1.954, RCL_loss: 1.610, FTI_loss: 0.386
+2026-04-07 21:22:36 [DEBUG]: con_loss: 1.988, RCL_loss: 1.912, FTI_loss: 0.570
+2026-04-07 21:22:36 [DEBUG]: con_loss: 1.982, RCL_loss: 1.708, FTI_loss: 0.465
+2026-04-07 21:22:37 [DEBUG]: con_loss: 1.984, RCL_loss: 1.500, FTI_loss: 0.311
+2026-04-07 21:22:37 [DEBUG]: con_loss: 1.960, RCL_loss: 0.767, FTI_loss: 0.081
+2026-04-07 21:22:37 [DEBUG]: con_loss: 1.970, RCL_loss: 1.790, FTI_loss: 0.633
+2026-04-07 21:22:37 [DEBUG]: con_loss: 1.969, RCL_loss: 1.776, FTI_loss: 0.585
+2026-04-07 21:22:38 [DEBUG]: con_loss: 1.957, RCL_loss: 1.869, FTI_loss: 0.520
+2026-04-07 21:22:38 [DEBUG]: con_loss: 1.973, RCL_loss: 1.903, FTI_loss: 0.503
+2026-04-07 21:22:38 [DEBUG]: con_loss: 1.946, RCL_loss: 1.839, FTI_loss: 0.485
+2026-04-07 21:22:39 [DEBUG]: con_loss: 1.987, RCL_loss: 1.796, FTI_loss: 0.625
+2026-04-07 21:22:39 [DEBUG]: con_loss: 1.974, RCL_loss: 2.107, FTI_loss: 0.446
+2026-04-07 21:22:39 [DEBUG]: con_loss: 1.964, RCL_loss: 1.791, FTI_loss: 0.335
+2026-04-07 21:22:40 [DEBUG]: con_loss: 1.938, RCL_loss: 1.947, FTI_loss: 0.443
+2026-04-07 21:22:40 [DEBUG]: con_loss: 1.957, RCL_loss: 1.715, FTI_loss: 0.327
+2026-04-07 21:22:40 [DEBUG]: con_loss: 1.934, RCL_loss: 1.705, FTI_loss: 0.206
+2026-04-07 21:22:40 [INFO]: Epoch 3 done. Loss: 4.182, Time per epoch: 11.865[s]
+2026-04-07 21:22:41 [DEBUG]: con_loss: 1.963, RCL_loss: 1.734, FTI_loss: 0.135
+2026-04-07 21:22:41 [DEBUG]: con_loss: 1.985, RCL_loss: 1.902, FTI_loss: 0.793
+2026-04-07 21:22:41 [DEBUG]: con_loss: 2.050, RCL_loss: 1.736, FTI_loss: 0.484
+2026-04-07 21:22:42 [DEBUG]: con_loss: 1.969, RCL_loss: 1.842, FTI_loss: 0.722
+2026-04-07 21:22:42 [DEBUG]: con_loss: 1.959, RCL_loss: 1.485, FTI_loss: 0.793
+2026-04-07 21:22:42 [DEBUG]: con_loss: 1.934, RCL_loss: 1.679, FTI_loss: 0.177
+2026-04-07 21:22:42 [DEBUG]: con_loss: 1.964, RCL_loss: 1.750, FTI_loss: 0.674
+2026-04-07 21:22:43 [DEBUG]: con_loss: 1.933, RCL_loss: 1.928, FTI_loss: 0.178
+2026-04-07 21:22:43 [DEBUG]: con_loss: 1.951, RCL_loss: 1.459, FTI_loss: 0.322
+2026-04-07 21:22:43 [DEBUG]: con_loss: 1.961, RCL_loss: 1.478, FTI_loss: 0.245
+2026-04-07 21:22:44 [DEBUG]: con_loss: 1.976, RCL_loss: 1.462, FTI_loss: 0.766
+2026-04-07 21:22:44 [DEBUG]: con_loss: 1.950, RCL_loss: 1.718, FTI_loss: 0.155
+2026-04-07 21:22:44 [DEBUG]: con_loss: 1.972, RCL_loss: 1.736, FTI_loss: 0.636
+2026-04-07 21:22:45 [DEBUG]: con_loss: 1.970, RCL_loss: 1.912, FTI_loss: 0.589
+2026-04-07 21:22:45 [DEBUG]: con_loss: 1.977, RCL_loss: 1.887, FTI_loss: 0.186
+2026-04-07 21:22:45 [DEBUG]: con_loss: 1.960, RCL_loss: 1.675, FTI_loss: 0.592
+2026-04-07 21:22:46 [DEBUG]: con_loss: 1.980, RCL_loss: 1.501, FTI_loss: 0.445
+2026-04-07 21:22:46 [DEBUG]: con_loss: 1.957, RCL_loss: 1.590, FTI_loss: 0.255
+2026-04-07 21:22:46 [DEBUG]: con_loss: 1.952, RCL_loss: 1.835, FTI_loss: 0.124
+2026-04-07 21:22:47 [DEBUG]: con_loss: 1.974, RCL_loss: 1.690, FTI_loss: 0.148
+2026-04-07 21:22:47 [DEBUG]: con_loss: 1.957, RCL_loss: 2.029, FTI_loss: 0.176
+2026-04-07 21:22:47 [DEBUG]: con_loss: 1.957, RCL_loss: 2.063, FTI_loss: 0.155
+2026-04-07 21:22:48 [DEBUG]: con_loss: 1.999, RCL_loss: 1.774, FTI_loss: 0.284
+2026-04-07 21:22:48 [DEBUG]: con_loss: 1.965, RCL_loss: 1.776, FTI_loss: 0.167
+2026-04-07 21:22:48 [DEBUG]: con_loss: 1.962, RCL_loss: 1.931, FTI_loss: 0.123
+2026-04-07 21:22:48 [DEBUG]: con_loss: 1.983, RCL_loss: 1.686, FTI_loss: 1.456
+2026-04-07 21:22:49 [DEBUG]: con_loss: 1.969, RCL_loss: 1.696, FTI_loss: 0.210
+2026-04-07 21:22:49 [DEBUG]: con_loss: 1.955, RCL_loss: 1.478, FTI_loss: 0.042
+2026-04-07 21:22:49 [DEBUG]: con_loss: 1.990, RCL_loss: 2.046, FTI_loss: 0.271
+2026-04-07 21:22:50 [DEBUG]: con_loss: 1.957, RCL_loss: 1.814, FTI_loss: 0.090
+2026-04-07 21:22:50 [DEBUG]: con_loss: 1.968, RCL_loss: 1.513, FTI_loss: 0.153
+2026-04-07 21:22:50 [DEBUG]: con_loss: 1.954, RCL_loss: 1.937, FTI_loss: 0.122
+2026-04-07 21:22:51 [DEBUG]: con_loss: 1.934, RCL_loss: 1.806, FTI_loss: 0.067
+2026-04-07 21:22:51 [DEBUG]: con_loss: 1.945, RCL_loss: 1.609, FTI_loss: 1.171
+2026-04-07 21:22:51 [DEBUG]: con_loss: 2.011, RCL_loss: 1.821, FTI_loss: 0.163
+2026-04-07 21:22:52 [DEBUG]: con_loss: 1.944, RCL_loss: 1.512, FTI_loss: 0.537
+2026-04-07 21:22:52 [DEBUG]: con_loss: 1.986, RCL_loss: 2.373, FTI_loss: 0.768
+2026-04-07 21:22:52 [DEBUG]: con_loss: 1.970, RCL_loss: 1.627, FTI_loss: 0.313
+2026-04-07 21:22:52 [INFO]: Epoch 4 done. Loss: 4.131, Time per epoch: 11.965[s]
+2026-04-07 21:22:53 [DEBUG]: con_loss: 1.965, RCL_loss: 2.215, FTI_loss: 0.394
+2026-04-07 21:22:53 [DEBUG]: con_loss: 1.965, RCL_loss: 1.908, FTI_loss: 0.409
+2026-04-07 21:22:53 [DEBUG]: con_loss: 1.938, RCL_loss: 1.614, FTI_loss: 1.128
+2026-04-07 21:22:53 [DEBUG]: con_loss: 1.956, RCL_loss: 1.403, FTI_loss: 0.163
+2026-04-07 21:22:54 [DEBUG]: con_loss: 1.947, RCL_loss: 1.613, FTI_loss: 0.245
+2026-04-07 21:22:54 [DEBUG]: con_loss: 1.969, RCL_loss: 1.745, FTI_loss: 0.354
+2026-04-07 21:22:54 [DEBUG]: con_loss: 1.946, RCL_loss: 1.697, FTI_loss: 0.392
+2026-04-07 21:22:55 [DEBUG]: con_loss: 1.924, RCL_loss: 1.926, FTI_loss: 0.205
+2026-04-07 21:22:55 [DEBUG]: con_loss: 1.948, RCL_loss: 1.630, FTI_loss: 0.220
+2026-04-07 21:22:55 [DEBUG]: con_loss: 1.950, RCL_loss: 1.550, FTI_loss: 0.245
+2026-04-07 21:22:56 [DEBUG]: con_loss: 1.949, RCL_loss: 1.738, FTI_loss: 0.268
+2026-04-07 21:22:56 [DEBUG]: con_loss: 1.967, RCL_loss: 1.614, FTI_loss: 0.280
+2026-04-07 21:22:56 [DEBUG]: con_loss: 1.944, RCL_loss: 1.911, FTI_loss: 0.168
+2026-04-07 21:22:57 [DEBUG]: con_loss: 1.960, RCL_loss: 1.602, FTI_loss: 0.744
+2026-04-07 21:22:57 [DEBUG]: con_loss: 1.988, RCL_loss: 1.462, FTI_loss: 0.272
+2026-04-07 21:22:57 [DEBUG]: con_loss: 1.966, RCL_loss: 1.692, FTI_loss: 1.884
+2026-04-07 21:22:58 [DEBUG]: con_loss: 1.966, RCL_loss: 1.913, FTI_loss: 0.363
+2026-04-07 21:22:58 [DEBUG]: con_loss: 1.943, RCL_loss: 1.687, FTI_loss: 0.490
+2026-04-07 21:22:58 [DEBUG]: con_loss: 1.946, RCL_loss: 1.762, FTI_loss: 0.313
+2026-04-07 21:22:58 [DEBUG]: con_loss: 1.912, RCL_loss: 1.658, FTI_loss: 0.231
+2026-04-07 21:22:59 [DEBUG]: con_loss: 1.942, RCL_loss: 1.744, FTI_loss: 0.362
+2026-04-07 21:22:59 [DEBUG]: con_loss: 1.943, RCL_loss: 1.894, FTI_loss: 0.418
+2026-04-07 21:22:59 [DEBUG]: con_loss: 1.945, RCL_loss: 1.657, FTI_loss: 0.130
+2026-04-07 21:23:00 [DEBUG]: con_loss: 1.945, RCL_loss: 1.124, FTI_loss: 0.086
+2026-04-07 21:23:00 [DEBUG]: con_loss: 1.940, RCL_loss: 1.885, FTI_loss: 0.204
+2026-04-07 21:23:00 [DEBUG]: con_loss: 1.944, RCL_loss: 1.728, FTI_loss: 1.020
+2026-04-07 21:23:01 [DEBUG]: con_loss: 1.971, RCL_loss: 1.738, FTI_loss: 0.525
+2026-04-07 21:23:01 [DEBUG]: con_loss: 1.944, RCL_loss: 1.760, FTI_loss: 0.212
+2026-04-07 21:23:01 [DEBUG]: con_loss: 1.927, RCL_loss: 1.837, FTI_loss: 0.122
+2026-04-07 21:23:02 [DEBUG]: con_loss: 1.942, RCL_loss: 1.634, FTI_loss: 0.311
+2026-04-07 21:23:02 [DEBUG]: con_loss: 1.942, RCL_loss: 1.461, FTI_loss: 0.530
+2026-04-07 21:23:02 [DEBUG]: con_loss: 1.914, RCL_loss: 0.966, FTI_loss: 0.151
+2026-04-07 21:23:03 [DEBUG]: con_loss: 1.888, RCL_loss: 1.664, FTI_loss: 0.127
+2026-04-07 21:23:03 [DEBUG]: con_loss: 1.860, RCL_loss: 1.871, FTI_loss: 0.453
+2026-04-07 21:23:03 [DEBUG]: con_loss: 1.850, RCL_loss: 2.053, FTI_loss: 0.155
+2026-04-07 21:23:04 [DEBUG]: con_loss: 1.832, RCL_loss: 1.673, FTI_loss: 0.621
+2026-04-07 21:23:04 [DEBUG]: con_loss: 1.865, RCL_loss: 1.783, FTI_loss: 0.254
+2026-04-07 21:23:04 [DEBUG]: con_loss: 1.858, RCL_loss: 1.672, FTI_loss: 0.263
+2026-04-07 21:23:04 [INFO]: Epoch 5 done. Loss: 4.089, Time per epoch: 11.976[s]
+2026-04-07 21:23:05 [DEBUG]: con_loss: 1.860, RCL_loss: 1.830, FTI_loss: 0.183
+2026-04-07 21:23:05 [DEBUG]: con_loss: 1.834, RCL_loss: 1.741, FTI_loss: 0.116
+2026-04-07 21:23:05 [DEBUG]: con_loss: 1.860, RCL_loss: 1.623, FTI_loss: 0.309
+2026-04-07 21:23:05 [DEBUG]: con_loss: 1.817, RCL_loss: 0.969, FTI_loss: 0.033
+2026-04-07 21:23:06 [DEBUG]: con_loss: 1.835, RCL_loss: 1.548, FTI_loss: 0.071
+2026-04-07 21:23:06 [DEBUG]: con_loss: 1.869, RCL_loss: 1.574, FTI_loss: 0.267
+2026-04-07 21:23:06 [DEBUG]: con_loss: 1.820, RCL_loss: 1.112, FTI_loss: 0.094
+2026-04-07 21:23:07 [DEBUG]: con_loss: 1.787, RCL_loss: 1.565, FTI_loss: 0.181
+2026-04-07 21:23:07 [DEBUG]: con_loss: 1.800, RCL_loss: 1.684, FTI_loss: 0.090
+2026-04-07 21:23:07 [DEBUG]: con_loss: 1.874, RCL_loss: 1.006, FTI_loss: 0.075
+2026-04-07 21:23:08 [DEBUG]: con_loss: 1.794, RCL_loss: 1.135, FTI_loss: 0.050
+2026-04-07 21:23:08 [DEBUG]: con_loss: 1.805, RCL_loss: 1.666, FTI_loss: 0.128
+2026-04-07 21:23:08 [DEBUG]: con_loss: 1.809, RCL_loss: 1.370, FTI_loss: 0.169
+2026-04-07 21:23:09 [DEBUG]: con_loss: 1.787, RCL_loss: 1.475, FTI_loss: 2.158
+2026-04-07 21:23:09 [DEBUG]: con_loss: 1.838, RCL_loss: 1.870, FTI_loss: 1.195
+2026-04-07 21:23:09 [DEBUG]: con_loss: 1.899, RCL_loss: 2.600, FTI_loss: 0.483
+2026-04-07 21:23:09 [DEBUG]: con_loss: 1.857, RCL_loss: 1.785, FTI_loss: 0.750
+2026-04-07 21:23:10 [DEBUG]: con_loss: 1.861, RCL_loss: 1.745, FTI_loss: 0.187
+2026-04-07 21:23:10 [DEBUG]: con_loss: 1.863, RCL_loss: 1.748, FTI_loss: 0.656
+2026-04-07 21:23:10 [DEBUG]: con_loss: 1.880, RCL_loss: 1.780, FTI_loss: 0.456
+2026-04-07 21:23:11 [DEBUG]: con_loss: 1.831, RCL_loss: 0.314, FTI_loss: 0.079
+2026-04-07 21:23:11 [DEBUG]: con_loss: 1.892, RCL_loss: 1.665, FTI_loss: 0.455
+2026-04-07 21:23:11 [DEBUG]: con_loss: 1.838, RCL_loss: 1.634, FTI_loss: 0.441
+2026-04-07 21:23:12 [DEBUG]: con_loss: 1.873, RCL_loss: 1.734, FTI_loss: 0.792
+2026-04-07 21:23:12 [DEBUG]: con_loss: 1.843, RCL_loss: 0.933, FTI_loss: 0.260
+2026-04-07 21:23:12 [DEBUG]: con_loss: 1.941, RCL_loss: 1.802, FTI_loss: 0.473
+2026-04-07 21:23:13 [DEBUG]: con_loss: 1.880, RCL_loss: 1.600, FTI_loss: 0.593
+2026-04-07 21:23:13 [DEBUG]: con_loss: 1.879, RCL_loss: 1.598, FTI_loss: 1.027
+2026-04-07 21:23:13 [DEBUG]: con_loss: 1.861, RCL_loss: 1.767, FTI_loss: 0.361
+2026-04-07 21:23:13 [DEBUG]: con_loss: 1.800, RCL_loss: 1.902, FTI_loss: 0.557
+2026-04-07 21:23:14 [DEBUG]: con_loss: 1.861, RCL_loss: 1.876, FTI_loss: 0.339
+2026-04-07 21:23:14 [DEBUG]: con_loss: 1.815, RCL_loss: 1.817, FTI_loss: 1.174
+2026-04-07 21:23:14 [DEBUG]: con_loss: 1.873, RCL_loss: 1.660, FTI_loss: 0.633
+2026-04-07 21:23:15 [DEBUG]: con_loss: 1.862, RCL_loss: 1.497, FTI_loss: 0.175
+2026-04-07 21:23:15 [DEBUG]: con_loss: 1.859, RCL_loss: 1.527, FTI_loss: 0.107
+2026-04-07 21:23:15 [DEBUG]: con_loss: 1.850, RCL_loss: 1.757, FTI_loss: 0.168
+2026-04-07 21:23:16 [DEBUG]: con_loss: 1.813, RCL_loss: 1.104, FTI_loss: 0.143
+2026-04-07 21:23:16 [DEBUG]: con_loss: 1.828, RCL_loss: 1.526, FTI_loss: 0.139
+2026-04-07 21:23:16 [INFO]: Epoch 6 done. Loss: 3.991, Time per epoch: 11.862[s]
+2026-04-07 21:23:16 [DEBUG]: con_loss: 1.821, RCL_loss: 1.443, FTI_loss: 0.052
+2026-04-07 21:23:17 [DEBUG]: con_loss: 1.815, RCL_loss: 1.656, FTI_loss: 0.083
+2026-04-07 21:23:17 [DEBUG]: con_loss: 1.833, RCL_loss: 1.309, FTI_loss: 0.213
+2026-04-07 21:23:17 [DEBUG]: con_loss: 1.839, RCL_loss: 1.253, FTI_loss: 0.031
+2026-04-07 21:23:18 [DEBUG]: con_loss: 1.817, RCL_loss: 1.622, FTI_loss: 0.101
+2026-04-07 21:23:18 [DEBUG]: con_loss: 1.799, RCL_loss: 1.519, FTI_loss: 1.202
+2026-04-07 21:23:18 [DEBUG]: con_loss: 1.899, RCL_loss: 1.681, FTI_loss: 0.725
+2026-04-07 21:23:19 [DEBUG]: con_loss: 1.895, RCL_loss: 1.808, FTI_loss: 0.293
+2026-04-07 21:23:19 [DEBUG]: con_loss: 1.881, RCL_loss: 1.023, FTI_loss: 0.087
+2026-04-07 21:23:19 [DEBUG]: con_loss: 1.875, RCL_loss: 2.079, FTI_loss: 0.720
+2026-04-07 21:23:20 [DEBUG]: con_loss: 1.861, RCL_loss: 1.071, FTI_loss: 0.483
+2026-04-07 21:23:20 [DEBUG]: con_loss: 1.834, RCL_loss: 1.538, FTI_loss: 0.194
+2026-04-07 21:23:20 [DEBUG]: con_loss: 1.841, RCL_loss: 1.795, FTI_loss: 0.873
+2026-04-07 21:23:20 [DEBUG]: con_loss: 1.875, RCL_loss: 1.672, FTI_loss: 0.376
+2026-04-07 21:23:21 [DEBUG]: con_loss: 1.779, RCL_loss: 1.682, FTI_loss: 0.206
+2026-04-07 21:23:21 [DEBUG]: con_loss: 1.856, RCL_loss: 1.922, FTI_loss: 0.401
+2026-04-07 21:23:21 [DEBUG]: con_loss: 1.787, RCL_loss: 1.332, FTI_loss: 0.093
+2026-04-07 21:23:22 [DEBUG]: con_loss: 1.835, RCL_loss: 1.317, FTI_loss: 0.040
+2026-04-07 21:23:22 [DEBUG]: con_loss: 1.832, RCL_loss: 1.676, FTI_loss: 1.036
+2026-04-07 21:23:22 [DEBUG]: con_loss: 1.810, RCL_loss: 1.232, FTI_loss: 0.093
+2026-04-07 21:23:23 [DEBUG]: con_loss: 1.782, RCL_loss: 1.162, FTI_loss: 0.568
+2026-04-07 21:23:23 [DEBUG]: con_loss: 1.814, RCL_loss: 1.696, FTI_loss: 0.303
+2026-04-07 21:23:23 [DEBUG]: con_loss: 1.834, RCL_loss: 1.620, FTI_loss: 0.294
+2026-04-07 21:23:24 [DEBUG]: con_loss: 1.844, RCL_loss: 1.609, FTI_loss: 0.098
+2026-04-07 21:23:24 [DEBUG]: con_loss: 1.834, RCL_loss: 1.518, FTI_loss: 0.248
+2026-04-07 21:23:24 [DEBUG]: con_loss: 1.842, RCL_loss: 1.825, FTI_loss: 0.699
+2026-04-07 21:23:24 [DEBUG]: con_loss: 1.810, RCL_loss: 1.517, FTI_loss: 0.340
+2026-04-07 21:23:25 [DEBUG]: con_loss: 1.873, RCL_loss: 1.659, FTI_loss: 0.510
+2026-04-07 21:23:25 [DEBUG]: con_loss: 1.837, RCL_loss: 1.508, FTI_loss: 0.293
+2026-04-07 21:23:25 [DEBUG]: con_loss: 1.798, RCL_loss: 1.763, FTI_loss: 0.192
+2026-04-07 21:23:26 [DEBUG]: con_loss: 1.828, RCL_loss: 1.843, FTI_loss: 0.253
+2026-04-07 21:23:26 [DEBUG]: con_loss: 1.890, RCL_loss: 1.623, FTI_loss: 0.652
+2026-04-07 21:23:26 [DEBUG]: con_loss: 1.791, RCL_loss: 1.130, FTI_loss: 0.215
+2026-04-07 21:23:27 [DEBUG]: con_loss: 1.798, RCL_loss: 1.711, FTI_loss: 0.165
+2026-04-07 21:23:27 [DEBUG]: con_loss: 1.819, RCL_loss: 1.701, FTI_loss: 0.119
+2026-04-07 21:23:27 [DEBUG]: con_loss: 1.814, RCL_loss: 1.759, FTI_loss: 0.317
+2026-04-07 21:23:28 [DEBUG]: con_loss: 1.855, RCL_loss: 1.502, FTI_loss: 0.154
+2026-04-07 21:23:28 [DEBUG]: con_loss: 1.860, RCL_loss: 1.766, FTI_loss: 0.147
+2026-04-07 21:23:28 [INFO]: Epoch 7 done. Loss: 3.949, Time per epoch: 11.775[s]
+2026-04-07 21:23:28 [DEBUG]: con_loss: 1.852, RCL_loss: 1.730, FTI_loss: 0.100
+2026-04-07 21:23:29 [DEBUG]: con_loss: 1.767, RCL_loss: 0.154, FTI_loss: 0.011
+2026-04-07 21:23:29 [DEBUG]: con_loss: 1.834, RCL_loss: 1.870, FTI_loss: 0.026
+2026-04-07 21:23:29 [DEBUG]: con_loss: 1.876, RCL_loss: 1.770, FTI_loss: 0.045
+2026-04-07 21:23:29 [DEBUG]: con_loss: 1.820, RCL_loss: 1.633, FTI_loss: 0.313
+2026-04-07 21:23:30 [DEBUG]: con_loss: 1.776, RCL_loss: 1.796, FTI_loss: 1.706
+2026-04-07 21:23:30 [DEBUG]: con_loss: 1.804, RCL_loss: 1.716, FTI_loss: 0.121
+2026-04-07 21:23:30 [DEBUG]: con_loss: 1.784, RCL_loss: 1.573, FTI_loss: 0.691
+2026-04-07 21:23:31 [DEBUG]: con_loss: 1.896, RCL_loss: 2.128, FTI_loss: 0.640
+2026-04-07 21:23:31 [DEBUG]: con_loss: 1.902, RCL_loss: 1.797, FTI_loss: 0.423
+2026-04-07 21:23:31 [DEBUG]: con_loss: 1.818, RCL_loss: 1.546, FTI_loss: 0.215
+2026-04-07 21:23:32 [DEBUG]: con_loss: 1.812, RCL_loss: 1.390, FTI_loss: 0.326
+2026-04-07 21:23:32 [DEBUG]: con_loss: 1.812, RCL_loss: 1.677, FTI_loss: 0.432
+2026-04-07 21:23:32 [DEBUG]: con_loss: 1.765, RCL_loss: 1.831, FTI_loss: 0.363
+2026-04-07 21:23:33 [DEBUG]: con_loss: 1.877, RCL_loss: 1.676, FTI_loss: 0.234
+2026-04-07 21:23:33 [DEBUG]: con_loss: 1.884, RCL_loss: 1.731, FTI_loss: 0.191
+2026-04-07 21:23:33 [DEBUG]: con_loss: 1.857, RCL_loss: 1.220, FTI_loss: 0.082
+2026-04-07 21:23:33 [DEBUG]: con_loss: 1.823, RCL_loss: 1.792, FTI_loss: 0.120
+2026-04-07 21:23:34 [DEBUG]: con_loss: 1.817, RCL_loss: 1.649, FTI_loss: 0.386
+2026-04-07 21:23:34 [DEBUG]: con_loss: 1.789, RCL_loss: 1.513, FTI_loss: 1.184
+2026-04-07 21:23:34 [DEBUG]: con_loss: 1.771, RCL_loss: 1.915, FTI_loss: 0.259
+2026-04-07 21:23:35 [DEBUG]: con_loss: 1.818, RCL_loss: 1.652, FTI_loss: 0.162
+2026-04-07 21:23:35 [DEBUG]: con_loss: 1.796, RCL_loss: 1.732, FTI_loss: 0.143
+2026-04-07 21:23:35 [DEBUG]: con_loss: 1.820, RCL_loss: 1.624, FTI_loss: 0.170
+2026-04-07 21:23:36 [DEBUG]: con_loss: 1.790, RCL_loss: 1.518, FTI_loss: 0.226
+2026-04-07 21:23:36 [DEBUG]: con_loss: 1.811, RCL_loss: 1.559, FTI_loss: 0.470
+2026-04-07 21:23:36 [DEBUG]: con_loss: 1.805, RCL_loss: 1.302, FTI_loss: 0.192
+2026-04-07 21:23:37 [DEBUG]: con_loss: 1.821, RCL_loss: 1.483, FTI_loss: 0.142
+2026-04-07 21:23:37 [DEBUG]: con_loss: 1.812, RCL_loss: 1.803, FTI_loss: 0.178
+2026-04-07 21:23:37 [DEBUG]: con_loss: 1.850, RCL_loss: 1.147, FTI_loss: 0.177
+2026-04-07 21:23:38 [DEBUG]: con_loss: 1.825, RCL_loss: 1.658, FTI_loss: 0.194
+2026-04-07 21:23:38 [DEBUG]: con_loss: 1.848, RCL_loss: 0.917, FTI_loss: 0.101
+2026-04-07 21:23:38 [DEBUG]: con_loss: 1.847, RCL_loss: 1.643, FTI_loss: 0.182
+2026-04-07 21:23:38 [DEBUG]: con_loss: 1.871, RCL_loss: 1.669, FTI_loss: 0.188
+2026-04-07 21:23:39 [DEBUG]: con_loss: 1.859, RCL_loss: 1.416, FTI_loss: 0.133
+2026-04-07 21:23:39 [DEBUG]: con_loss: 1.762, RCL_loss: 0.128, FTI_loss: 0.022
+2026-04-07 21:23:39 [DEBUG]: con_loss: 1.779, RCL_loss: 1.784, FTI_loss: 0.037
+2026-04-07 21:23:40 [DEBUG]: con_loss: 1.828, RCL_loss: 1.525, FTI_loss: 0.161
+2026-04-07 21:23:40 [INFO]: Epoch 8 done. Loss: 3.904, Time per epoch: 11.855[s]
+2026-04-07 21:23:40 [DEBUG]: con_loss: 1.798, RCL_loss: 0.929, FTI_loss: 0.026
+2026-04-07 21:23:40 [DEBUG]: con_loss: 1.796, RCL_loss: 1.604, FTI_loss: 0.053
+2026-04-07 21:23:41 [DEBUG]: con_loss: 1.796, RCL_loss: 1.597, FTI_loss: 2.002
+2026-04-07 21:23:41 [DEBUG]: con_loss: 1.808, RCL_loss: 0.570, FTI_loss: 0.098
+2026-04-07 21:23:41 [DEBUG]: con_loss: 1.790, RCL_loss: 1.366, FTI_loss: 0.694
+2026-04-07 21:23:42 [DEBUG]: con_loss: 1.799, RCL_loss: 1.426, FTI_loss: 0.101
+2026-04-07 21:23:42 [DEBUG]: con_loss: 1.784, RCL_loss: 0.732, FTI_loss: 0.123
+2026-04-07 21:23:42 [DEBUG]: con_loss: 1.776, RCL_loss: 1.325, FTI_loss: 0.228
+2026-04-07 21:23:43 [DEBUG]: con_loss: 1.813, RCL_loss: 2.082, FTI_loss: 0.908
+2026-04-07 21:23:43 [DEBUG]: con_loss: 1.785, RCL_loss: 1.482, FTI_loss: 0.494
+2026-04-07 21:23:43 [DEBUG]: con_loss: 1.829, RCL_loss: 1.831, FTI_loss: 0.429
+2026-04-07 21:23:44 [DEBUG]: con_loss: 1.820, RCL_loss: 1.522, FTI_loss: 0.161
+2026-04-07 21:23:44 [DEBUG]: con_loss: 1.790, RCL_loss: 1.292, FTI_loss: 0.167
+2026-04-07 21:23:44 [DEBUG]: con_loss: 1.763, RCL_loss: 1.415, FTI_loss: 0.348
+2026-04-07 21:23:44 [DEBUG]: con_loss: 1.865, RCL_loss: 1.539, FTI_loss: 0.111
+2026-04-07 21:23:45 [DEBUG]: con_loss: 1.770, RCL_loss: 0.989, FTI_loss: 0.036
+2026-04-07 21:23:45 [DEBUG]: con_loss: 1.807, RCL_loss: 1.650, FTI_loss: 0.068
+2026-04-07 21:23:45 [DEBUG]: con_loss: 1.788, RCL_loss: 1.811, FTI_loss: 1.351
+2026-04-07 21:23:46 [DEBUG]: con_loss: 1.784, RCL_loss: 1.487, FTI_loss: 0.035
+2026-04-07 21:23:46 [DEBUG]: con_loss: 1.775, RCL_loss: 1.643, FTI_loss: 0.034
+2026-04-07 21:23:46 [DEBUG]: con_loss: 1.774, RCL_loss: 1.459, FTI_loss: 0.049
+2026-04-07 21:23:47 [DEBUG]: con_loss: 1.801, RCL_loss: 1.935, FTI_loss: 0.078
+2026-04-07 21:23:47 [DEBUG]: con_loss: 1.785, RCL_loss: 1.794, FTI_loss: 0.651
+2026-04-07 21:23:47 [DEBUG]: con_loss: 1.839, RCL_loss: 1.247, FTI_loss: 0.547
+2026-04-07 21:23:48 [DEBUG]: con_loss: 1.740, RCL_loss: 1.683, FTI_loss: 0.051
+2026-04-07 21:23:48 [DEBUG]: con_loss: 1.739, RCL_loss: 1.424, FTI_loss: 0.069
+2026-04-07 21:23:48 [DEBUG]: con_loss: 1.778, RCL_loss: 1.736, FTI_loss: 0.181
+2026-04-07 21:23:48 [DEBUG]: con_loss: 1.804, RCL_loss: 1.808, FTI_loss: 0.128
+2026-04-07 21:23:49 [DEBUG]: con_loss: 1.772, RCL_loss: 0.217, FTI_loss: 0.036
+2026-04-07 21:23:49 [DEBUG]: con_loss: 1.779, RCL_loss: 1.645, FTI_loss: 0.285
+2026-04-07 21:23:49 [DEBUG]: con_loss: 1.875, RCL_loss: 1.607, FTI_loss: 0.861
+2026-04-07 21:23:50 [DEBUG]: con_loss: 1.807, RCL_loss: 1.541, FTI_loss: 0.318
+2026-04-07 21:23:50 [DEBUG]: con_loss: 1.796, RCL_loss: 1.306, FTI_loss: 0.163
+2026-04-07 21:23:50 [DEBUG]: con_loss: 1.815, RCL_loss: 1.560, FTI_loss: 0.246
+2026-04-07 21:23:51 [DEBUG]: con_loss: 1.858, RCL_loss: 1.305, FTI_loss: 0.309
+2026-04-07 21:23:51 [DEBUG]: con_loss: 1.782, RCL_loss: 1.175, FTI_loss: 0.074
+2026-04-07 21:23:51 [DEBUG]: con_loss: 1.769, RCL_loss: 1.338, FTI_loss: 0.179
+2026-04-07 21:23:51 [DEBUG]: con_loss: 1.840, RCL_loss: 1.457, FTI_loss: 0.201
+2026-04-07 21:23:52 [INFO]: Epoch 9 done. Loss: 3.852, Time per epoch: 11.768[s]
+2026-04-07 21:23:52 [DEBUG]: con_loss: 1.754, RCL_loss: 1.726, FTI_loss: 0.061
+2026-04-07 21:23:52 [DEBUG]: con_loss: 1.776, RCL_loss: 1.337, FTI_loss: 0.172
+2026-04-07 21:23:52 [DEBUG]: con_loss: 1.800, RCL_loss: 1.320, FTI_loss: 0.164
+2026-04-07 21:23:53 [DEBUG]: con_loss: 1.751, RCL_loss: 1.332, FTI_loss: 0.061
+2026-04-07 21:23:53 [DEBUG]: con_loss: 1.800, RCL_loss: 1.612, FTI_loss: 0.391
+2026-04-07 21:23:53 [DEBUG]: con_loss: 1.873, RCL_loss: 1.801, FTI_loss: 0.151
+2026-04-07 21:23:54 [DEBUG]: con_loss: 1.803, RCL_loss: 0.890, FTI_loss: 0.253
+2026-04-07 21:23:54 [DEBUG]: con_loss: 1.788, RCL_loss: 1.063, FTI_loss: 0.053
+2026-04-07 21:23:54 [DEBUG]: con_loss: 1.732, RCL_loss: 1.429, FTI_loss: 0.031
+2026-04-07 21:23:55 [DEBUG]: con_loss: 1.732, RCL_loss: 1.569, FTI_loss: 0.080
+2026-04-07 21:23:55 [DEBUG]: con_loss: 1.806, RCL_loss: 1.483, FTI_loss: 0.272
+2026-04-07 21:23:55 [DEBUG]: con_loss: 1.838, RCL_loss: 1.487, FTI_loss: 0.710
+2026-04-07 21:23:55 [DEBUG]: con_loss: 1.832, RCL_loss: 1.111, FTI_loss: 0.197
+2026-04-07 21:23:56 [DEBUG]: con_loss: 1.828, RCL_loss: 1.081, FTI_loss: 0.180
+2026-04-07 21:23:56 [DEBUG]: con_loss: 1.806, RCL_loss: 0.638, FTI_loss: 0.121
+2026-04-07 21:23:56 [DEBUG]: con_loss: 1.820, RCL_loss: 1.678, FTI_loss: 0.657
+2026-04-07 21:23:57 [DEBUG]: con_loss: 1.789, RCL_loss: 1.513, FTI_loss: 0.261
+2026-04-07 21:23:57 [DEBUG]: con_loss: 1.813, RCL_loss: 1.897, FTI_loss: 0.220
+2026-04-07 21:23:57 [DEBUG]: con_loss: 1.768, RCL_loss: 1.517, FTI_loss: 0.016
+2026-04-07 21:23:58 [DEBUG]: con_loss: 1.745, RCL_loss: 1.518, FTI_loss: 0.054
+2026-04-07 21:23:58 [DEBUG]: con_loss: 1.837, RCL_loss: 1.504, FTI_loss: 0.119
+2026-04-07 21:23:58 [DEBUG]: con_loss: 1.746, RCL_loss: 1.247, FTI_loss: 0.093
+2026-04-07 21:23:59 [DEBUG]: con_loss: 1.810, RCL_loss: 1.354, FTI_loss: 0.124
+2026-04-07 21:23:59 [DEBUG]: con_loss: 1.794, RCL_loss: 1.735, FTI_loss: 0.110
+2026-04-07 21:23:59 [DEBUG]: con_loss: 1.780, RCL_loss: 1.794, FTI_loss: 0.043
+2026-04-07 21:23:59 [DEBUG]: con_loss: 1.768, RCL_loss: 1.820, FTI_loss: 0.032
+2026-04-07 21:24:00 [DEBUG]: con_loss: 1.750, RCL_loss: 1.407, FTI_loss: 0.125
+2026-04-07 21:24:00 [DEBUG]: con_loss: 1.783, RCL_loss: 1.617, FTI_loss: 0.371
+2026-04-07 21:24:00 [DEBUG]: con_loss: 1.793, RCL_loss: 1.650, FTI_loss: 0.024
+2026-04-07 21:24:01 [DEBUG]: con_loss: 1.824, RCL_loss: 1.436, FTI_loss: 0.409
+2026-04-07 21:24:01 [DEBUG]: con_loss: 1.801, RCL_loss: 1.592, FTI_loss: 0.078
+2026-04-07 21:24:01 [DEBUG]: con_loss: 1.756, RCL_loss: 1.302, FTI_loss: 0.040
+2026-04-07 21:24:02 [DEBUG]: con_loss: 1.771, RCL_loss: 1.513, FTI_loss: 0.126
+2026-04-07 21:24:02 [DEBUG]: con_loss: 1.848, RCL_loss: 1.700, FTI_loss: 0.202
+2026-04-07 21:24:02 [DEBUG]: con_loss: 1.785, RCL_loss: 1.028, FTI_loss: 0.475
+2026-04-07 21:24:03 [DEBUG]: con_loss: 1.762, RCL_loss: 1.277, FTI_loss: 0.062
+2026-04-07 21:24:03 [DEBUG]: con_loss: 1.784, RCL_loss: 1.014, FTI_loss: 0.082
+2026-04-07 21:24:03 [DEBUG]: con_loss: 1.776, RCL_loss: 1.476, FTI_loss: 0.054
+2026-04-07 21:24:03 [INFO]: Epoch 10 done. Loss: 3.779, Time per epoch: 11.645[s]
+2026-04-07 21:24:03 [DEBUG]: con_loss: 1.736, RCL_loss: 1.159, FTI_loss: 0.082
+2026-04-07 21:24:04 [DEBUG]: con_loss: 1.745, RCL_loss: 1.015, FTI_loss: 0.500
+2026-04-07 21:24:04 [DEBUG]: con_loss: 1.764, RCL_loss: 1.534, FTI_loss: 0.063
+2026-04-07 21:24:04 [DEBUG]: con_loss: 1.775, RCL_loss: 0.620, FTI_loss: 0.034
+2026-04-07 21:24:05 [DEBUG]: con_loss: 1.742, RCL_loss: 1.348, FTI_loss: 0.191
+2026-04-07 21:24:05 [DEBUG]: con_loss: 1.767, RCL_loss: 1.436, FTI_loss: 0.022
+2026-04-07 21:24:05 [DEBUG]: con_loss: 1.805, RCL_loss: 1.273, FTI_loss: 0.372
+2026-04-07 21:24:06 [DEBUG]: con_loss: 1.796, RCL_loss: 0.966, FTI_loss: 0.074
+2026-04-07 21:24:06 [DEBUG]: con_loss: 1.770, RCL_loss: 0.201, FTI_loss: 0.039
+2026-04-07 21:24:06 [DEBUG]: con_loss: 1.792, RCL_loss: 1.163, FTI_loss: 0.339
+2026-04-07 21:24:07 [DEBUG]: con_loss: 1.824, RCL_loss: 1.413, FTI_loss: 0.053
+2026-04-07 21:24:07 [DEBUG]: con_loss: 1.777, RCL_loss: 1.121, FTI_loss: 0.024
+2026-04-07 21:24:07 [DEBUG]: con_loss: 1.839, RCL_loss: 0.909, FTI_loss: 0.066
+2026-04-07 21:24:08 [DEBUG]: con_loss: 1.778, RCL_loss: 1.463, FTI_loss: 0.245
+2026-04-07 21:24:08 [DEBUG]: con_loss: 1.774, RCL_loss: 1.749, FTI_loss: 0.071
+2026-04-07 21:24:08 [DEBUG]: con_loss: 1.835, RCL_loss: 2.036, FTI_loss: 0.220
+2026-04-07 21:24:09 [DEBUG]: con_loss: 1.800, RCL_loss: 1.800, FTI_loss: 0.573
+2026-04-07 21:24:09 [DEBUG]: con_loss: 1.823, RCL_loss: 1.380, FTI_loss: 0.253
+2026-04-07 21:24:09 [DEBUG]: con_loss: 1.794, RCL_loss: 0.856, FTI_loss: 0.247
+2026-04-07 21:24:10 [DEBUG]: con_loss: 1.864, RCL_loss: 1.778, FTI_loss: 0.075
+2026-04-07 21:24:10 [DEBUG]: con_loss: 1.803, RCL_loss: 0.814, FTI_loss: 0.013
+2026-04-07 21:24:10 [DEBUG]: con_loss: 1.844, RCL_loss: 1.631, FTI_loss: 0.548
+2026-04-07 21:24:11 [DEBUG]: con_loss: 1.820, RCL_loss: 1.538, FTI_loss: 0.442
+2026-04-07 21:24:11 [DEBUG]: con_loss: 1.796, RCL_loss: 1.579, FTI_loss: 0.314
+2026-04-07 21:24:11 [DEBUG]: con_loss: 1.805, RCL_loss: 1.695, FTI_loss: 0.388
+2026-04-07 21:24:12 [DEBUG]: con_loss: 1.822, RCL_loss: 1.447, FTI_loss: 0.111
+2026-04-07 21:24:12 [DEBUG]: con_loss: 1.813, RCL_loss: 1.852, FTI_loss: 0.171
+2026-04-07 21:24:12 [DEBUG]: con_loss: 1.836, RCL_loss: 1.524, FTI_loss: 0.282
+2026-04-07 21:24:12 [DEBUG]: con_loss: 1.830, RCL_loss: 1.312, FTI_loss: 0.019
+2026-04-07 21:24:13 [DEBUG]: con_loss: 1.721, RCL_loss: 1.451, FTI_loss: 0.031
+2026-04-07 21:24:13 [DEBUG]: con_loss: 1.791, RCL_loss: 1.628, FTI_loss: 0.204
+2026-04-07 21:24:13 [DEBUG]: con_loss: 1.797, RCL_loss: 1.504, FTI_loss: 0.023
+2026-04-07 21:24:14 [DEBUG]: con_loss: 1.807, RCL_loss: 1.861, FTI_loss: 0.214
+2026-04-07 21:24:14 [DEBUG]: con_loss: 1.799, RCL_loss: 1.691, FTI_loss: 2.042
+2026-04-07 21:24:14 [DEBUG]: con_loss: 1.805, RCL_loss: 0.955, FTI_loss: 0.062
+2026-04-07 21:24:15 [DEBUG]: con_loss: 1.806, RCL_loss: 1.685, FTI_loss: 2.005
+2026-04-07 21:24:15 [DEBUG]: con_loss: 1.801, RCL_loss: 1.272, FTI_loss: 0.074
+2026-04-07 21:24:15 [DEBUG]: con_loss: 1.798, RCL_loss: 1.535, FTI_loss: 0.018
+2026-04-07 21:24:15 [INFO]: Epoch 11 done. Loss: 3.803, Time per epoch: 12.093[s]
+2026-04-07 21:24:16 [DEBUG]: con_loss: 1.802, RCL_loss: 1.176, FTI_loss: 0.117
+2026-04-07 21:24:16 [DEBUG]: con_loss: 1.766, RCL_loss: 1.120, FTI_loss: 0.140
+2026-04-07 21:24:16 [DEBUG]: con_loss: 1.745, RCL_loss: 1.592, FTI_loss: 0.081
+2026-04-07 21:24:17 [DEBUG]: con_loss: 1.841, RCL_loss: 1.034, FTI_loss: 0.244
+2026-04-07 21:24:17 [DEBUG]: con_loss: 1.801, RCL_loss: 1.449, FTI_loss: 0.197
+2026-04-07 21:24:17 [DEBUG]: con_loss: 1.758, RCL_loss: 1.261, FTI_loss: 0.167
+2026-04-07 21:24:17 [DEBUG]: con_loss: 1.753, RCL_loss: 1.132, FTI_loss: 0.162
+2026-04-07 21:24:18 [DEBUG]: con_loss: 1.761, RCL_loss: 1.888, FTI_loss: 0.162
+2026-04-07 21:24:18 [DEBUG]: con_loss: 1.782, RCL_loss: 0.829, FTI_loss: 0.060
+2026-04-07 21:24:18 [DEBUG]: con_loss: 1.839, RCL_loss: 1.163, FTI_loss: 0.202
+2026-04-07 21:24:19 [DEBUG]: con_loss: 1.753, RCL_loss: 1.448, FTI_loss: 0.347
+2026-04-07 21:24:19 [DEBUG]: con_loss: 1.775, RCL_loss: 1.228, FTI_loss: 0.651
+2026-04-07 21:24:19 [DEBUG]: con_loss: 1.818, RCL_loss: 1.325, FTI_loss: 0.155
+2026-04-07 21:24:20 [DEBUG]: con_loss: 1.839, RCL_loss: 1.475, FTI_loss: 0.157
+2026-04-07 21:24:20 [DEBUG]: con_loss: 1.765, RCL_loss: 1.422, FTI_loss: 0.026
+2026-04-07 21:24:20 [DEBUG]: con_loss: 1.763, RCL_loss: 1.589, FTI_loss: 0.166
+2026-04-07 21:24:20 [DEBUG]: con_loss: 1.782, RCL_loss: 1.174, FTI_loss: 0.105
+2026-04-07 21:24:21 [DEBUG]: con_loss: 1.810, RCL_loss: 1.557, FTI_loss: 1.153
+2026-04-07 21:24:21 [DEBUG]: con_loss: 1.747, RCL_loss: 1.614, FTI_loss: 0.065
+2026-04-07 21:24:21 [DEBUG]: con_loss: 1.803, RCL_loss: 0.676, FTI_loss: 0.107
+2026-04-07 21:24:22 [DEBUG]: con_loss: 1.798, RCL_loss: 1.020, FTI_loss: 0.042
+2026-04-07 21:24:22 [DEBUG]: con_loss: 1.837, RCL_loss: 1.336, FTI_loss: 0.128
+2026-04-07 21:24:22 [DEBUG]: con_loss: 1.789, RCL_loss: 1.958, FTI_loss: 0.036
+2026-04-07 21:24:23 [DEBUG]: con_loss: 1.792, RCL_loss: 1.561, FTI_loss: 0.329
+2026-04-07 21:24:23 [DEBUG]: con_loss: 1.813, RCL_loss: 1.644, FTI_loss: 0.126
+2026-04-07 21:24:23 [DEBUG]: con_loss: 1.760, RCL_loss: 1.568, FTI_loss: 0.015
+2026-04-07 21:24:24 [DEBUG]: con_loss: 1.836, RCL_loss: 1.449, FTI_loss: 0.456
+2026-04-07 21:24:24 [DEBUG]: con_loss: 1.821, RCL_loss: 1.968, FTI_loss: 0.189
+2026-04-07 21:24:24 [DEBUG]: con_loss: 1.850, RCL_loss: 0.951, FTI_loss: 0.089
+2026-04-07 21:24:24 [DEBUG]: con_loss: 1.802, RCL_loss: 0.657, FTI_loss: 0.102
+2026-04-07 21:24:25 [DEBUG]: con_loss: 1.772, RCL_loss: 0.852, FTI_loss: 0.095
+2026-04-07 21:24:25 [DEBUG]: con_loss: 1.804, RCL_loss: 0.195, FTI_loss: 0.015
+2026-04-07 21:24:25 [DEBUG]: con_loss: 1.793, RCL_loss: 1.569, FTI_loss: 0.157
+2026-04-07 21:24:26 [DEBUG]: con_loss: 1.779, RCL_loss: 1.172, FTI_loss: 0.347
+2026-04-07 21:24:26 [DEBUG]: con_loss: 1.809, RCL_loss: 2.087, FTI_loss: 0.165
+2026-04-07 21:24:26 [DEBUG]: con_loss: 1.792, RCL_loss: 1.919, FTI_loss: 0.378
+2026-04-07 21:24:27 [DEBUG]: con_loss: 1.863, RCL_loss: 1.748, FTI_loss: 0.125
+2026-04-07 21:24:27 [DEBUG]: con_loss: 1.759, RCL_loss: 1.968, FTI_loss: 0.105
+2026-04-07 21:24:27 [INFO]: Epoch 12 done. Loss: 3.754, Time per epoch: 11.681[s]
+2026-04-07 21:24:27 [DEBUG]: con_loss: 1.814, RCL_loss: 1.611, FTI_loss: 0.327
+2026-04-07 21:24:28 [DEBUG]: con_loss: 1.742, RCL_loss: 1.352, FTI_loss: 0.414
+2026-04-07 21:24:28 [DEBUG]: con_loss: 1.786, RCL_loss: 1.316, FTI_loss: 0.004
+2026-04-07 21:24:28 [DEBUG]: con_loss: 1.792, RCL_loss: 1.312, FTI_loss: 0.199
+2026-04-07 21:24:29 [DEBUG]: con_loss: 1.802, RCL_loss: 1.252, FTI_loss: 0.111
+2026-04-07 21:24:29 [DEBUG]: con_loss: 1.793, RCL_loss: 1.462, FTI_loss: 0.102
+2026-04-07 21:24:29 [DEBUG]: con_loss: 1.788, RCL_loss: 1.414, FTI_loss: 0.191
+2026-04-07 21:24:30 [DEBUG]: con_loss: 1.818, RCL_loss: 1.328, FTI_loss: 0.058
+2026-04-07 21:24:30 [DEBUG]: con_loss: 1.857, RCL_loss: 1.678, FTI_loss: 0.424
+2026-04-07 21:24:30 [DEBUG]: con_loss: 1.789, RCL_loss: 0.927, FTI_loss: 0.179
+2026-04-07 21:24:31 [DEBUG]: con_loss: 1.819, RCL_loss: 1.655, FTI_loss: 0.244
+2026-04-07 21:24:31 [DEBUG]: con_loss: 1.804, RCL_loss: 1.168, FTI_loss: 0.093
+2026-04-07 21:24:31 [DEBUG]: con_loss: 1.811, RCL_loss: 1.397, FTI_loss: 0.106
+2026-04-07 21:24:32 [DEBUG]: con_loss: 1.790, RCL_loss: 1.333, FTI_loss: 0.011
+2026-04-07 21:24:32 [DEBUG]: con_loss: 1.784, RCL_loss: 1.085, FTI_loss: 0.022
+2026-04-07 21:24:33 [DEBUG]: con_loss: 1.771, RCL_loss: 1.654, FTI_loss: 0.053
+2026-04-07 21:24:33 [DEBUG]: con_loss: 1.790, RCL_loss: 1.301, FTI_loss: 0.172
+2026-04-07 21:24:33 [DEBUG]: con_loss: 1.774, RCL_loss: 1.435, FTI_loss: 0.096
+2026-04-07 21:24:34 [DEBUG]: con_loss: 1.781, RCL_loss: 1.372, FTI_loss: 0.232
+2026-04-07 21:24:34 [DEBUG]: con_loss: 1.874, RCL_loss: 1.346, FTI_loss: 0.117
+2026-04-07 21:24:34 [DEBUG]: con_loss: 1.766, RCL_loss: 1.845, FTI_loss: 0.175
+2026-04-07 21:24:35 [DEBUG]: con_loss: 1.724, RCL_loss: 0.897, FTI_loss: 0.003
+2026-04-07 21:24:35 [DEBUG]: con_loss: 1.844, RCL_loss: 1.295, FTI_loss: 0.552
+2026-04-07 21:24:36 [DEBUG]: con_loss: 1.865, RCL_loss: 1.397, FTI_loss: 0.116
+2026-04-07 21:24:36 [DEBUG]: con_loss: 1.778, RCL_loss: 1.579, FTI_loss: 0.463
+2026-04-07 21:24:36 [DEBUG]: con_loss: 1.828, RCL_loss: 1.544, FTI_loss: 0.204
+2026-04-07 21:24:36 [DEBUG]: con_loss: 1.828, RCL_loss: 1.322, FTI_loss: 0.172
+2026-04-07 21:24:37 [DEBUG]: con_loss: 1.754, RCL_loss: 1.288, FTI_loss: 0.030
+2026-04-07 21:24:38 [DEBUG]: con_loss: 1.798, RCL_loss: 1.195, FTI_loss: 0.141
+2026-04-07 21:24:38 [DEBUG]: con_loss: 1.794, RCL_loss: 1.263, FTI_loss: 0.089
+2026-04-07 21:24:38 [DEBUG]: con_loss: 1.792, RCL_loss: 2.326, FTI_loss: 0.926
+2026-04-07 21:24:38 [DEBUG]: con_loss: 1.797, RCL_loss: 1.307, FTI_loss: 0.153
+2026-04-07 21:24:39 [DEBUG]: con_loss: 1.821, RCL_loss: 1.066, FTI_loss: 0.117
+2026-04-07 21:24:39 [DEBUG]: con_loss: 1.841, RCL_loss: 1.645, FTI_loss: 0.077
+2026-04-07 21:24:39 [DEBUG]: con_loss: 1.811, RCL_loss: 1.641, FTI_loss: 0.150
+2026-04-07 21:24:40 [DEBUG]: con_loss: 1.826, RCL_loss: 1.696, FTI_loss: 0.114
+2026-04-07 21:24:40 [DEBUG]: con_loss: 1.758, RCL_loss: 1.234, FTI_loss: 0.010
+2026-04-07 21:24:40 [DEBUG]: con_loss: 1.796, RCL_loss: 1.867, FTI_loss: 2.183
+2026-04-07 21:24:40 [INFO]: Epoch 13 done. Loss: 3.804, Time per epoch: 13.426[s]
+2026-04-07 21:24:41 [DEBUG]: con_loss: 1.801, RCL_loss: 0.939, FTI_loss: 0.427
+2026-04-07 21:24:41 [DEBUG]: con_loss: 1.800, RCL_loss: 0.993, FTI_loss: 0.045
+2026-04-07 21:24:41 [DEBUG]: con_loss: 1.841, RCL_loss: 1.171, FTI_loss: 0.151
+2026-04-07 21:24:42 [DEBUG]: con_loss: 1.819, RCL_loss: 1.858, FTI_loss: 0.218
+2026-04-07 21:24:42 [DEBUG]: con_loss: 1.849, RCL_loss: 1.216, FTI_loss: 0.090
+2026-04-07 21:24:42 [DEBUG]: con_loss: 1.784, RCL_loss: 1.431, FTI_loss: 0.138
+2026-04-07 21:24:43 [DEBUG]: con_loss: 1.834, RCL_loss: 1.402, FTI_loss: 0.087
+2026-04-07 21:24:43 [DEBUG]: con_loss: 1.815, RCL_loss: 0.697, FTI_loss: 0.309
+2026-04-07 21:24:43 [DEBUG]: con_loss: 1.844, RCL_loss: 1.231, FTI_loss: 0.089
+2026-04-07 21:24:43 [DEBUG]: con_loss: 1.868, RCL_loss: 0.737, FTI_loss: 0.162
+2026-04-07 21:24:44 [DEBUG]: con_loss: 1.855, RCL_loss: 1.144, FTI_loss: 0.148
+2026-04-07 21:24:44 [DEBUG]: con_loss: 1.821, RCL_loss: 1.709, FTI_loss: 0.121
+2026-04-07 21:24:44 [DEBUG]: con_loss: 1.795, RCL_loss: 2.139, FTI_loss: 0.195
+2026-04-07 21:24:45 [DEBUG]: con_loss: 1.853, RCL_loss: 1.623, FTI_loss: 0.516
+2026-04-07 21:24:45 [DEBUG]: con_loss: 1.762, RCL_loss: 1.296, FTI_loss: 0.073
+2026-04-07 21:24:45 [DEBUG]: con_loss: 1.740, RCL_loss: 1.429, FTI_loss: 0.132
+2026-04-07 21:24:46 [DEBUG]: con_loss: 1.860, RCL_loss: 1.632, FTI_loss: 0.122
+2026-04-07 21:24:46 [DEBUG]: con_loss: 1.841, RCL_loss: 1.374, FTI_loss: 0.100
+2026-04-07 21:24:46 [DEBUG]: con_loss: 1.763, RCL_loss: 0.276, FTI_loss: 0.005
+2026-04-07 21:24:47 [DEBUG]: con_loss: 1.813, RCL_loss: 1.557, FTI_loss: 0.033
+2026-04-07 21:24:47 [DEBUG]: con_loss: 1.813, RCL_loss: 1.075, FTI_loss: 1.110
+2026-04-07 21:24:47 [DEBUG]: con_loss: 1.821, RCL_loss: 1.170, FTI_loss: 0.150
+2026-04-07 21:24:48 [DEBUG]: con_loss: 1.800, RCL_loss: 1.268, FTI_loss: 0.008
+2026-04-07 21:24:48 [DEBUG]: con_loss: 1.768, RCL_loss: 1.391, FTI_loss: 0.044
+2026-04-07 21:24:48 [DEBUG]: con_loss: 1.785, RCL_loss: 1.136, FTI_loss: 0.094
+2026-04-07 21:24:48 [DEBUG]: con_loss: 1.823, RCL_loss: 1.512, FTI_loss: 0.126
+2026-04-07 21:24:49 [DEBUG]: con_loss: 1.783, RCL_loss: 1.213, FTI_loss: 0.054
+2026-04-07 21:24:49 [DEBUG]: con_loss: 1.796, RCL_loss: 1.472, FTI_loss: 0.044
+2026-04-07 21:24:49 [DEBUG]: con_loss: 1.746, RCL_loss: 1.708, FTI_loss: 0.520
+2026-04-07 21:24:50 [DEBUG]: con_loss: 1.829, RCL_loss: 1.558, FTI_loss: 0.227
+2026-04-07 21:24:50 [DEBUG]: con_loss: 1.805, RCL_loss: 1.911, FTI_loss: 0.464
+2026-04-07 21:24:50 [DEBUG]: con_loss: 1.833, RCL_loss: 1.063, FTI_loss: 0.245
+2026-04-07 21:24:51 [DEBUG]: con_loss: 1.789, RCL_loss: 1.298, FTI_loss: 0.073
+2026-04-07 21:24:51 [DEBUG]: con_loss: 1.798, RCL_loss: 1.364, FTI_loss: 0.469
+2026-04-07 21:24:51 [DEBUG]: con_loss: 1.824, RCL_loss: 1.265, FTI_loss: 0.141
+2026-04-07 21:24:52 [DEBUG]: con_loss: 1.820, RCL_loss: 1.466, FTI_loss: 0.220
+2026-04-07 21:24:52 [DEBUG]: con_loss: 1.847, RCL_loss: 0.887, FTI_loss: 0.076
+2026-04-07 21:24:52 [DEBUG]: con_loss: 1.789, RCL_loss: 1.531, FTI_loss: 0.152
+2026-04-07 21:24:52 [INFO]: Epoch 14 done. Loss: 3.742, Time per epoch: 11.808[s]
+2026-04-07 21:24:53 [DEBUG]: con_loss: 1.833, RCL_loss: 1.684, FTI_loss: 0.261
+2026-04-07 21:24:53 [DEBUG]: con_loss: 1.915, RCL_loss: 1.485, FTI_loss: 0.253
+2026-04-07 21:24:53 [DEBUG]: con_loss: 1.832, RCL_loss: 1.240, FTI_loss: 0.257
+2026-04-07 21:24:53 [DEBUG]: con_loss: 1.796, RCL_loss: 1.266, FTI_loss: 0.540
+2026-04-07 21:24:54 [DEBUG]: con_loss: 1.805, RCL_loss: 0.847, FTI_loss: 0.096
+2026-04-07 21:24:54 [DEBUG]: con_loss: 1.863, RCL_loss: 1.217, FTI_loss: 0.080
+2026-04-07 21:24:54 [DEBUG]: con_loss: 1.790, RCL_loss: 1.065, FTI_loss: 0.010
+2026-04-07 21:24:55 [DEBUG]: con_loss: 1.769, RCL_loss: 0.705, FTI_loss: 0.015
+2026-04-07 21:24:55 [DEBUG]: con_loss: 1.785, RCL_loss: 1.143, FTI_loss: 0.017
+2026-04-07 21:24:55 [DEBUG]: con_loss: 1.785, RCL_loss: 1.069, FTI_loss: 0.126
+2026-04-07 21:24:56 [DEBUG]: con_loss: 1.760, RCL_loss: 1.323, FTI_loss: 0.081
+2026-04-07 21:24:56 [DEBUG]: con_loss: 1.813, RCL_loss: 1.355, FTI_loss: 0.118
+2026-04-07 21:24:56 [DEBUG]: con_loss: 1.822, RCL_loss: 1.248, FTI_loss: 0.033
+2026-04-07 21:24:57 [DEBUG]: con_loss: 1.814, RCL_loss: 1.486, FTI_loss: 0.256
+2026-04-07 21:24:57 [DEBUG]: con_loss: 1.778, RCL_loss: 1.319, FTI_loss: 0.736
+2026-04-07 21:24:57 [DEBUG]: con_loss: 1.835, RCL_loss: 0.896, FTI_loss: 0.046
+2026-04-07 21:24:57 [DEBUG]: con_loss: 1.782, RCL_loss: 1.282, FTI_loss: 0.018
+2026-04-07 21:24:58 [DEBUG]: con_loss: 1.820, RCL_loss: 0.735, FTI_loss: 0.126
+2026-04-07 21:24:58 [DEBUG]: con_loss: 1.819, RCL_loss: 1.498, FTI_loss: 0.026
+2026-04-07 21:24:58 [DEBUG]: con_loss: 1.768, RCL_loss: 1.696, FTI_loss: 0.065
+2026-04-07 21:24:59 [DEBUG]: con_loss: 1.845, RCL_loss: 1.156, FTI_loss: 0.083
+2026-04-07 21:24:59 [DEBUG]: con_loss: 1.743, RCL_loss: 0.707, FTI_loss: 0.278
+2026-04-07 21:24:59 [DEBUG]: con_loss: 1.767, RCL_loss: 1.450, FTI_loss: 0.062
+2026-04-07 21:25:00 [DEBUG]: con_loss: 1.849, RCL_loss: 1.071, FTI_loss: 0.247
+2026-04-07 21:25:00 [DEBUG]: con_loss: 1.791, RCL_loss: 1.399, FTI_loss: 0.156
+2026-04-07 21:25:00 [DEBUG]: con_loss: 1.773, RCL_loss: 1.070, FTI_loss: 0.103
+2026-04-07 21:25:01 [DEBUG]: con_loss: 1.827, RCL_loss: 1.371, FTI_loss: 0.325
+2026-04-07 21:25:01 [DEBUG]: con_loss: 1.779, RCL_loss: 1.362, FTI_loss: 0.107
+2026-04-07 21:25:01 [DEBUG]: con_loss: 1.794, RCL_loss: 1.527, FTI_loss: 0.456
+2026-04-07 21:25:02 [DEBUG]: con_loss: 1.859, RCL_loss: 1.880, FTI_loss: 0.045
+2026-04-07 21:25:02 [DEBUG]: con_loss: 1.756, RCL_loss: 1.231, FTI_loss: 0.667
+2026-04-07 21:25:02 [DEBUG]: con_loss: 1.732, RCL_loss: 1.752, FTI_loss: 0.022
+2026-04-07 21:25:02 [DEBUG]: con_loss: 1.782, RCL_loss: 1.489, FTI_loss: 0.014
+2026-04-07 21:25:03 [DEBUG]: con_loss: 1.774, RCL_loss: 1.504, FTI_loss: 0.060
+2026-04-07 21:25:03 [DEBUG]: con_loss: 1.762, RCL_loss: 1.333, FTI_loss: 0.052
+2026-04-07 21:25:03 [DEBUG]: con_loss: 1.720, RCL_loss: 0.700, FTI_loss: 0.002
+2026-04-07 21:25:04 [DEBUG]: con_loss: 1.785, RCL_loss: 0.997, FTI_loss: 0.037
+2026-04-07 21:25:04 [DEBUG]: con_loss: 1.756, RCL_loss: 1.109, FTI_loss: 0.152
+2026-04-07 21:25:04 [INFO]: Epoch 15 done. Loss: 3.684, Time per epoch: 11.864[s]
+2026-04-07 21:25:04 [DEBUG]: con_loss: 1.858, RCL_loss: 1.154, FTI_loss: 0.014
+2026-04-07 21:25:05 [DEBUG]: con_loss: 1.819, RCL_loss: 0.835, FTI_loss: 0.139
+2026-04-07 21:25:05 [DEBUG]: con_loss: 1.806, RCL_loss: 1.101, FTI_loss: 0.356
+2026-04-07 21:25:05 [DEBUG]: con_loss: 1.792, RCL_loss: 1.852, FTI_loss: 0.196
+2026-04-07 21:25:06 [DEBUG]: con_loss: 1.718, RCL_loss: 1.281, FTI_loss: 0.011
+2026-04-07 21:25:06 [DEBUG]: con_loss: 1.812, RCL_loss: 1.184, FTI_loss: 0.003
+2026-04-07 21:25:06 [DEBUG]: con_loss: 1.705, RCL_loss: 1.330, FTI_loss: 0.019
+2026-04-07 21:25:06 [DEBUG]: con_loss: 1.796, RCL_loss: 1.485, FTI_loss: 0.021
+2026-04-07 21:25:07 [DEBUG]: con_loss: 1.748, RCL_loss: 1.029, FTI_loss: 0.004
+2026-04-07 21:25:07 [DEBUG]: con_loss: 1.758, RCL_loss: 1.352, FTI_loss: 0.024
+2026-04-07 21:25:07 [DEBUG]: con_loss: 1.780, RCL_loss: 0.391, FTI_loss: 0.263
+2026-04-07 21:25:08 [DEBUG]: con_loss: 1.822, RCL_loss: 1.698, FTI_loss: 0.024
+2026-04-07 21:25:08 [DEBUG]: con_loss: 1.747, RCL_loss: 1.022, FTI_loss: 0.028
+2026-04-07 21:25:08 [DEBUG]: con_loss: 1.842, RCL_loss: 0.942, FTI_loss: 0.409
+2026-04-07 21:25:09 [DEBUG]: con_loss: 1.826, RCL_loss: 1.041, FTI_loss: 0.080
+2026-04-07 21:25:09 [DEBUG]: con_loss: 1.759, RCL_loss: 1.128, FTI_loss: 0.015
+2026-04-07 21:25:09 [DEBUG]: con_loss: 1.801, RCL_loss: 1.367, FTI_loss: 0.002
+2026-04-07 21:25:10 [DEBUG]: con_loss: 1.779, RCL_loss: 1.602, FTI_loss: 0.107
+2026-04-07 21:25:10 [DEBUG]: con_loss: 1.779, RCL_loss: 1.093, FTI_loss: 0.012
+2026-04-07 21:25:10 [DEBUG]: con_loss: 1.791, RCL_loss: 1.471, FTI_loss: 0.093
+2026-04-07 21:25:11 [DEBUG]: con_loss: 1.864, RCL_loss: 1.237, FTI_loss: 0.057
+2026-04-07 21:25:11 [DEBUG]: con_loss: 1.774, RCL_loss: 1.765, FTI_loss: 1.224
+2026-04-07 21:25:11 [DEBUG]: con_loss: 1.769, RCL_loss: 1.188, FTI_loss: 0.581
+2026-04-07 21:25:11 [DEBUG]: con_loss: 1.780, RCL_loss: 1.673, FTI_loss: 0.010
+2026-04-07 21:25:12 [DEBUG]: con_loss: 1.809, RCL_loss: 0.802, FTI_loss: 0.375
+2026-04-07 21:25:12 [DEBUG]: con_loss: 1.815, RCL_loss: 1.038, FTI_loss: 0.573
+2026-04-07 21:25:12 [DEBUG]: con_loss: 1.766, RCL_loss: 1.543, FTI_loss: 0.062
+2026-04-07 21:25:13 [DEBUG]: con_loss: 1.786, RCL_loss: 0.995, FTI_loss: 0.036
+2026-04-07 21:25:13 [DEBUG]: con_loss: 1.789, RCL_loss: 1.478, FTI_loss: 0.373
+2026-04-07 21:25:13 [DEBUG]: con_loss: 1.786, RCL_loss: 1.937, FTI_loss: 0.158
+2026-04-07 21:25:14 [DEBUG]: con_loss: 1.740, RCL_loss: 1.139, FTI_loss: 0.005
+2026-04-07 21:25:14 [DEBUG]: con_loss: 1.777, RCL_loss: 1.865, FTI_loss: 0.092
+2026-04-07 21:25:14 [DEBUG]: con_loss: 1.776, RCL_loss: 1.310, FTI_loss: 0.226
+2026-04-07 21:25:15 [DEBUG]: con_loss: 1.831, RCL_loss: 1.450, FTI_loss: 0.328
+2026-04-07 21:25:15 [DEBUG]: con_loss: 1.826, RCL_loss: 1.756, FTI_loss: 0.033
+2026-04-07 21:25:15 [DEBUG]: con_loss: 1.801, RCL_loss: 1.105, FTI_loss: 0.140
+2026-04-07 21:25:16 [DEBUG]: con_loss: 1.814, RCL_loss: 1.220, FTI_loss: 0.209
+2026-04-07 21:25:16 [DEBUG]: con_loss: 1.800, RCL_loss: 1.994, FTI_loss: 0.019
+2026-04-07 21:25:16 [INFO]: Epoch 16 done. Loss: 3.714, Time per epoch: 11.763[s]
+2026-04-07 21:25:16 [DEBUG]: con_loss: 1.793, RCL_loss: 0.864, FTI_loss: 0.022
+2026-04-07 21:25:16 [DEBUG]: con_loss: 1.807, RCL_loss: 1.137, FTI_loss: 0.040
+2026-04-07 21:25:17 [DEBUG]: con_loss: 1.769, RCL_loss: 1.647, FTI_loss: 0.002
+2026-04-07 21:25:17 [DEBUG]: con_loss: 1.801, RCL_loss: 1.229, FTI_loss: 0.115
+2026-04-07 21:25:17 [DEBUG]: con_loss: 1.765, RCL_loss: 1.514, FTI_loss: 0.033
+2026-04-07 21:25:18 [DEBUG]: con_loss: 1.795, RCL_loss: 1.554, FTI_loss: 0.031
+2026-04-07 21:25:18 [DEBUG]: con_loss: 1.831, RCL_loss: 1.411, FTI_loss: 0.046
+2026-04-07 21:25:18 [DEBUG]: con_loss: 1.757, RCL_loss: 1.243, FTI_loss: 0.016
+2026-04-07 21:25:19 [DEBUG]: con_loss: 1.759, RCL_loss: 0.709, FTI_loss: 0.018
+2026-04-07 21:25:19 [DEBUG]: con_loss: 1.740, RCL_loss: 1.178, FTI_loss: 0.035
+2026-04-07 21:25:19 [DEBUG]: con_loss: 1.777, RCL_loss: 1.232, FTI_loss: 0.040
+2026-04-07 21:25:20 [DEBUG]: con_loss: 1.777, RCL_loss: 0.934, FTI_loss: 0.011
+2026-04-07 21:25:20 [DEBUG]: con_loss: 1.799, RCL_loss: 1.401, FTI_loss: 0.056
+2026-04-07 21:25:20 [DEBUG]: con_loss: 1.776, RCL_loss: 1.183, FTI_loss: 0.222
+2026-04-07 21:25:20 [DEBUG]: con_loss: 1.764, RCL_loss: 1.261, FTI_loss: 0.275
+2026-04-07 21:25:21 [DEBUG]: con_loss: 1.754, RCL_loss: 1.243, FTI_loss: 0.014
+2026-04-07 21:25:21 [DEBUG]: con_loss: 1.791, RCL_loss: 1.348, FTI_loss: 0.003
+2026-04-07 21:25:21 [DEBUG]: con_loss: 1.824, RCL_loss: 1.418, FTI_loss: 0.101
+2026-04-07 21:25:22 [DEBUG]: con_loss: 1.792, RCL_loss: 1.247, FTI_loss: 0.039
+2026-04-07 21:25:22 [DEBUG]: con_loss: 1.791, RCL_loss: 0.961, FTI_loss: 0.001
+2026-04-07 21:25:22 [DEBUG]: con_loss: 1.770, RCL_loss: 1.172, FTI_loss: 0.283
+2026-04-07 21:25:23 [DEBUG]: con_loss: 1.733, RCL_loss: 1.376, FTI_loss: 0.016
+2026-04-07 21:25:23 [DEBUG]: con_loss: 1.780, RCL_loss: 1.319, FTI_loss: 0.165
+2026-04-07 21:25:23 [DEBUG]: con_loss: 1.786, RCL_loss: 0.944, FTI_loss: 0.026
+2026-04-07 21:25:24 [DEBUG]: con_loss: 1.800, RCL_loss: 1.522, FTI_loss: 0.408
+2026-04-07 21:25:24 [DEBUG]: con_loss: 1.838, RCL_loss: 1.115, FTI_loss: 0.433
+2026-04-07 21:25:24 [DEBUG]: con_loss: 1.751, RCL_loss: 0.663, FTI_loss: 0.247
+2026-04-07 21:25:24 [DEBUG]: con_loss: 1.787, RCL_loss: 1.264, FTI_loss: 0.049
+2026-04-07 21:25:25 [DEBUG]: con_loss: 1.736, RCL_loss: 1.860, FTI_loss: 0.104
+2026-04-07 21:25:25 [DEBUG]: con_loss: 1.797, RCL_loss: 1.212, FTI_loss: 0.012
+2026-04-07 21:25:25 [DEBUG]: con_loss: 1.770, RCL_loss: 0.888, FTI_loss: 0.008
+2026-04-07 21:25:26 [DEBUG]: con_loss: 1.810, RCL_loss: 0.827, FTI_loss: 0.267
+2026-04-07 21:25:26 [DEBUG]: con_loss: 1.751, RCL_loss: 1.137, FTI_loss: 0.118
+2026-04-07 21:25:26 [DEBUG]: con_loss: 1.738, RCL_loss: 1.293, FTI_loss: 0.004
+2026-04-07 21:25:27 [DEBUG]: con_loss: 1.766, RCL_loss: 1.244, FTI_loss: 1.345
+2026-04-07 21:25:27 [DEBUG]: con_loss: 1.773, RCL_loss: 1.145, FTI_loss: 0.026
+2026-04-07 21:25:27 [DEBUG]: con_loss: 1.818, RCL_loss: 1.350, FTI_loss: 0.118
+2026-04-07 21:25:28 [DEBUG]: con_loss: 1.846, RCL_loss: 1.124, FTI_loss: 0.252
+2026-04-07 21:25:28 [INFO]: Epoch 17 done. Loss: 3.644, Time per epoch: 11.700[s]
+2026-04-07 21:25:28 [DEBUG]: con_loss: 1.766, RCL_loss: 0.937, FTI_loss: 0.200
+2026-04-07 21:25:28 [DEBUG]: con_loss: 1.798, RCL_loss: 0.845, FTI_loss: 0.007
+2026-04-07 21:25:29 [DEBUG]: con_loss: 1.808, RCL_loss: 1.048, FTI_loss: 0.335
+2026-04-07 21:25:29 [DEBUG]: con_loss: 1.731, RCL_loss: 1.232, FTI_loss: 0.101
+2026-04-07 21:25:29 [DEBUG]: con_loss: 1.747, RCL_loss: 0.645, FTI_loss: 0.065
+2026-04-07 21:25:29 [DEBUG]: con_loss: 1.788, RCL_loss: 0.745, FTI_loss: 0.082
+2026-04-07 21:25:30 [DEBUG]: con_loss: 1.802, RCL_loss: 1.359, FTI_loss: 0.164
+2026-04-07 21:25:30 [DEBUG]: con_loss: 1.770, RCL_loss: 0.945, FTI_loss: 0.309
+2026-04-07 21:25:30 [DEBUG]: con_loss: 1.718, RCL_loss: 1.535, FTI_loss: 0.149
+2026-04-07 21:25:31 [DEBUG]: con_loss: 1.771, RCL_loss: 1.273, FTI_loss: 0.200
+2026-04-07 21:25:31 [DEBUG]: con_loss: 1.799, RCL_loss: 1.382, FTI_loss: 0.012
+2026-04-07 21:25:31 [DEBUG]: con_loss: 1.777, RCL_loss: 1.529, FTI_loss: 0.120
+2026-04-07 21:25:32 [DEBUG]: con_loss: 1.734, RCL_loss: 1.381, FTI_loss: 0.001
+2026-04-07 21:25:32 [DEBUG]: con_loss: 1.756, RCL_loss: 1.194, FTI_loss: 0.103
+2026-04-07 21:25:32 [DEBUG]: con_loss: 1.810, RCL_loss: 1.515, FTI_loss: 0.205
+2026-04-07 21:25:32 [DEBUG]: con_loss: 1.759, RCL_loss: 0.621, FTI_loss: 0.028
+2026-04-07 21:25:33 [DEBUG]: con_loss: 1.796, RCL_loss: 1.432, FTI_loss: 0.292
+2026-04-07 21:25:33 [DEBUG]: con_loss: 1.805, RCL_loss: 0.811, FTI_loss: 0.004
+2026-04-07 21:25:33 [DEBUG]: con_loss: 1.782, RCL_loss: 1.268, FTI_loss: 0.300
+2026-04-07 21:25:34 [DEBUG]: con_loss: 1.821, RCL_loss: 1.061, FTI_loss: 0.012
+2026-04-07 21:25:34 [DEBUG]: con_loss: 1.774, RCL_loss: 0.941, FTI_loss: 0.028
+2026-04-07 21:25:34 [DEBUG]: con_loss: 1.756, RCL_loss: 1.131, FTI_loss: 0.003
+2026-04-07 21:25:35 [DEBUG]: con_loss: 1.774, RCL_loss: 0.744, FTI_loss: 0.211
+2026-04-07 21:25:35 [DEBUG]: con_loss: 1.839, RCL_loss: 1.039, FTI_loss: 0.010
+2026-04-07 21:25:35 [DEBUG]: con_loss: 1.783, RCL_loss: 1.184, FTI_loss: 0.116
+2026-04-07 21:25:36 [DEBUG]: con_loss: 1.750, RCL_loss: 1.390, FTI_loss: 0.002
+2026-04-07 21:25:36 [DEBUG]: con_loss: 1.802, RCL_loss: 1.649, FTI_loss: 0.173
+2026-04-07 21:25:36 [DEBUG]: con_loss: 1.816, RCL_loss: 1.292, FTI_loss: 0.116
+2026-04-07 21:25:36 [DEBUG]: con_loss: 1.735, RCL_loss: 1.076, FTI_loss: 0.015
+2026-04-07 21:25:37 [DEBUG]: con_loss: 1.857, RCL_loss: 0.947, FTI_loss: 0.108
+2026-04-07 21:25:37 [DEBUG]: con_loss: 1.789, RCL_loss: 1.174, FTI_loss: 0.115
+2026-04-07 21:25:37 [DEBUG]: con_loss: 1.789, RCL_loss: 1.412, FTI_loss: 0.227
+2026-04-07 21:25:38 [DEBUG]: con_loss: 1.780, RCL_loss: 0.973, FTI_loss: 0.071
+2026-04-07 21:25:38 [DEBUG]: con_loss: 1.791, RCL_loss: 1.023, FTI_loss: 0.020
+2026-04-07 21:25:38 [DEBUG]: con_loss: 1.800, RCL_loss: 1.101, FTI_loss: 0.014
+2026-04-07 21:25:39 [DEBUG]: con_loss: 1.776, RCL_loss: 1.485, FTI_loss: 0.178
+2026-04-07 21:25:39 [DEBUG]: con_loss: 1.781, RCL_loss: 1.332, FTI_loss: 0.006
+2026-04-07 21:25:39 [DEBUG]: con_loss: 1.757, RCL_loss: 1.323, FTI_loss: 0.028
+2026-04-07 21:25:39 [INFO]: Epoch 18 done. Loss: 3.603, Time per epoch: 11.668[s]
+2026-04-07 21:25:40 [DEBUG]: con_loss: 1.787, RCL_loss: 1.377, FTI_loss: 0.017
+2026-04-07 21:25:40 [DEBUG]: con_loss: 1.794, RCL_loss: 1.176, FTI_loss: 0.221
+2026-04-07 21:25:40 [DEBUG]: con_loss: 1.787, RCL_loss: 0.639, FTI_loss: 0.073
+2026-04-07 21:25:40 [DEBUG]: con_loss: 1.737, RCL_loss: 1.117, FTI_loss: 0.019
+2026-04-07 21:25:41 [DEBUG]: con_loss: 1.784, RCL_loss: 0.662, FTI_loss: 0.001
+2026-04-07 21:25:41 [DEBUG]: con_loss: 1.786, RCL_loss: 1.241, FTI_loss: 0.003
+2026-04-07 21:25:41 [DEBUG]: con_loss: 1.799, RCL_loss: 0.796, FTI_loss: 0.079
+2026-04-07 21:25:42 [DEBUG]: con_loss: 1.749, RCL_loss: 1.647, FTI_loss: 0.023
+2026-04-07 21:25:42 [DEBUG]: con_loss: 1.775, RCL_loss: 1.334, FTI_loss: 0.104
+2026-04-07 21:25:42 [DEBUG]: con_loss: 1.775, RCL_loss: 1.107, FTI_loss: 0.024
+2026-04-07 21:25:43 [DEBUG]: con_loss: 1.751, RCL_loss: 1.090, FTI_loss: 0.034
+2026-04-07 21:25:43 [DEBUG]: con_loss: 1.766, RCL_loss: 1.357, FTI_loss: 0.010
+2026-04-07 21:25:43 [DEBUG]: con_loss: 1.757, RCL_loss: 1.257, FTI_loss: 0.041
+2026-04-07 21:25:44 [DEBUG]: con_loss: 1.784, RCL_loss: 0.198, FTI_loss: 0.000
+2026-04-07 21:25:44 [DEBUG]: con_loss: 1.798, RCL_loss: 1.453, FTI_loss: 0.152
+2026-04-07 21:25:44 [DEBUG]: con_loss: 1.805, RCL_loss: 1.219, FTI_loss: 0.089
+2026-04-07 21:25:45 [DEBUG]: con_loss: 1.802, RCL_loss: 1.533, FTI_loss: 0.017
+2026-04-07 21:25:45 [DEBUG]: con_loss: 1.759, RCL_loss: 1.192, FTI_loss: 0.064
+2026-04-07 21:25:45 [DEBUG]: con_loss: 1.789, RCL_loss: 1.676, FTI_loss: 0.227
+2026-04-07 21:25:46 [DEBUG]: con_loss: 1.746, RCL_loss: 1.485, FTI_loss: 0.020
+2026-04-07 21:25:46 [DEBUG]: con_loss: 1.780, RCL_loss: 0.930, FTI_loss: 0.016
+2026-04-07 21:25:47 [DEBUG]: con_loss: 1.731, RCL_loss: 1.530, FTI_loss: 2.967
+2026-04-07 21:25:47 [DEBUG]: con_loss: 1.733, RCL_loss: 0.981, FTI_loss: 0.009
+2026-04-07 21:25:47 [DEBUG]: con_loss: 1.799, RCL_loss: 1.142, FTI_loss: 0.646
+2026-04-07 21:25:47 [DEBUG]: con_loss: 1.751, RCL_loss: 1.363, FTI_loss: 0.004
+2026-04-07 21:25:48 [DEBUG]: con_loss: 1.765, RCL_loss: 1.640, FTI_loss: 0.271
+2026-04-07 21:25:48 [DEBUG]: con_loss: 1.803, RCL_loss: 0.684, FTI_loss: 0.011
+2026-04-07 21:25:48 [DEBUG]: con_loss: 1.795, RCL_loss: 1.368, FTI_loss: 0.085
+2026-04-07 21:25:49 [DEBUG]: con_loss: 1.804, RCL_loss: 1.166, FTI_loss: 0.009
+2026-04-07 21:25:49 [DEBUG]: con_loss: 1.792, RCL_loss: 1.230, FTI_loss: 0.168
+2026-04-07 21:25:49 [DEBUG]: con_loss: 1.863, RCL_loss: 1.477, FTI_loss: 0.138
+2026-04-07 21:25:50 [DEBUG]: con_loss: 1.806, RCL_loss: 1.606, FTI_loss: 0.161
+2026-04-07 21:25:50 [DEBUG]: con_loss: 1.790, RCL_loss: 0.929, FTI_loss: 0.160
+2026-04-07 21:25:50 [DEBUG]: con_loss: 1.789, RCL_loss: 0.942, FTI_loss: 0.004
+2026-04-07 21:25:50 [DEBUG]: con_loss: 1.846, RCL_loss: 0.975, FTI_loss: 0.291
+2026-04-07 21:25:51 [DEBUG]: con_loss: 1.750, RCL_loss: 1.174, FTI_loss: 0.002
+2026-04-07 21:25:51 [DEBUG]: con_loss: 1.816, RCL_loss: 0.888, FTI_loss: 0.041
+2026-04-07 21:25:51 [DEBUG]: con_loss: 1.754, RCL_loss: 0.206, FTI_loss: 0.000
+2026-04-07 21:25:51 [INFO]: Epoch 19 done. Loss: 3.628, Time per epoch: 12.152[s]
+2026-04-07 21:25:52 [DEBUG]: con_loss: 1.780, RCL_loss: 1.197, FTI_loss: 0.265
+2026-04-07 21:25:52 [DEBUG]: con_loss: 1.799, RCL_loss: 1.460, FTI_loss: 0.007
+2026-04-07 21:25:52 [DEBUG]: con_loss: 1.764, RCL_loss: 1.090, FTI_loss: 0.004
+2026-04-07 21:25:53 [DEBUG]: con_loss: 1.791, RCL_loss: 0.924, FTI_loss: 0.072
+2026-04-07 21:25:53 [DEBUG]: con_loss: 1.760, RCL_loss: 0.803, FTI_loss: 0.026
+2026-04-07 21:25:53 [DEBUG]: con_loss: 1.744, RCL_loss: 1.593, FTI_loss: 0.236
+2026-04-07 21:25:54 [DEBUG]: con_loss: 1.807, RCL_loss: 0.147, FTI_loss: 0.002
+2026-04-07 21:25:54 [DEBUG]: con_loss: 1.836, RCL_loss: 1.467, FTI_loss: 0.296
+2026-04-07 21:25:54 [DEBUG]: con_loss: 1.816, RCL_loss: 1.746, FTI_loss: 0.143
+2026-04-07 21:25:54 [DEBUG]: con_loss: 1.815, RCL_loss: 1.676, FTI_loss: 0.003
+2026-04-07 21:25:55 [DEBUG]: con_loss: 1.793, RCL_loss: 0.853, FTI_loss: 0.204
+2026-04-07 21:25:55 [DEBUG]: con_loss: 1.746, RCL_loss: 1.328, FTI_loss: 0.162
+2026-04-07 21:25:55 [DEBUG]: con_loss: 1.791, RCL_loss: 1.605, FTI_loss: 0.183
+2026-04-07 21:25:56 [DEBUG]: con_loss: 1.855, RCL_loss: 0.580, FTI_loss: 0.083
+2026-04-07 21:25:56 [DEBUG]: con_loss: 1.773, RCL_loss: 1.014, FTI_loss: 0.004
+2026-04-07 21:25:56 [DEBUG]: con_loss: 1.815, RCL_loss: 1.275, FTI_loss: 0.346
+2026-04-07 21:25:57 [DEBUG]: con_loss: 1.833, RCL_loss: 0.714, FTI_loss: 0.068
+2026-04-07 21:25:57 [DEBUG]: con_loss: 1.772, RCL_loss: 0.915, FTI_loss: 0.142
+2026-04-07 21:25:57 [DEBUG]: con_loss: 1.784, RCL_loss: 1.139, FTI_loss: 0.005
+2026-04-07 21:25:58 [DEBUG]: con_loss: 1.815, RCL_loss: 1.263, FTI_loss: 0.049
+2026-04-07 21:25:58 [DEBUG]: con_loss: 1.831, RCL_loss: 1.402, FTI_loss: 0.095
+2026-04-07 21:25:58 [DEBUG]: con_loss: 1.765, RCL_loss: 0.995, FTI_loss: 0.214
+2026-04-07 21:25:59 [DEBUG]: con_loss: 1.755, RCL_loss: 1.385, FTI_loss: 0.135
+2026-04-07 21:25:59 [DEBUG]: con_loss: 1.754, RCL_loss: 1.141, FTI_loss: 0.175
+2026-04-07 21:25:59 [DEBUG]: con_loss: 1.745, RCL_loss: 0.937, FTI_loss: 0.019
+2026-04-07 21:25:59 [DEBUG]: con_loss: 1.840, RCL_loss: 0.658, FTI_loss: 0.024
+2026-04-07 21:26:00 [DEBUG]: con_loss: 1.728, RCL_loss: 0.994, FTI_loss: 0.102
+2026-04-07 21:26:00 [DEBUG]: con_loss: 1.823, RCL_loss: 0.596, FTI_loss: 0.083
+2026-04-07 21:26:00 [DEBUG]: con_loss: 1.784, RCL_loss: 0.911, FTI_loss: 0.312
+2026-04-07 21:26:01 [DEBUG]: con_loss: 1.734, RCL_loss: 1.043, FTI_loss: 0.280
+2026-04-07 21:26:01 [DEBUG]: con_loss: 1.776, RCL_loss: 1.399, FTI_loss: 0.366
+2026-04-07 21:26:01 [DEBUG]: con_loss: 1.745, RCL_loss: 1.691, FTI_loss: 0.021
+2026-04-07 21:26:02 [DEBUG]: con_loss: 1.769, RCL_loss: 1.332, FTI_loss: 0.009
+2026-04-07 21:26:02 [DEBUG]: con_loss: 1.788, RCL_loss: 0.741, FTI_loss: 0.380
+2026-04-07 21:26:02 [DEBUG]: con_loss: 1.790, RCL_loss: 0.930, FTI_loss: 0.020
+2026-04-07 21:26:02 [DEBUG]: con_loss: 1.754, RCL_loss: 1.430, FTI_loss: 0.045
+2026-04-07 21:26:03 [DEBUG]: con_loss: 1.731, RCL_loss: 1.497, FTI_loss: 0.013
+2026-04-07 21:26:03 [DEBUG]: con_loss: 1.776, RCL_loss: 1.292, FTI_loss: 0.102
+2026-04-07 21:26:03 [INFO]: Epoch 20 done. Loss: 3.601, Time per epoch: 11.726[s]
+2026-04-07 21:26:03 [DEBUG]: con_loss: 1.790, RCL_loss: 1.369, FTI_loss: 0.056
+2026-04-07 21:26:04 [DEBUG]: con_loss: 1.771, RCL_loss: 1.258, FTI_loss: 0.155
+2026-04-07 21:26:04 [DEBUG]: con_loss: 1.746, RCL_loss: 0.837, FTI_loss: 0.030
+2026-04-07 21:26:04 [DEBUG]: con_loss: 1.796, RCL_loss: 1.684, FTI_loss: 0.086
+2026-04-07 21:26:05 [DEBUG]: con_loss: 1.821, RCL_loss: 0.664, FTI_loss: 0.042
+2026-04-07 21:26:05 [DEBUG]: con_loss: 1.798, RCL_loss: 0.874, FTI_loss: 0.015
+2026-04-07 21:26:05 [DEBUG]: con_loss: 1.804, RCL_loss: 1.284, FTI_loss: 0.234
+2026-04-07 21:26:06 [DEBUG]: con_loss: 1.776, RCL_loss: 1.200, FTI_loss: 0.007
+2026-04-07 21:26:06 [DEBUG]: con_loss: 1.783, RCL_loss: 1.244, FTI_loss: 0.111
+2026-04-07 21:26:06 [DEBUG]: con_loss: 1.729, RCL_loss: 1.048, FTI_loss: 0.012
+2026-04-07 21:26:06 [DEBUG]: con_loss: 1.800, RCL_loss: 0.835, FTI_loss: 0.152
+2026-04-07 21:26:07 [DEBUG]: con_loss: 1.820, RCL_loss: 0.992, FTI_loss: 0.215
+2026-04-07 21:26:07 [DEBUG]: con_loss: 1.737, RCL_loss: 0.307, FTI_loss: 0.006
+2026-04-07 21:26:07 [DEBUG]: con_loss: 1.798, RCL_loss: 0.137, FTI_loss: 0.001
+2026-04-07 21:26:08 [DEBUG]: con_loss: 1.726, RCL_loss: 1.466, FTI_loss: 0.082
+2026-04-07 21:26:08 [DEBUG]: con_loss: 1.821, RCL_loss: 1.091, FTI_loss: 0.388
+2026-04-07 21:26:08 [DEBUG]: con_loss: 1.789, RCL_loss: 1.199, FTI_loss: 0.028
+2026-04-07 21:26:09 [DEBUG]: con_loss: 1.738, RCL_loss: 1.336, FTI_loss: 0.196
+2026-04-07 21:26:09 [DEBUG]: con_loss: 1.760, RCL_loss: 1.163, FTI_loss: 0.331
+2026-04-07 21:26:09 [DEBUG]: con_loss: 1.729, RCL_loss: 0.130, FTI_loss: 0.010
+2026-04-07 21:26:10 [DEBUG]: con_loss: 1.759, RCL_loss: 1.178, FTI_loss: 0.004
+2026-04-07 21:26:10 [DEBUG]: con_loss: 1.768, RCL_loss: 1.193, FTI_loss: 0.001
+2026-04-07 21:26:10 [DEBUG]: con_loss: 1.782, RCL_loss: 1.158, FTI_loss: 0.098
+2026-04-07 21:26:10 [DEBUG]: con_loss: 1.806, RCL_loss: 1.086, FTI_loss: 0.028
+2026-04-07 21:26:11 [DEBUG]: con_loss: 1.799, RCL_loss: 1.022, FTI_loss: 0.070
+2026-04-07 21:26:11 [DEBUG]: con_loss: 1.743, RCL_loss: 0.947, FTI_loss: 0.011
+2026-04-07 21:26:11 [DEBUG]: con_loss: 1.768, RCL_loss: 1.493, FTI_loss: 0.003
+2026-04-07 21:26:12 [DEBUG]: con_loss: 1.766, RCL_loss: 1.170, FTI_loss: 0.000
+2026-04-07 21:26:12 [DEBUG]: con_loss: 1.775, RCL_loss: 0.280, FTI_loss: 0.106
+2026-04-07 21:26:12 [DEBUG]: con_loss: 1.797, RCL_loss: 0.490, FTI_loss: 0.002
+2026-04-07 21:26:13 [DEBUG]: con_loss: 1.853, RCL_loss: 1.506, FTI_loss: 1.314
+2026-04-07 21:26:13 [DEBUG]: con_loss: 1.831, RCL_loss: 1.041, FTI_loss: 0.057
+2026-04-07 21:26:13 [DEBUG]: con_loss: 1.796, RCL_loss: 1.207, FTI_loss: 0.229
+2026-04-07 21:26:14 [DEBUG]: con_loss: 1.761, RCL_loss: 1.773, FTI_loss: 0.039
+2026-04-07 21:26:14 [DEBUG]: con_loss: 1.763, RCL_loss: 1.558, FTI_loss: 0.017
+2026-04-07 21:26:14 [DEBUG]: con_loss: 1.801, RCL_loss: 1.304, FTI_loss: 0.042
+2026-04-07 21:26:14 [DEBUG]: con_loss: 1.792, RCL_loss: 0.610, FTI_loss: 0.040
+2026-04-07 21:26:15 [DEBUG]: con_loss: 1.753, RCL_loss: 1.510, FTI_loss: 0.083
+2026-04-07 21:26:15 [INFO]: Epoch 21 done. Loss: 3.561, Time per epoch: 11.641[s]
+2026-04-07 21:26:15 [DEBUG]: con_loss: 1.799, RCL_loss: 1.349, FTI_loss: 0.104
+2026-04-07 21:26:15 [DEBUG]: con_loss: 1.784, RCL_loss: 1.246, FTI_loss: 0.103
+2026-04-07 21:26:16 [DEBUG]: con_loss: 1.753, RCL_loss: 0.879, FTI_loss: 0.071
+2026-04-07 21:26:16 [DEBUG]: con_loss: 1.774, RCL_loss: 0.750, FTI_loss: 0.084
+2026-04-07 21:26:16 [DEBUG]: con_loss: 1.774, RCL_loss: 1.367, FTI_loss: 0.077
+2026-04-07 21:26:17 [DEBUG]: con_loss: 1.745, RCL_loss: 0.690, FTI_loss: 0.042
+2026-04-07 21:26:17 [DEBUG]: con_loss: 1.765, RCL_loss: 0.550, FTI_loss: 0.011
+2026-04-07 21:26:17 [DEBUG]: con_loss: 1.738, RCL_loss: 0.990, FTI_loss: 0.003
+2026-04-07 21:26:18 [DEBUG]: con_loss: 1.775, RCL_loss: 1.055, FTI_loss: 0.158
+2026-04-07 21:26:18 [DEBUG]: con_loss: 1.774, RCL_loss: 0.730, FTI_loss: 0.012
+2026-04-07 21:26:18 [DEBUG]: con_loss: 1.783, RCL_loss: 0.845, FTI_loss: 0.020
+2026-04-07 21:26:18 [DEBUG]: con_loss: 1.832, RCL_loss: 1.403, FTI_loss: 0.782
+2026-04-07 21:26:19 [DEBUG]: con_loss: 1.728, RCL_loss: 1.137, FTI_loss: 0.010
+2026-04-07 21:26:19 [DEBUG]: con_loss: 1.805, RCL_loss: 1.211, FTI_loss: 0.305
+2026-04-07 21:26:19 [DEBUG]: con_loss: 1.784, RCL_loss: 0.972, FTI_loss: 0.009
+2026-04-07 21:26:20 [DEBUG]: con_loss: 1.769, RCL_loss: 0.460, FTI_loss: 0.011
+2026-04-07 21:26:20 [DEBUG]: con_loss: 1.769, RCL_loss: 0.219, FTI_loss: 0.002
+2026-04-07 21:26:20 [DEBUG]: con_loss: 1.758, RCL_loss: 0.663, FTI_loss: 0.005
+2026-04-07 21:26:21 [DEBUG]: con_loss: 1.762, RCL_loss: 1.131, FTI_loss: 0.013
+2026-04-07 21:26:21 [DEBUG]: con_loss: 1.767, RCL_loss: 1.262, FTI_loss: 0.220
+2026-04-07 21:26:21 [DEBUG]: con_loss: 1.801, RCL_loss: 0.880, FTI_loss: 0.031
+2026-04-07 21:26:22 [DEBUG]: con_loss: 1.789, RCL_loss: 0.750, FTI_loss: 0.049
+2026-04-07 21:26:22 [DEBUG]: con_loss: 1.750, RCL_loss: 0.662, FTI_loss: 0.038
+2026-04-07 21:26:22 [DEBUG]: con_loss: 1.740, RCL_loss: 1.421, FTI_loss: 0.001
+2026-04-07 21:26:23 [DEBUG]: con_loss: 1.778, RCL_loss: 0.910, FTI_loss: 0.026
+2026-04-07 21:26:23 [DEBUG]: con_loss: 1.786, RCL_loss: 0.808, FTI_loss: 0.276
+2026-04-07 21:26:23 [DEBUG]: con_loss: 1.800, RCL_loss: 0.813, FTI_loss: 0.033
+2026-04-07 21:26:23 [DEBUG]: con_loss: 1.761, RCL_loss: 1.157, FTI_loss: 0.044
+2026-04-07 21:26:24 [DEBUG]: con_loss: 1.818, RCL_loss: 0.516, FTI_loss: 0.500
+2026-04-07 21:26:24 [DEBUG]: con_loss: 1.764, RCL_loss: 1.849, FTI_loss: 0.005
+2026-04-07 21:26:24 [DEBUG]: con_loss: 1.783, RCL_loss: 1.023, FTI_loss: 0.000
+2026-04-07 21:26:25 [DEBUG]: con_loss: 1.811, RCL_loss: 0.566, FTI_loss: 0.058
+2026-04-07 21:26:25 [DEBUG]: con_loss: 1.743, RCL_loss: 1.801, FTI_loss: 0.091
+2026-04-07 21:26:25 [DEBUG]: con_loss: 1.733, RCL_loss: 0.812, FTI_loss: 0.000
+2026-04-07 21:26:26 [DEBUG]: con_loss: 1.782, RCL_loss: 1.478, FTI_loss: 0.358
+2026-04-07 21:26:26 [DEBUG]: con_loss: 1.729, RCL_loss: 1.162, FTI_loss: 0.001
+2026-04-07 21:26:26 [DEBUG]: con_loss: 1.796, RCL_loss: 0.398, FTI_loss: 0.202
+2026-04-07 21:26:26 [DEBUG]: con_loss: 1.801, RCL_loss: 0.840, FTI_loss: 0.042
+2026-04-07 21:26:27 [INFO]: Epoch 22 done. Loss: 3.500, Time per epoch: 11.735[s]
+2026-04-07 21:26:27 [DEBUG]: con_loss: 1.795, RCL_loss: 1.047, FTI_loss: 0.215
+2026-04-07 21:26:27 [DEBUG]: con_loss: 1.794, RCL_loss: 1.845, FTI_loss: 0.200
+2026-04-07 21:26:27 [DEBUG]: con_loss: 1.813, RCL_loss: 0.690, FTI_loss: 0.316
+2026-04-07 21:26:28 [DEBUG]: con_loss: 1.770, RCL_loss: 0.888, FTI_loss: 0.008
+2026-04-07 21:26:28 [DEBUG]: con_loss: 1.789, RCL_loss: 1.856, FTI_loss: 0.117
+2026-04-07 21:26:28 [DEBUG]: con_loss: 1.768, RCL_loss: 1.044, FTI_loss: 0.231
+2026-04-07 21:26:29 [DEBUG]: con_loss: 1.800, RCL_loss: 0.964, FTI_loss: 0.002
+2026-04-07 21:26:29 [DEBUG]: con_loss: 1.763, RCL_loss: 1.401, FTI_loss: 0.001
+2026-04-07 21:26:29 [DEBUG]: con_loss: 1.788, RCL_loss: 1.123, FTI_loss: 0.275
+2026-04-07 21:26:30 [DEBUG]: con_loss: 1.767, RCL_loss: 1.530, FTI_loss: 0.009
+2026-04-07 21:26:30 [DEBUG]: con_loss: 1.826, RCL_loss: 0.590, FTI_loss: 0.166
+2026-04-07 21:26:30 [DEBUG]: con_loss: 1.769, RCL_loss: 1.238, FTI_loss: 0.232
+2026-04-07 21:26:31 [DEBUG]: con_loss: 1.832, RCL_loss: 0.579, FTI_loss: 0.015
+2026-04-07 21:26:31 [DEBUG]: con_loss: 1.727, RCL_loss: 1.470, FTI_loss: 0.075
+2026-04-07 21:26:31 [DEBUG]: con_loss: 1.775, RCL_loss: 1.315, FTI_loss: 0.021
+2026-04-07 21:26:32 [DEBUG]: con_loss: 1.773, RCL_loss: 0.625, FTI_loss: 0.247
+2026-04-07 21:26:32 [DEBUG]: con_loss: 1.739, RCL_loss: 1.205, FTI_loss: 0.026
+2026-04-07 21:26:32 [DEBUG]: con_loss: 1.810, RCL_loss: 1.051, FTI_loss: 0.136
+2026-04-07 21:26:33 [DEBUG]: con_loss: 1.780, RCL_loss: 0.516, FTI_loss: 0.016
+2026-04-07 21:26:33 [DEBUG]: con_loss: 1.767, RCL_loss: 0.993, FTI_loss: 0.087
+2026-04-07 21:26:33 [DEBUG]: con_loss: 1.740, RCL_loss: 1.372, FTI_loss: 0.419
+2026-04-07 21:26:33 [DEBUG]: con_loss: 1.783, RCL_loss: 1.082, FTI_loss: 0.509
+2026-04-07 21:26:34 [DEBUG]: con_loss: 1.748, RCL_loss: 0.937, FTI_loss: 0.025
+2026-04-07 21:26:34 [DEBUG]: con_loss: 1.793, RCL_loss: 1.465, FTI_loss: 0.013
+2026-04-07 21:26:34 [DEBUG]: con_loss: 1.796, RCL_loss: 0.383, FTI_loss: 0.050
+2026-04-07 21:26:35 [DEBUG]: con_loss: 1.815, RCL_loss: 1.446, FTI_loss: 0.086
+2026-04-07 21:26:35 [DEBUG]: con_loss: 1.788, RCL_loss: 1.024, FTI_loss: 0.021
+2026-04-07 21:26:35 [DEBUG]: con_loss: 1.805, RCL_loss: 0.641, FTI_loss: 0.090
+2026-04-07 21:26:36 [DEBUG]: con_loss: 1.761, RCL_loss: 0.204, FTI_loss: 0.002
+2026-04-07 21:26:36 [DEBUG]: con_loss: 1.760, RCL_loss: 1.020, FTI_loss: 0.079
+2026-04-07 21:26:36 [DEBUG]: con_loss: 1.716, RCL_loss: 1.407, FTI_loss: 0.153
+2026-04-07 21:26:37 [DEBUG]: con_loss: 1.792, RCL_loss: 1.075, FTI_loss: 1.109
+2026-04-07 21:26:37 [DEBUG]: con_loss: 1.790, RCL_loss: 1.161, FTI_loss: 0.248
+2026-04-07 21:26:37 [DEBUG]: con_loss: 1.713, RCL_loss: 1.121, FTI_loss: 0.001
+2026-04-07 21:26:37 [DEBUG]: con_loss: 1.765, RCL_loss: 1.906, FTI_loss: 0.030
+2026-04-07 21:26:38 [DEBUG]: con_loss: 1.842, RCL_loss: 0.721, FTI_loss: 0.186
+2026-04-07 21:26:38 [DEBUG]: con_loss: 1.765, RCL_loss: 1.797, FTI_loss: 0.017
+2026-04-07 21:26:38 [DEBUG]: con_loss: 1.770, RCL_loss: 1.497, FTI_loss: 0.003
+2026-04-07 21:26:38 [INFO]: Epoch 23 done. Loss: 3.596, Time per epoch: 11.859[s]
+2026-04-07 21:26:39 [DEBUG]: con_loss: 1.793, RCL_loss: 2.140, FTI_loss: 0.005
+2026-04-07 21:26:39 [DEBUG]: con_loss: 1.799, RCL_loss: 0.828, FTI_loss: 0.047
+2026-04-07 21:26:39 [DEBUG]: con_loss: 1.793, RCL_loss: 0.887, FTI_loss: 0.100
+2026-04-07 21:26:40 [DEBUG]: con_loss: 1.788, RCL_loss: 0.734, FTI_loss: 0.176
+2026-04-07 21:26:40 [DEBUG]: con_loss: 1.764, RCL_loss: 0.915, FTI_loss: 0.443
+2026-04-07 21:26:40 [DEBUG]: con_loss: 1.803, RCL_loss: 1.047, FTI_loss: 0.155
+2026-04-07 21:26:41 [DEBUG]: con_loss: 1.781, RCL_loss: 1.080, FTI_loss: 0.573
+2026-04-07 21:26:41 [DEBUG]: con_loss: 1.776, RCL_loss: 0.507, FTI_loss: 0.399
+2026-04-07 21:26:41 [DEBUG]: con_loss: 1.818, RCL_loss: 1.110, FTI_loss: 0.345
+2026-04-07 21:26:41 [DEBUG]: con_loss: 1.764, RCL_loss: 1.067, FTI_loss: 0.300
+2026-04-07 21:26:42 [DEBUG]: con_loss: 1.814, RCL_loss: 0.761, FTI_loss: 0.058
+2026-04-07 21:26:42 [DEBUG]: con_loss: 1.803, RCL_loss: 0.649, FTI_loss: 0.038
+2026-04-07 21:26:42 [DEBUG]: con_loss: 1.815, RCL_loss: 0.938, FTI_loss: 0.241
+2026-04-07 21:26:43 [DEBUG]: con_loss: 1.794, RCL_loss: 0.850, FTI_loss: 0.415
+2026-04-07 21:26:43 [DEBUG]: con_loss: 1.790, RCL_loss: 1.474, FTI_loss: 0.022
+2026-04-07 21:26:43 [DEBUG]: con_loss: 1.769, RCL_loss: 0.970, FTI_loss: 0.001
+2026-04-07 21:26:44 [DEBUG]: con_loss: 1.786, RCL_loss: 0.822, FTI_loss: 0.165
+2026-04-07 21:26:44 [DEBUG]: con_loss: 1.802, RCL_loss: 0.717, FTI_loss: 0.318
+2026-04-07 21:26:44 [DEBUG]: con_loss: 1.817, RCL_loss: 1.332, FTI_loss: 0.160
+2026-04-07 21:26:45 [DEBUG]: con_loss: 1.803, RCL_loss: 1.287, FTI_loss: 0.017
+2026-04-07 21:26:45 [DEBUG]: con_loss: 1.785, RCL_loss: 0.442, FTI_loss: 0.005
+2026-04-07 21:26:45 [DEBUG]: con_loss: 1.826, RCL_loss: 1.166, FTI_loss: 0.170
+2026-04-07 21:26:46 [DEBUG]: con_loss: 1.749, RCL_loss: 1.395, FTI_loss: 0.001
+2026-04-07 21:26:46 [DEBUG]: con_loss: 1.748, RCL_loss: 1.149, FTI_loss: 0.000
+2026-04-07 21:26:46 [DEBUG]: con_loss: 1.789, RCL_loss: 0.634, FTI_loss: 0.056
+2026-04-07 21:26:47 [DEBUG]: con_loss: 1.755, RCL_loss: 1.214, FTI_loss: 0.001
+2026-04-07 21:26:47 [DEBUG]: con_loss: 1.782, RCL_loss: 0.404, FTI_loss: 0.062
+2026-04-07 21:26:47 [DEBUG]: con_loss: 1.782, RCL_loss: 0.937, FTI_loss: 0.033
+2026-04-07 21:26:47 [DEBUG]: con_loss: 1.800, RCL_loss: 0.618, FTI_loss: 0.008
+2026-04-07 21:26:48 [DEBUG]: con_loss: 1.777, RCL_loss: 2.047, FTI_loss: 0.011
+2026-04-07 21:26:48 [DEBUG]: con_loss: 1.819, RCL_loss: 1.195, FTI_loss: 0.201
+2026-04-07 21:26:48 [DEBUG]: con_loss: 1.751, RCL_loss: 1.186, FTI_loss: 0.013
+2026-04-07 21:26:49 [DEBUG]: con_loss: 1.853, RCL_loss: 2.157, FTI_loss: 0.154
+2026-04-07 21:26:49 [DEBUG]: con_loss: 1.825, RCL_loss: 0.701, FTI_loss: 0.348
+2026-04-07 21:26:49 [DEBUG]: con_loss: 1.827, RCL_loss: 1.176, FTI_loss: 0.011
+2026-04-07 21:26:50 [DEBUG]: con_loss: 1.793, RCL_loss: 1.549, FTI_loss: 0.038
+2026-04-07 21:26:50 [DEBUG]: con_loss: 1.828, RCL_loss: 1.283, FTI_loss: 0.234
+2026-04-07 21:26:50 [DEBUG]: con_loss: 1.756, RCL_loss: 1.135, FTI_loss: 0.093
+2026-04-07 21:26:50 [INFO]: Epoch 24 done. Loss: 3.580, Time per epoch: 11.838[s]
+2026-04-07 21:26:51 [DEBUG]: con_loss: 1.770, RCL_loss: 0.862, FTI_loss: 0.226
+2026-04-07 21:26:51 [DEBUG]: con_loss: 1.783, RCL_loss: 1.251, FTI_loss: 0.025
+2026-04-07 21:26:51 [DEBUG]: con_loss: 1.805, RCL_loss: 1.243, FTI_loss: 0.007
+2026-04-07 21:26:51 [DEBUG]: con_loss: 1.767, RCL_loss: 0.790, FTI_loss: 0.061
+2026-04-07 21:26:52 [DEBUG]: con_loss: 1.766, RCL_loss: 0.644, FTI_loss: 0.200
+2026-04-07 21:26:52 [DEBUG]: con_loss: 1.830, RCL_loss: 0.367, FTI_loss: 0.007
+2026-04-07 21:26:52 [DEBUG]: con_loss: 1.805, RCL_loss: 0.789, FTI_loss: 0.062
+2026-04-07 21:26:53 [DEBUG]: con_loss: 1.816, RCL_loss: 1.561, FTI_loss: 0.014
+2026-04-07 21:26:53 [DEBUG]: con_loss: 1.791, RCL_loss: 0.987, FTI_loss: 0.245
+2026-04-07 21:26:53 [DEBUG]: con_loss: 1.760, RCL_loss: 1.290, FTI_loss: 0.256
+2026-04-07 21:26:54 [DEBUG]: con_loss: 1.761, RCL_loss: 0.480, FTI_loss: 0.006
+2026-04-07 21:26:54 [DEBUG]: con_loss: 1.785, RCL_loss: 0.855, FTI_loss: 0.123
+2026-04-07 21:26:54 [DEBUG]: con_loss: 1.760, RCL_loss: 0.815, FTI_loss: 0.310
+2026-04-07 21:26:55 [DEBUG]: con_loss: 1.830, RCL_loss: 1.719, FTI_loss: 0.397
+2026-04-07 21:26:55 [DEBUG]: con_loss: 1.785, RCL_loss: 1.960, FTI_loss: 0.175
+2026-04-07 21:26:55 [DEBUG]: con_loss: 1.794, RCL_loss: 1.268, FTI_loss: 0.256
+2026-04-07 21:26:55 [DEBUG]: con_loss: 1.770, RCL_loss: 1.447, FTI_loss: 0.167
+2026-04-07 21:26:56 [DEBUG]: con_loss: 1.770, RCL_loss: 0.710, FTI_loss: 0.004
+2026-04-07 21:26:57 [DEBUG]: con_loss: 1.771, RCL_loss: 0.838, FTI_loss: 0.068
+2026-04-07 21:26:57 [DEBUG]: con_loss: 1.826, RCL_loss: 0.646, FTI_loss: 0.022
+2026-04-07 21:26:57 [DEBUG]: con_loss: 1.766, RCL_loss: 1.910, FTI_loss: 0.009
+2026-04-07 21:26:57 [DEBUG]: con_loss: 1.790, RCL_loss: 0.512, FTI_loss: 0.037
+2026-04-07 21:26:58 [DEBUG]: con_loss: 1.756, RCL_loss: 0.969, FTI_loss: 0.018
+2026-04-07 21:26:58 [DEBUG]: con_loss: 1.859, RCL_loss: 1.269, FTI_loss: 0.008
+2026-04-07 21:26:58 [DEBUG]: con_loss: 1.787, RCL_loss: 1.149, FTI_loss: 0.087
+2026-04-07 21:26:59 [DEBUG]: con_loss: 1.820, RCL_loss: 0.872, FTI_loss: 0.012
+2026-04-07 21:26:59 [DEBUG]: con_loss: 1.812, RCL_loss: 0.987, FTI_loss: 0.034
+2026-04-07 21:26:59 [DEBUG]: con_loss: 1.815, RCL_loss: 1.552, FTI_loss: 0.410
+2026-04-07 21:27:00 [DEBUG]: con_loss: 1.770, RCL_loss: 0.638, FTI_loss: 0.031
+2026-04-07 21:27:00 [DEBUG]: con_loss: 1.787, RCL_loss: 1.741, FTI_loss: 0.091
+2026-04-07 21:27:00 [DEBUG]: con_loss: 1.715, RCL_loss: 1.303, FTI_loss: 0.008
+2026-04-07 21:27:01 [DEBUG]: con_loss: 1.807, RCL_loss: 0.604, FTI_loss: 0.038
+2026-04-07 21:27:01 [DEBUG]: con_loss: 1.778, RCL_loss: 1.363, FTI_loss: 0.166
+2026-04-07 21:27:01 [DEBUG]: con_loss: 1.755, RCL_loss: 1.645, FTI_loss: 0.070
+2026-04-07 21:27:02 [DEBUG]: con_loss: 1.788, RCL_loss: 1.122, FTI_loss: 0.198
+2026-04-07 21:27:02 [DEBUG]: con_loss: 1.822, RCL_loss: 0.626, FTI_loss: 0.105
+2026-04-07 21:27:02 [DEBUG]: con_loss: 1.810, RCL_loss: 0.972, FTI_loss: 0.136
+2026-04-07 21:27:02 [DEBUG]: con_loss: 1.773, RCL_loss: 0.639, FTI_loss: 0.231
+2026-04-07 21:27:02 [INFO]: Epoch 25 done. Loss: 3.562, Time per epoch: 12.247[s]
+2026-04-07 21:27:03 [DEBUG]: con_loss: 1.844, RCL_loss: 0.951, FTI_loss: 0.169
+2026-04-07 21:27:03 [DEBUG]: con_loss: 1.791, RCL_loss: 1.034, FTI_loss: 0.005
+2026-04-07 21:27:03 [DEBUG]: con_loss: 1.797, RCL_loss: 0.855, FTI_loss: 0.268
+2026-04-07 21:27:04 [DEBUG]: con_loss: 1.850, RCL_loss: 0.697, FTI_loss: 0.184
+2026-04-07 21:27:04 [DEBUG]: con_loss: 1.797, RCL_loss: 0.973, FTI_loss: 0.223
+2026-04-07 21:27:04 [DEBUG]: con_loss: 1.732, RCL_loss: 0.985, FTI_loss: 0.045
+2026-04-07 21:27:05 [DEBUG]: con_loss: 1.805, RCL_loss: 0.774, FTI_loss: 0.033
+2026-04-07 21:27:05 [DEBUG]: con_loss: 1.761, RCL_loss: 0.119, FTI_loss: 0.004
+2026-04-07 21:27:05 [DEBUG]: con_loss: 1.776, RCL_loss: 0.863, FTI_loss: 0.327
+2026-04-07 21:27:06 [DEBUG]: con_loss: 1.773, RCL_loss: 0.586, FTI_loss: 0.007
+2026-04-07 21:27:06 [DEBUG]: con_loss: 1.737, RCL_loss: 1.399, FTI_loss: 0.016
+2026-04-07 21:27:06 [DEBUG]: con_loss: 1.782, RCL_loss: 1.559, FTI_loss: 0.017
+2026-04-07 21:27:07 [DEBUG]: con_loss: 1.834, RCL_loss: 0.909, FTI_loss: 0.020
+2026-04-07 21:27:07 [DEBUG]: con_loss: 1.777, RCL_loss: 0.936, FTI_loss: 0.189
+2026-04-07 21:27:07 [DEBUG]: con_loss: 1.763, RCL_loss: 1.126, FTI_loss: 0.163
+2026-04-07 21:27:07 [DEBUG]: con_loss: 1.797, RCL_loss: 0.908, FTI_loss: 0.002
+2026-04-07 21:27:08 [DEBUG]: con_loss: 1.793, RCL_loss: 1.412, FTI_loss: 0.109
+2026-04-07 21:27:08 [DEBUG]: con_loss: 1.815, RCL_loss: 0.251, FTI_loss: 0.013
+2026-04-07 21:27:08 [DEBUG]: con_loss: 1.788, RCL_loss: 1.433, FTI_loss: 0.006
+2026-04-07 21:27:09 [DEBUG]: con_loss: 1.805, RCL_loss: 1.157, FTI_loss: 0.815
+2026-04-07 21:27:09 [DEBUG]: con_loss: 1.753, RCL_loss: 1.220, FTI_loss: 0.006
+2026-04-07 21:27:09 [DEBUG]: con_loss: 1.834, RCL_loss: 1.127, FTI_loss: 0.146
+2026-04-07 21:27:10 [DEBUG]: con_loss: 1.821, RCL_loss: 0.563, FTI_loss: 0.003
+2026-04-07 21:27:10 [DEBUG]: con_loss: 1.733, RCL_loss: 0.371, FTI_loss: 0.001
+2026-04-07 21:27:10 [DEBUG]: con_loss: 1.757, RCL_loss: 0.944, FTI_loss: 0.005
+2026-04-07 21:27:11 [DEBUG]: con_loss: 1.734, RCL_loss: 1.405, FTI_loss: 0.004
+2026-04-07 21:27:11 [DEBUG]: con_loss: 1.783, RCL_loss: 0.506, FTI_loss: 0.013
+2026-04-07 21:27:11 [DEBUG]: con_loss: 1.808, RCL_loss: 0.634, FTI_loss: 0.028
+2026-04-07 21:27:11 [DEBUG]: con_loss: 1.790, RCL_loss: 0.968, FTI_loss: 0.501
+2026-04-07 21:27:12 [DEBUG]: con_loss: 1.774, RCL_loss: 0.641, FTI_loss: 0.010
+2026-04-07 21:27:12 [DEBUG]: con_loss: 1.765, RCL_loss: 0.855, FTI_loss: 0.034
+2026-04-07 21:27:12 [DEBUG]: con_loss: 1.811, RCL_loss: 0.634, FTI_loss: 0.951
+2026-04-07 21:27:13 [DEBUG]: con_loss: 1.771, RCL_loss: 1.018, FTI_loss: 0.303
+2026-04-07 21:27:13 [DEBUG]: con_loss: 1.807, RCL_loss: 0.841, FTI_loss: 0.050
+2026-04-07 21:27:13 [DEBUG]: con_loss: 1.804, RCL_loss: 2.223, FTI_loss: 0.204
+2026-04-07 21:27:14 [DEBUG]: con_loss: 1.759, RCL_loss: 1.999, FTI_loss: 0.539
+2026-04-07 21:27:14 [DEBUG]: con_loss: 1.765, RCL_loss: 0.777, FTI_loss: 0.311
+2026-04-07 21:27:14 [DEBUG]: con_loss: 1.801, RCL_loss: 0.431, FTI_loss: 0.074
+2026-04-07 21:27:14 [INFO]: Epoch 26 done. Loss: 3.524, Time per epoch: 11.726[s]
+2026-04-07 21:27:15 [DEBUG]: con_loss: 1.782, RCL_loss: 0.950, FTI_loss: 0.003
+2026-04-07 21:27:15 [DEBUG]: con_loss: 1.834, RCL_loss: 1.618, FTI_loss: 0.284
+2026-04-07 21:27:15 [DEBUG]: con_loss: 1.745, RCL_loss: 1.084, FTI_loss: 0.074
+2026-04-07 21:27:15 [DEBUG]: con_loss: 1.813, RCL_loss: 1.167, FTI_loss: 0.005
+2026-04-07 21:27:16 [DEBUG]: con_loss: 1.836, RCL_loss: 0.633, FTI_loss: 0.030
+2026-04-07 21:27:16 [DEBUG]: con_loss: 1.821, RCL_loss: 0.537, FTI_loss: 0.138
+2026-04-07 21:27:16 [DEBUG]: con_loss: 1.767, RCL_loss: 0.417, FTI_loss: 0.001
+2026-04-07 21:27:17 [DEBUG]: con_loss: 1.767, RCL_loss: 0.311, FTI_loss: 0.010
+2026-04-07 21:27:17 [DEBUG]: con_loss: 1.819, RCL_loss: 0.846, FTI_loss: 0.345
+2026-04-07 21:27:17 [DEBUG]: con_loss: 1.799, RCL_loss: 1.334, FTI_loss: 0.005
+2026-04-07 21:27:18 [DEBUG]: con_loss: 1.789, RCL_loss: 1.132, FTI_loss: 0.056
+2026-04-07 21:27:18 [DEBUG]: con_loss: 1.795, RCL_loss: 0.615, FTI_loss: 0.176
+2026-04-07 21:27:18 [DEBUG]: con_loss: 1.781, RCL_loss: 1.172, FTI_loss: 0.057
+2026-04-07 21:27:19 [DEBUG]: con_loss: 1.753, RCL_loss: 1.054, FTI_loss: 0.054
+2026-04-07 21:27:19 [DEBUG]: con_loss: 1.798, RCL_loss: 1.290, FTI_loss: 0.466
+2026-04-07 21:27:19 [DEBUG]: con_loss: 1.791, RCL_loss: 0.897, FTI_loss: 0.021
+2026-04-07 21:27:20 [DEBUG]: con_loss: 1.811, RCL_loss: 0.686, FTI_loss: 0.006
+2026-04-07 21:27:20 [DEBUG]: con_loss: 1.853, RCL_loss: 0.938, FTI_loss: 0.004
+2026-04-07 21:27:20 [DEBUG]: con_loss: 1.764, RCL_loss: 0.916, FTI_loss: 0.415
+2026-04-07 21:27:21 [DEBUG]: con_loss: 1.799, RCL_loss: 1.617, FTI_loss: 0.249
+2026-04-07 21:27:21 [DEBUG]: con_loss: 1.839, RCL_loss: 0.800, FTI_loss: 0.142
+2026-04-07 21:27:22 [DEBUG]: con_loss: 1.787, RCL_loss: 0.091, FTI_loss: 0.001
+2026-04-07 21:27:22 [DEBUG]: con_loss: 1.762, RCL_loss: 1.792, FTI_loss: 0.167
+2026-04-07 21:27:22 [DEBUG]: con_loss: 1.765, RCL_loss: 1.342, FTI_loss: 0.005
+2026-04-07 21:27:23 [DEBUG]: con_loss: 1.831, RCL_loss: 1.174, FTI_loss: 0.003
+2026-04-07 21:27:23 [DEBUG]: con_loss: 1.752, RCL_loss: 0.898, FTI_loss: 0.018
+2026-04-07 21:27:23 [DEBUG]: con_loss: 1.728, RCL_loss: 0.079, FTI_loss: 0.001
+2026-04-07 21:27:24 [DEBUG]: con_loss: 1.803, RCL_loss: 0.798, FTI_loss: 0.004
+2026-04-07 21:27:24 [DEBUG]: con_loss: 1.780, RCL_loss: 1.476, FTI_loss: 0.149
+2026-04-07 21:27:24 [DEBUG]: con_loss: 1.803, RCL_loss: 1.158, FTI_loss: 0.195
+2026-04-07 21:27:25 [DEBUG]: con_loss: 1.798, RCL_loss: 1.208, FTI_loss: 0.110
+2026-04-07 21:27:25 [DEBUG]: con_loss: 1.746, RCL_loss: 0.893, FTI_loss: 0.002
+2026-04-07 21:27:25 [DEBUG]: con_loss: 1.767, RCL_loss: 0.280, FTI_loss: 0.014
+2026-04-07 21:27:26 [DEBUG]: con_loss: 1.764, RCL_loss: 0.336, FTI_loss: 0.128
+2026-04-07 21:27:26 [DEBUG]: con_loss: 1.775, RCL_loss: 1.560, FTI_loss: 0.045
+2026-04-07 21:27:26 [DEBUG]: con_loss: 1.767, RCL_loss: 1.275, FTI_loss: 0.213
+2026-04-07 21:27:27 [DEBUG]: con_loss: 1.765, RCL_loss: 0.652, FTI_loss: 0.267
+2026-04-07 21:27:27 [DEBUG]: con_loss: 1.773, RCL_loss: 0.149, FTI_loss: 0.000
+2026-04-07 21:27:27 [INFO]: Epoch 27 done. Loss: 3.487, Time per epoch: 12.770[s]
+2026-04-07 21:27:27 [DEBUG]: con_loss: 1.769, RCL_loss: 1.108, FTI_loss: 0.059
+2026-04-07 21:27:28 [DEBUG]: con_loss: 1.768, RCL_loss: 0.761, FTI_loss: 0.125
+2026-04-07 21:27:28 [DEBUG]: con_loss: 1.758, RCL_loss: 0.783, FTI_loss: 0.000
+2026-04-07 21:27:28 [DEBUG]: con_loss: 1.774, RCL_loss: 0.546, FTI_loss: 0.024
+2026-04-07 21:27:29 [DEBUG]: con_loss: 1.796, RCL_loss: 1.255, FTI_loss: 0.141
+2026-04-07 21:27:29 [DEBUG]: con_loss: 1.745, RCL_loss: 1.020, FTI_loss: 0.016
+2026-04-07 21:27:29 [DEBUG]: con_loss: 1.801, RCL_loss: 1.033, FTI_loss: 0.000
+2026-04-07 21:27:30 [DEBUG]: con_loss: 1.827, RCL_loss: 0.606, FTI_loss: 0.009
+2026-04-07 21:27:30 [DEBUG]: con_loss: 1.820, RCL_loss: 0.983, FTI_loss: 0.061
+2026-04-07 21:27:30 [DEBUG]: con_loss: 1.819, RCL_loss: 0.471, FTI_loss: 0.345
+2026-04-07 21:27:31 [DEBUG]: con_loss: 1.799, RCL_loss: 0.831, FTI_loss: 0.039
+2026-04-07 21:27:31 [DEBUG]: con_loss: 1.744, RCL_loss: 1.076, FTI_loss: 0.000
+2026-04-07 21:27:31 [DEBUG]: con_loss: 1.812, RCL_loss: 0.989, FTI_loss: 0.146
+2026-04-07 21:27:32 [DEBUG]: con_loss: 1.811, RCL_loss: 0.826, FTI_loss: 0.222
+2026-04-07 21:27:32 [DEBUG]: con_loss: 1.828, RCL_loss: 0.931, FTI_loss: 0.024
+2026-04-07 21:27:32 [DEBUG]: con_loss: 1.775, RCL_loss: 1.082, FTI_loss: 0.271
+2026-04-07 21:27:33 [DEBUG]: con_loss: 1.843, RCL_loss: 0.432, FTI_loss: 0.003
+2026-04-07 21:27:33 [DEBUG]: con_loss: 1.772, RCL_loss: 0.737, FTI_loss: 0.332
+2026-04-07 21:27:34 [DEBUG]: con_loss: 1.787, RCL_loss: 1.400, FTI_loss: 0.564
+2026-04-07 21:27:34 [DEBUG]: con_loss: 1.751, RCL_loss: 0.963, FTI_loss: 0.016
+2026-04-07 21:27:34 [DEBUG]: con_loss: 1.786, RCL_loss: 1.707, FTI_loss: 0.020
+2026-04-07 21:27:35 [DEBUG]: con_loss: 1.752, RCL_loss: 1.266, FTI_loss: 0.042
+2026-04-07 21:27:35 [DEBUG]: con_loss: 1.854, RCL_loss: 0.839, FTI_loss: 0.206
+2026-04-07 21:27:35 [DEBUG]: con_loss: 1.805, RCL_loss: 0.940, FTI_loss: 0.065
+2026-04-07 21:27:36 [DEBUG]: con_loss: 1.780, RCL_loss: 0.686, FTI_loss: 0.211
+2026-04-07 21:27:36 [DEBUG]: con_loss: 1.787, RCL_loss: 0.784, FTI_loss: 0.140
+2026-04-07 21:27:36 [DEBUG]: con_loss: 1.800, RCL_loss: 0.642, FTI_loss: 0.152
+2026-04-07 21:27:37 [DEBUG]: con_loss: 1.853, RCL_loss: 0.854, FTI_loss: 0.088
+2026-04-07 21:27:37 [DEBUG]: con_loss: 1.850, RCL_loss: 0.754, FTI_loss: 0.524
+2026-04-07 21:27:37 [DEBUG]: con_loss: 1.831, RCL_loss: 1.311, FTI_loss: 1.066
+2026-04-07 21:27:38 [DEBUG]: con_loss: 1.782, RCL_loss: 0.936, FTI_loss: 0.126
+2026-04-07 21:27:38 [DEBUG]: con_loss: 1.841, RCL_loss: 0.763, FTI_loss: 0.197
+2026-04-07 21:27:38 [DEBUG]: con_loss: 1.741, RCL_loss: 1.099, FTI_loss: 0.008
+2026-04-07 21:27:39 [DEBUG]: con_loss: 1.785, RCL_loss: 0.244, FTI_loss: 0.041
+2026-04-07 21:27:39 [DEBUG]: con_loss: 1.727, RCL_loss: 1.120, FTI_loss: 0.018
+2026-04-07 21:27:39 [DEBUG]: con_loss: 1.809, RCL_loss: 1.750, FTI_loss: 0.677
+2026-04-07 21:27:40 [DEBUG]: con_loss: 1.790, RCL_loss: 0.872, FTI_loss: 0.001
+2026-04-07 21:27:40 [DEBUG]: con_loss: 1.809, RCL_loss: 0.929, FTI_loss: 0.085
+2026-04-07 21:27:40 [INFO]: Epoch 28 done. Loss: 3.521, Time per epoch: 13.157[s]
+2026-04-07 21:27:40 [DEBUG]: con_loss: 1.833, RCL_loss: 0.502, FTI_loss: 0.098
+2026-04-07 21:27:41 [DEBUG]: con_loss: 1.783, RCL_loss: 0.907, FTI_loss: 0.084
+2026-04-07 21:27:41 [DEBUG]: con_loss: 1.754, RCL_loss: 0.736, FTI_loss: 0.257
+2026-04-07 21:27:42 [DEBUG]: con_loss: 1.737, RCL_loss: 1.060, FTI_loss: 0.010
+2026-04-07 21:27:42 [DEBUG]: con_loss: 1.855, RCL_loss: 0.877, FTI_loss: 0.198
+2026-04-07 21:27:42 [DEBUG]: con_loss: 1.754, RCL_loss: 0.667, FTI_loss: 0.000
+2026-04-07 21:27:43 [DEBUG]: con_loss: 1.747, RCL_loss: 1.032, FTI_loss: 0.022
+2026-04-07 21:27:43 [DEBUG]: con_loss: 1.775, RCL_loss: 0.960, FTI_loss: 0.046
+2026-04-07 21:27:43 [DEBUG]: con_loss: 1.767, RCL_loss: 1.512, FTI_loss: 0.048
+2026-04-07 21:27:44 [DEBUG]: con_loss: 1.753, RCL_loss: 0.522, FTI_loss: 0.013
+2026-04-07 21:27:44 [DEBUG]: con_loss: 1.783, RCL_loss: 1.099, FTI_loss: 0.156
+2026-04-07 21:27:44 [DEBUG]: con_loss: 1.746, RCL_loss: 0.825, FTI_loss: 0.008
+2026-04-07 21:27:45 [DEBUG]: con_loss: 1.731, RCL_loss: 0.717, FTI_loss: 0.007
+2026-04-07 21:27:45 [DEBUG]: con_loss: 1.739, RCL_loss: 0.670, FTI_loss: 0.011
+2026-04-07 21:27:45 [DEBUG]: con_loss: 1.833, RCL_loss: 1.090, FTI_loss: 0.036
+2026-04-07 21:27:46 [DEBUG]: con_loss: 1.814, RCL_loss: 0.854, FTI_loss: 0.260
+2026-04-07 21:27:46 [DEBUG]: con_loss: 1.766, RCL_loss: 1.237, FTI_loss: 0.009
+2026-04-07 21:27:46 [DEBUG]: con_loss: 1.802, RCL_loss: 0.799, FTI_loss: 0.016
+2026-04-07 21:27:47 [DEBUG]: con_loss: 1.770, RCL_loss: 1.101, FTI_loss: 0.011
+2026-04-07 21:27:47 [DEBUG]: con_loss: 1.822, RCL_loss: 1.181, FTI_loss: 0.082
+2026-04-07 21:27:48 [DEBUG]: con_loss: 1.762, RCL_loss: 1.037, FTI_loss: 0.204
+2026-04-07 21:27:48 [DEBUG]: con_loss: 1.769, RCL_loss: 0.759, FTI_loss: 0.004
+2026-04-07 21:27:48 [DEBUG]: con_loss: 1.774, RCL_loss: 0.793, FTI_loss: 0.002
+2026-04-07 21:27:49 [DEBUG]: con_loss: 1.790, RCL_loss: 1.103, FTI_loss: 0.008
+2026-04-07 21:27:49 [DEBUG]: con_loss: 1.799, RCL_loss: 0.662, FTI_loss: 0.302
+2026-04-07 21:27:49 [DEBUG]: con_loss: 1.769, RCL_loss: 0.750, FTI_loss: 0.439
+2026-04-07 21:27:50 [DEBUG]: con_loss: 1.787, RCL_loss: 1.563, FTI_loss: 0.006
+2026-04-07 21:27:50 [DEBUG]: con_loss: 1.812, RCL_loss: 1.516, FTI_loss: 0.042
+2026-04-07 21:27:50 [DEBUG]: con_loss: 1.822, RCL_loss: 1.447, FTI_loss: 0.076
+2026-04-07 21:27:51 [DEBUG]: con_loss: 1.774, RCL_loss: 0.989, FTI_loss: 0.131
+2026-04-07 21:27:51 [DEBUG]: con_loss: 1.803, RCL_loss: 1.398, FTI_loss: 0.023
+2026-04-07 21:27:51 [DEBUG]: con_loss: 1.798, RCL_loss: 0.699, FTI_loss: 0.247
+2026-04-07 21:27:52 [DEBUG]: con_loss: 1.771, RCL_loss: 0.937, FTI_loss: 0.133
+2026-04-07 21:27:52 [DEBUG]: con_loss: 1.738, RCL_loss: 1.171, FTI_loss: 0.001
+2026-04-07 21:27:52 [DEBUG]: con_loss: 1.827, RCL_loss: 0.417, FTI_loss: 0.014
+2026-04-07 21:27:53 [DEBUG]: con_loss: 1.776, RCL_loss: 0.177, FTI_loss: 0.001
+2026-04-07 21:27:53 [DEBUG]: con_loss: 1.770, RCL_loss: 0.663, FTI_loss: 0.011
+2026-04-07 21:27:53 [DEBUG]: con_loss: 1.770, RCL_loss: 0.436, FTI_loss: 0.004
+2026-04-07 21:27:53 [INFO]: Epoch 29 done. Loss: 3.468, Time per epoch: 13.236[s]
+2026-04-07 21:27:54 [DEBUG]: con_loss: 1.789, RCL_loss: 0.679, FTI_loss: 0.017
+2026-04-07 21:27:54 [DEBUG]: con_loss: 1.716, RCL_loss: 0.701, FTI_loss: 0.001
+2026-04-07 21:27:54 [DEBUG]: con_loss: 1.779, RCL_loss: 0.884, FTI_loss: 0.007
+2026-04-07 21:27:55 [DEBUG]: con_loss: 1.751, RCL_loss: 0.452, FTI_loss: 0.004
+2026-04-07 21:27:55 [DEBUG]: con_loss: 1.775, RCL_loss: 1.033, FTI_loss: 0.224
+2026-04-07 21:27:55 [DEBUG]: con_loss: 1.715, RCL_loss: 0.607, FTI_loss: 0.003
+2026-04-07 21:27:56 [DEBUG]: con_loss: 1.817, RCL_loss: 0.771, FTI_loss: 0.098
+2026-04-07 21:27:56 [DEBUG]: con_loss: 1.784, RCL_loss: 0.281, FTI_loss: 0.006
+2026-04-07 21:27:57 [DEBUG]: con_loss: 1.738, RCL_loss: 0.787, FTI_loss: 0.032
+2026-04-07 21:27:57 [DEBUG]: con_loss: 1.793, RCL_loss: 0.979, FTI_loss: 0.007
+2026-04-07 21:27:57 [DEBUG]: con_loss: 1.722, RCL_loss: 0.073, FTI_loss: 0.005
+2026-04-07 21:27:58 [DEBUG]: con_loss: 1.749, RCL_loss: 0.790, FTI_loss: 0.188
+2026-04-07 21:27:58 [DEBUG]: con_loss: 1.786, RCL_loss: 0.734, FTI_loss: 0.355
+2026-04-07 21:27:58 [DEBUG]: con_loss: 1.794, RCL_loss: 1.101, FTI_loss: 0.026
+2026-04-07 21:27:59 [DEBUG]: con_loss: 1.811, RCL_loss: 0.583, FTI_loss: 0.219
+2026-04-07 21:27:59 [DEBUG]: con_loss: 1.810, RCL_loss: 0.425, FTI_loss: 0.003
+2026-04-07 21:27:59 [DEBUG]: con_loss: 1.783, RCL_loss: 1.109, FTI_loss: 0.417
+2026-04-07 21:28:00 [DEBUG]: con_loss: 1.767, RCL_loss: 1.002, FTI_loss: 0.004
+2026-04-07 21:28:00 [DEBUG]: con_loss: 1.769, RCL_loss: 0.398, FTI_loss: 0.085
+2026-04-07 21:28:00 [DEBUG]: con_loss: 1.763, RCL_loss: 0.480, FTI_loss: 0.006
+2026-04-07 21:28:01 [DEBUG]: con_loss: 1.818, RCL_loss: 0.792, FTI_loss: 0.005
+2026-04-07 21:28:01 [DEBUG]: con_loss: 1.814, RCL_loss: 1.074, FTI_loss: 0.179
+2026-04-07 21:28:01 [DEBUG]: con_loss: 1.770, RCL_loss: 0.295, FTI_loss: 0.060
+2026-04-07 21:28:02 [DEBUG]: con_loss: 1.769, RCL_loss: 1.497, FTI_loss: 0.001
+2026-04-07 21:28:02 [DEBUG]: con_loss: 1.804, RCL_loss: 1.380, FTI_loss: 0.266
+2026-04-07 21:28:03 [DEBUG]: con_loss: 1.787, RCL_loss: 0.259, FTI_loss: 0.017
+2026-04-07 21:28:03 [DEBUG]: con_loss: 1.776, RCL_loss: 0.953, FTI_loss: 0.008
+2026-04-07 21:28:03 [DEBUG]: con_loss: 1.784, RCL_loss: 1.251, FTI_loss: 0.109
+2026-04-07 21:28:04 [DEBUG]: con_loss: 1.770, RCL_loss: 0.797, FTI_loss: 0.202
+2026-04-07 21:28:04 [DEBUG]: con_loss: 1.765, RCL_loss: 0.855, FTI_loss: 0.090
+2026-04-07 21:28:04 [DEBUG]: con_loss: 1.807, RCL_loss: 0.701, FTI_loss: 0.315
+2026-04-07 21:28:05 [DEBUG]: con_loss: 1.799, RCL_loss: 0.734, FTI_loss: 0.020
+2026-04-07 21:28:05 [DEBUG]: con_loss: 1.781, RCL_loss: 0.774, FTI_loss: 0.001
+2026-04-07 21:28:05 [DEBUG]: con_loss: 1.783, RCL_loss: 0.517, FTI_loss: 0.044
+2026-04-07 21:28:06 [DEBUG]: con_loss: 1.745, RCL_loss: 0.914, FTI_loss: 0.001
+2026-04-07 21:28:06 [DEBUG]: con_loss: 1.765, RCL_loss: 0.735, FTI_loss: 0.005
+2026-04-07 21:28:06 [DEBUG]: con_loss: 1.782, RCL_loss: 0.194, FTI_loss: 0.024
+2026-04-07 21:28:07 [DEBUG]: con_loss: 1.819, RCL_loss: 0.595, FTI_loss: 0.217
+2026-04-07 21:28:07 [INFO]: Epoch 30 done. Loss: 3.382, Time per epoch: 13.260[s]
+2026-04-07 21:28:07 [DEBUG]: con_loss: 1.742, RCL_loss: 0.617, FTI_loss: 0.214
+2026-04-07 21:28:07 [DEBUG]: con_loss: 1.789, RCL_loss: 0.581, FTI_loss: 0.012
+2026-04-07 21:28:08 [DEBUG]: con_loss: 1.786, RCL_loss: 0.354, FTI_loss: 0.019
+2026-04-07 21:28:08 [DEBUG]: con_loss: 1.755, RCL_loss: 0.520, FTI_loss: 0.002
+2026-04-07 21:28:08 [DEBUG]: con_loss: 1.765, RCL_loss: 0.621, FTI_loss: 0.012
+2026-04-07 21:28:09 [DEBUG]: con_loss: 1.795, RCL_loss: 0.523, FTI_loss: 0.074
+2026-04-07 21:28:09 [DEBUG]: con_loss: 1.779, RCL_loss: 1.179, FTI_loss: 0.002
+2026-04-07 21:28:09 [DEBUG]: con_loss: 1.752, RCL_loss: 0.201, FTI_loss: 0.197
+2026-04-07 21:28:10 [DEBUG]: con_loss: 1.800, RCL_loss: 1.106, FTI_loss: 0.007
+2026-04-07 21:28:10 [DEBUG]: con_loss: 1.736, RCL_loss: 0.499, FTI_loss: 0.007
+2026-04-07 21:28:10 [DEBUG]: con_loss: 1.716, RCL_loss: 0.290, FTI_loss: 0.000
+2026-04-07 21:28:11 [DEBUG]: con_loss: 1.772, RCL_loss: 0.846, FTI_loss: 0.007
+2026-04-07 21:28:11 [DEBUG]: con_loss: 1.744, RCL_loss: 0.938, FTI_loss: 0.009
+2026-04-07 21:28:12 [DEBUG]: con_loss: 1.805, RCL_loss: 0.718, FTI_loss: 0.071
+2026-04-07 21:28:12 [DEBUG]: con_loss: 1.773, RCL_loss: 1.264, FTI_loss: 0.613
+2026-04-07 21:28:13 [DEBUG]: con_loss: 1.763, RCL_loss: 0.635, FTI_loss: 0.000
+2026-04-07 21:28:13 [DEBUG]: con_loss: 1.774, RCL_loss: 0.389, FTI_loss: 0.003
+2026-04-07 21:28:13 [DEBUG]: con_loss: 1.732, RCL_loss: 0.596, FTI_loss: 0.229
+2026-04-07 21:28:14 [DEBUG]: con_loss: 1.787, RCL_loss: 0.584, FTI_loss: 0.032
+2026-04-07 21:28:14 [DEBUG]: con_loss: 1.813, RCL_loss: 0.725, FTI_loss: 0.140
+2026-04-07 21:28:14 [DEBUG]: con_loss: 1.777, RCL_loss: 0.630, FTI_loss: 0.259
+2026-04-07 21:28:15 [DEBUG]: con_loss: 1.743, RCL_loss: 2.012, FTI_loss: 0.011
+2026-04-07 21:28:15 [DEBUG]: con_loss: 1.791, RCL_loss: 1.096, FTI_loss: 0.249
+2026-04-07 21:28:15 [DEBUG]: con_loss: 1.852, RCL_loss: 0.696, FTI_loss: 0.140
+2026-04-07 21:28:15 [DEBUG]: con_loss: 1.841, RCL_loss: 0.282, FTI_loss: 0.072
+2026-04-07 21:28:16 [DEBUG]: con_loss: 1.840, RCL_loss: 0.816, FTI_loss: 0.071
+2026-04-07 21:28:16 [DEBUG]: con_loss: 1.829, RCL_loss: 0.670, FTI_loss: 0.115
+2026-04-07 21:28:16 [DEBUG]: con_loss: 1.794, RCL_loss: 0.952, FTI_loss: 0.003
+2026-04-07 21:28:17 [DEBUG]: con_loss: 1.809, RCL_loss: 0.859, FTI_loss: 0.157
+2026-04-07 21:28:17 [DEBUG]: con_loss: 1.766, RCL_loss: 1.153, FTI_loss: 0.021
+2026-04-07 21:28:17 [DEBUG]: con_loss: 1.738, RCL_loss: 1.719, FTI_loss: 0.002
+2026-04-07 21:28:18 [DEBUG]: con_loss: 1.746, RCL_loss: 1.039, FTI_loss: 0.059
+2026-04-07 21:28:18 [DEBUG]: con_loss: 1.782, RCL_loss: 1.022, FTI_loss: 0.026
+2026-04-07 21:28:18 [DEBUG]: con_loss: 1.804, RCL_loss: 1.096, FTI_loss: 0.141
+2026-04-07 21:28:19 [DEBUG]: con_loss: 1.791, RCL_loss: 0.443, FTI_loss: 0.017
+2026-04-07 21:28:19 [DEBUG]: con_loss: 1.805, RCL_loss: 1.213, FTI_loss: 0.021
+2026-04-07 21:28:19 [DEBUG]: con_loss: 1.775, RCL_loss: 1.051, FTI_loss: 0.009
+2026-04-07 21:28:19 [DEBUG]: con_loss: 1.744, RCL_loss: 0.955, FTI_loss: 0.002
+2026-04-07 21:28:20 [INFO]: Epoch 31 done. Loss: 3.415, Time per epoch: 12.821[s]
+2026-04-07 21:28:20 [DEBUG]: con_loss: 1.760, RCL_loss: 0.934, FTI_loss: 0.005
+2026-04-07 21:28:20 [DEBUG]: con_loss: 1.815, RCL_loss: 0.779, FTI_loss: 0.238
+2026-04-07 21:28:20 [DEBUG]: con_loss: 1.785, RCL_loss: 1.213, FTI_loss: 0.009
+2026-04-07 21:28:21 [DEBUG]: con_loss: 1.785, RCL_loss: 1.769, FTI_loss: 0.244
+2026-04-07 21:28:21 [DEBUG]: con_loss: 1.778, RCL_loss: 0.862, FTI_loss: 0.010
+2026-04-07 21:28:21 [DEBUG]: con_loss: 1.737, RCL_loss: 0.648, FTI_loss: 0.016
+2026-04-07 21:28:22 [DEBUG]: con_loss: 1.766, RCL_loss: 0.794, FTI_loss: 0.004
+2026-04-07 21:28:22 [DEBUG]: con_loss: 1.759, RCL_loss: 0.369, FTI_loss: 0.002
+2026-04-07 21:28:22 [DEBUG]: con_loss: 1.795, RCL_loss: 0.923, FTI_loss: 0.479
+2026-04-07 21:28:23 [DEBUG]: con_loss: 1.798, RCL_loss: 0.759, FTI_loss: 0.045
+2026-04-07 21:28:23 [DEBUG]: con_loss: 1.766, RCL_loss: 1.816, FTI_loss: 0.000
+2026-04-07 21:28:23 [DEBUG]: con_loss: 1.793, RCL_loss: 0.830, FTI_loss: 0.028
+2026-04-07 21:28:24 [DEBUG]: con_loss: 1.785, RCL_loss: 0.585, FTI_loss: 0.006
+2026-04-07 21:28:24 [DEBUG]: con_loss: 1.769, RCL_loss: 0.690, FTI_loss: 0.011
+2026-04-07 21:28:24 [DEBUG]: con_loss: 1.727, RCL_loss: 1.502, FTI_loss: 0.001
+2026-04-07 21:28:25 [DEBUG]: con_loss: 1.776, RCL_loss: 1.596, FTI_loss: 0.023
+2026-04-07 21:28:25 [DEBUG]: con_loss: 1.804, RCL_loss: 0.411, FTI_loss: 0.059
+2026-04-07 21:28:25 [DEBUG]: con_loss: 1.742, RCL_loss: 0.679, FTI_loss: 0.099
+2026-04-07 21:28:25 [DEBUG]: con_loss: 1.792, RCL_loss: 1.185, FTI_loss: 0.209
+2026-04-07 21:28:26 [DEBUG]: con_loss: 1.724, RCL_loss: 0.547, FTI_loss: 0.114
+2026-04-07 21:28:26 [DEBUG]: con_loss: 1.794, RCL_loss: 0.795, FTI_loss: 0.025
+2026-04-07 21:28:26 [DEBUG]: con_loss: 1.791, RCL_loss: 1.046, FTI_loss: 0.311
+2026-04-07 21:28:27 [DEBUG]: con_loss: 1.767, RCL_loss: 0.884, FTI_loss: 0.190
+2026-04-07 21:28:27 [DEBUG]: con_loss: 1.756, RCL_loss: 0.730, FTI_loss: 0.007
+2026-04-07 21:28:27 [DEBUG]: con_loss: 1.818, RCL_loss: 0.444, FTI_loss: 0.113
+2026-04-07 21:28:28 [DEBUG]: con_loss: 1.725, RCL_loss: 1.333, FTI_loss: 0.014
+2026-04-07 21:28:28 [DEBUG]: con_loss: 1.779, RCL_loss: 1.326, FTI_loss: 0.153
+2026-04-07 21:28:28 [DEBUG]: con_loss: 1.720, RCL_loss: 0.345, FTI_loss: 0.033
+2026-04-07 21:28:29 [DEBUG]: con_loss: 1.781, RCL_loss: 0.413, FTI_loss: 0.004
+2026-04-07 21:28:29 [DEBUG]: con_loss: 1.816, RCL_loss: 0.799, FTI_loss: 0.226
+2026-04-07 21:28:29 [DEBUG]: con_loss: 1.796, RCL_loss: 0.634, FTI_loss: 0.005
+2026-04-07 21:28:30 [DEBUG]: con_loss: 1.745, RCL_loss: 0.547, FTI_loss: 0.027
+2026-04-07 21:28:30 [DEBUG]: con_loss: 1.769, RCL_loss: 0.704, FTI_loss: 0.017
+2026-04-07 21:28:30 [DEBUG]: con_loss: 1.780, RCL_loss: 0.575, FTI_loss: 0.411
+2026-04-07 21:28:30 [DEBUG]: con_loss: 1.768, RCL_loss: 0.532, FTI_loss: 0.001
+2026-04-07 21:28:31 [DEBUG]: con_loss: 1.772, RCL_loss: 0.615, FTI_loss: 0.107
+2026-04-07 21:28:31 [DEBUG]: con_loss: 1.751, RCL_loss: 0.362, FTI_loss: 0.018
+2026-04-07 21:28:31 [DEBUG]: con_loss: 1.789, RCL_loss: 0.127, FTI_loss: 0.016
+2026-04-07 21:28:31 [INFO]: Epoch 32 done. Loss: 3.418, Time per epoch: 11.844[s]
+2026-04-07 21:28:32 [DEBUG]: con_loss: 1.764, RCL_loss: 1.092, FTI_loss: 0.055
+2026-04-07 21:28:32 [DEBUG]: con_loss: 1.779, RCL_loss: 0.790, FTI_loss: 0.082
+2026-04-07 21:28:32 [DEBUG]: con_loss: 1.775, RCL_loss: 0.296, FTI_loss: 0.255
+2026-04-07 21:28:33 [DEBUG]: con_loss: 1.785, RCL_loss: 0.537, FTI_loss: 0.005
+2026-04-07 21:28:33 [DEBUG]: con_loss: 1.806, RCL_loss: 0.356, FTI_loss: 0.030
+2026-04-07 21:28:33 [DEBUG]: con_loss: 1.789, RCL_loss: 0.319, FTI_loss: 0.014
+2026-04-07 21:28:34 [DEBUG]: con_loss: 1.814, RCL_loss: 0.324, FTI_loss: 0.043
+2026-04-07 21:28:34 [DEBUG]: con_loss: 1.774, RCL_loss: 0.472, FTI_loss: 0.002
+2026-04-07 21:28:34 [DEBUG]: con_loss: 1.761, RCL_loss: 0.584, FTI_loss: 0.061
+2026-04-07 21:28:35 [DEBUG]: con_loss: 1.776, RCL_loss: 0.499, FTI_loss: 0.001
+2026-04-07 21:28:35 [DEBUG]: con_loss: 1.718, RCL_loss: 0.765, FTI_loss: 0.094
+2026-04-07 21:28:35 [DEBUG]: con_loss: 1.752, RCL_loss: 0.458, FTI_loss: 0.099
+2026-04-07 21:28:36 [DEBUG]: con_loss: 1.745, RCL_loss: 0.967, FTI_loss: 0.333
+2026-04-07 21:28:36 [DEBUG]: con_loss: 1.769, RCL_loss: 1.020, FTI_loss: 0.009
+2026-04-07 21:28:36 [DEBUG]: con_loss: 1.792, RCL_loss: 0.486, FTI_loss: 0.155
+2026-04-07 21:28:37 [DEBUG]: con_loss: 1.738, RCL_loss: 0.869, FTI_loss: 0.000
+2026-04-07 21:28:37 [DEBUG]: con_loss: 1.776, RCL_loss: 0.289, FTI_loss: 0.015
+2026-04-07 21:28:37 [DEBUG]: con_loss: 1.756, RCL_loss: 0.991, FTI_loss: 0.002
+2026-04-07 21:28:38 [DEBUG]: con_loss: 1.749, RCL_loss: 0.637, FTI_loss: 0.001
+2026-04-07 21:28:38 [DEBUG]: con_loss: 1.779, RCL_loss: 0.488, FTI_loss: 0.125
+2026-04-07 21:28:38 [DEBUG]: con_loss: 1.768, RCL_loss: 0.939, FTI_loss: 0.236
+2026-04-07 21:28:39 [DEBUG]: con_loss: 1.784, RCL_loss: 0.863, FTI_loss: 0.002
+2026-04-07 21:28:39 [DEBUG]: con_loss: 1.740, RCL_loss: 0.487, FTI_loss: 0.021
+2026-04-07 21:28:39 [DEBUG]: con_loss: 1.789, RCL_loss: 0.273, FTI_loss: 0.009
+2026-04-07 21:28:40 [DEBUG]: con_loss: 1.774, RCL_loss: 0.205, FTI_loss: 0.000
+2026-04-07 21:28:40 [DEBUG]: con_loss: 1.739, RCL_loss: 0.352, FTI_loss: 0.087
+2026-04-07 21:28:40 [DEBUG]: con_loss: 1.760, RCL_loss: 0.294, FTI_loss: 0.004
+2026-04-07 21:28:41 [DEBUG]: con_loss: 1.762, RCL_loss: 0.436, FTI_loss: 0.047
+2026-04-07 21:28:41 [DEBUG]: con_loss: 1.773, RCL_loss: 1.456, FTI_loss: 0.001
+2026-04-07 21:28:42 [DEBUG]: con_loss: 1.775, RCL_loss: 0.592, FTI_loss: 0.008
+2026-04-07 21:28:42 [DEBUG]: con_loss: 1.781, RCL_loss: 0.143, FTI_loss: 0.001
+2026-04-07 21:28:42 [DEBUG]: con_loss: 1.786, RCL_loss: 1.277, FTI_loss: 0.003
+2026-04-07 21:28:43 [DEBUG]: con_loss: 1.785, RCL_loss: 2.234, FTI_loss: 0.216
+2026-04-07 21:28:43 [DEBUG]: con_loss: 1.755, RCL_loss: 0.936, FTI_loss: 0.111
+2026-04-07 21:28:43 [DEBUG]: con_loss: 1.760, RCL_loss: 0.439, FTI_loss: 0.009
+2026-04-07 21:28:44 [DEBUG]: con_loss: 1.801, RCL_loss: 0.663, FTI_loss: 0.084
+2026-04-07 21:28:44 [DEBUG]: con_loss: 1.744, RCL_loss: 1.317, FTI_loss: 0.000
+2026-04-07 21:28:44 [DEBUG]: con_loss: 1.763, RCL_loss: 0.845, FTI_loss: 0.034
+2026-04-07 21:28:44 [INFO]: Epoch 33 done. Loss: 3.336, Time per epoch: 12.845[s]
+2026-04-07 21:28:45 [DEBUG]: con_loss: 1.734, RCL_loss: 0.193, FTI_loss: 0.001
+2026-04-07 21:28:45 [DEBUG]: con_loss: 1.753, RCL_loss: 0.405, FTI_loss: 0.001
+2026-04-07 21:28:45 [DEBUG]: con_loss: 1.769, RCL_loss: 0.667, FTI_loss: 0.003
+2026-04-07 21:28:46 [DEBUG]: con_loss: 1.834, RCL_loss: 0.590, FTI_loss: 0.000
+2026-04-07 21:28:46 [DEBUG]: con_loss: 1.760, RCL_loss: 0.406, FTI_loss: 0.320
+2026-04-07 21:28:46 [DEBUG]: con_loss: 1.781, RCL_loss: 0.691, FTI_loss: 0.007
+2026-04-07 21:28:47 [DEBUG]: con_loss: 1.751, RCL_loss: 0.710, FTI_loss: 0.002
+2026-04-07 21:28:47 [DEBUG]: con_loss: 1.773, RCL_loss: 0.203, FTI_loss: 0.086
+2026-04-07 21:28:47 [DEBUG]: con_loss: 1.796, RCL_loss: 1.026, FTI_loss: 0.071
+2026-04-07 21:28:48 [DEBUG]: con_loss: 1.790, RCL_loss: 0.557, FTI_loss: 0.207
+2026-04-07 21:28:48 [DEBUG]: con_loss: 1.741, RCL_loss: 0.572, FTI_loss: 0.001
+2026-04-07 21:28:48 [DEBUG]: con_loss: 1.736, RCL_loss: 0.850, FTI_loss: 0.000
+2026-04-07 21:28:49 [DEBUG]: con_loss: 1.706, RCL_loss: 1.173, FTI_loss: 0.005
+2026-04-07 21:28:49 [DEBUG]: con_loss: 1.750, RCL_loss: 0.170, FTI_loss: 0.035
+2026-04-07 21:28:49 [DEBUG]: con_loss: 1.758, RCL_loss: 0.683, FTI_loss: 0.007
+2026-04-07 21:28:50 [DEBUG]: con_loss: 1.808, RCL_loss: 0.409, FTI_loss: 0.001
+2026-04-07 21:28:50 [DEBUG]: con_loss: 1.795, RCL_loss: 0.404, FTI_loss: 0.157
+2026-04-07 21:28:50 [DEBUG]: con_loss: 1.800, RCL_loss: 1.802, FTI_loss: 0.109
+2026-04-07 21:28:51 [DEBUG]: con_loss: 1.828, RCL_loss: 0.463, FTI_loss: 0.002
+2026-04-07 21:28:51 [DEBUG]: con_loss: 1.815, RCL_loss: 0.512, FTI_loss: 0.003
+2026-04-07 21:28:51 [DEBUG]: con_loss: 1.807, RCL_loss: 0.810, FTI_loss: 0.003
+2026-04-07 21:28:52 [DEBUG]: con_loss: 1.850, RCL_loss: 0.649, FTI_loss: 0.006
+2026-04-07 21:28:52 [DEBUG]: con_loss: 1.780, RCL_loss: 1.246, FTI_loss: 0.045
+2026-04-07 21:28:53 [DEBUG]: con_loss: 1.786, RCL_loss: 0.605, FTI_loss: 0.001
+2026-04-07 21:28:53 [DEBUG]: con_loss: 1.749, RCL_loss: 0.213, FTI_loss: 0.000
+2026-04-07 21:28:53 [DEBUG]: con_loss: 1.730, RCL_loss: 1.219, FTI_loss: 0.009
+2026-04-07 21:28:54 [DEBUG]: con_loss: 1.763, RCL_loss: 1.236, FTI_loss: 0.003
+2026-04-07 21:28:54 [DEBUG]: con_loss: 1.763, RCL_loss: 0.913, FTI_loss: 0.001
+2026-04-07 21:28:54 [DEBUG]: con_loss: 1.762, RCL_loss: 0.374, FTI_loss: 0.005
+2026-04-07 21:28:55 [DEBUG]: con_loss: 1.740, RCL_loss: 0.231, FTI_loss: 0.000
+2026-04-07 21:28:55 [DEBUG]: con_loss: 1.734, RCL_loss: 0.553, FTI_loss: 0.002
+2026-04-07 21:28:55 [DEBUG]: con_loss: 1.777, RCL_loss: 1.159, FTI_loss: 0.148
+2026-04-07 21:28:56 [DEBUG]: con_loss: 1.761, RCL_loss: 0.904, FTI_loss: 0.184
+2026-04-07 21:28:56 [DEBUG]: con_loss: 1.762, RCL_loss: 1.046, FTI_loss: 0.002
+2026-04-07 21:28:56 [DEBUG]: con_loss: 1.812, RCL_loss: 0.429, FTI_loss: 0.001
+2026-04-07 21:28:57 [DEBUG]: con_loss: 1.861, RCL_loss: 0.744, FTI_loss: 0.275
+2026-04-07 21:28:57 [DEBUG]: con_loss: 1.810, RCL_loss: 1.595, FTI_loss: 0.598
+2026-04-07 21:28:57 [DEBUG]: con_loss: 1.780, RCL_loss: 1.027, FTI_loss: 0.001
+2026-04-07 21:28:57 [INFO]: Epoch 34 done. Loss: 3.359, Time per epoch: 13.146[s]
+2026-04-07 21:28:58 [DEBUG]: con_loss: 1.724, RCL_loss: 0.771, FTI_loss: 0.140
+2026-04-07 21:28:58 [DEBUG]: con_loss: 1.799, RCL_loss: 0.071, FTI_loss: 0.003
+2026-04-07 21:28:58 [DEBUG]: con_loss: 1.803, RCL_loss: 0.375, FTI_loss: 0.123
+2026-04-07 21:28:59 [DEBUG]: con_loss: 1.745, RCL_loss: 0.451, FTI_loss: 0.167
+2026-04-07 21:28:59 [DEBUG]: con_loss: 1.722, RCL_loss: 1.081, FTI_loss: 0.003
+2026-04-07 21:28:59 [DEBUG]: con_loss: 1.816, RCL_loss: 0.181, FTI_loss: 0.004
+2026-04-07 21:29:00 [DEBUG]: con_loss: 1.755, RCL_loss: 0.327, FTI_loss: 0.023
+2026-04-07 21:29:00 [DEBUG]: con_loss: 1.757, RCL_loss: 0.932, FTI_loss: 0.007
+2026-04-07 21:29:00 [DEBUG]: con_loss: 1.773, RCL_loss: 0.258, FTI_loss: 0.001
+2026-04-07 21:29:01 [DEBUG]: con_loss: 1.771, RCL_loss: 0.552, FTI_loss: 0.001
+2026-04-07 21:29:01 [DEBUG]: con_loss: 1.750, RCL_loss: 0.492, FTI_loss: 0.001
+2026-04-07 21:29:02 [DEBUG]: con_loss: 1.771, RCL_loss: 0.516, FTI_loss: 0.231
+2026-04-07 21:29:02 [DEBUG]: con_loss: 1.788, RCL_loss: 0.546, FTI_loss: 0.059
+2026-04-07 21:29:02 [DEBUG]: con_loss: 1.765, RCL_loss: 0.643, FTI_loss: 0.130
+2026-04-07 21:29:03 [DEBUG]: con_loss: 1.787, RCL_loss: 0.856, FTI_loss: 0.094
+2026-04-07 21:29:03 [DEBUG]: con_loss: 1.784, RCL_loss: 0.244, FTI_loss: 0.004
+2026-04-07 21:29:03 [DEBUG]: con_loss: 1.785, RCL_loss: 0.439, FTI_loss: 0.002
+2026-04-07 21:29:04 [DEBUG]: con_loss: 1.710, RCL_loss: 0.399, FTI_loss: 0.007
+2026-04-07 21:29:04 [DEBUG]: con_loss: 1.782, RCL_loss: 1.495, FTI_loss: 0.001
+2026-04-07 21:29:04 [DEBUG]: con_loss: 1.820, RCL_loss: 0.471, FTI_loss: 0.008
+2026-04-07 21:29:05 [DEBUG]: con_loss: 1.764, RCL_loss: 0.185, FTI_loss: 0.003
+2026-04-07 21:29:05 [DEBUG]: con_loss: 1.784, RCL_loss: 1.318, FTI_loss: 0.252
+2026-04-07 21:29:05 [DEBUG]: con_loss: 1.789, RCL_loss: 0.458, FTI_loss: 0.045
+2026-04-07 21:29:06 [DEBUG]: con_loss: 1.786, RCL_loss: 0.447, FTI_loss: 0.050
+2026-04-07 21:29:06 [DEBUG]: con_loss: 1.785, RCL_loss: 0.313, FTI_loss: 0.000
+2026-04-07 21:29:06 [DEBUG]: con_loss: 1.806, RCL_loss: 0.740, FTI_loss: 0.247
+2026-04-07 21:29:07 [DEBUG]: con_loss: 1.743, RCL_loss: 1.321, FTI_loss: 0.000
+2026-04-07 21:29:07 [DEBUG]: con_loss: 1.813, RCL_loss: 0.786, FTI_loss: 0.001
+2026-04-07 21:29:07 [DEBUG]: con_loss: 1.729, RCL_loss: 0.141, FTI_loss: 0.000
+2026-04-07 21:29:08 [DEBUG]: con_loss: 1.793, RCL_loss: 0.811, FTI_loss: 0.370
+2026-04-07 21:29:08 [DEBUG]: con_loss: 1.715, RCL_loss: 1.227, FTI_loss: 0.000
+2026-04-07 21:29:08 [DEBUG]: con_loss: 1.746, RCL_loss: 0.407, FTI_loss: 0.001
+2026-04-07 21:29:09 [DEBUG]: con_loss: 1.715, RCL_loss: 0.918, FTI_loss: 0.134
+2026-04-07 21:29:09 [DEBUG]: con_loss: 1.705, RCL_loss: 0.529, FTI_loss: 0.000
+2026-04-07 21:29:09 [DEBUG]: con_loss: 1.748, RCL_loss: 0.329, FTI_loss: 0.002
+2026-04-07 21:29:10 [DEBUG]: con_loss: 1.806, RCL_loss: 0.137, FTI_loss: 0.007
+2026-04-07 21:29:10 [DEBUG]: con_loss: 1.734, RCL_loss: 0.624, FTI_loss: 0.003
+2026-04-07 21:29:11 [DEBUG]: con_loss: 1.746, RCL_loss: 0.777, FTI_loss: 0.192
+2026-04-07 21:29:11 [INFO]: Epoch 35 done. Loss: 3.290, Time per epoch: 13.164[s]
+2026-04-07 21:29:11 [DEBUG]: con_loss: 1.775, RCL_loss: 0.434, FTI_loss: 0.047
+2026-04-07 21:29:11 [DEBUG]: con_loss: 1.749, RCL_loss: 0.900, FTI_loss: 0.208
+2026-04-07 21:29:12 [DEBUG]: con_loss: 1.785, RCL_loss: 0.361, FTI_loss: 0.000
+2026-04-07 21:29:12 [DEBUG]: con_loss: 1.765, RCL_loss: 0.435, FTI_loss: 0.001
+2026-04-07 21:29:12 [DEBUG]: con_loss: 1.743, RCL_loss: 0.263, FTI_loss: 0.002
+2026-04-07 21:29:13 [DEBUG]: con_loss: 1.782, RCL_loss: 1.504, FTI_loss: 0.177
+2026-04-07 21:29:13 [DEBUG]: con_loss: 1.772, RCL_loss: 0.399, FTI_loss: 0.132
+2026-04-07 21:29:13 [DEBUG]: con_loss: 1.760, RCL_loss: 0.424, FTI_loss: 0.015
+2026-04-07 21:29:14 [DEBUG]: con_loss: 1.744, RCL_loss: 0.343, FTI_loss: 0.000
+2026-04-07 21:29:14 [DEBUG]: con_loss: 1.716, RCL_loss: 0.272, FTI_loss: 0.000
+2026-04-07 21:29:14 [DEBUG]: con_loss: 1.727, RCL_loss: 0.621, FTI_loss: 0.000
+2026-04-07 21:29:15 [DEBUG]: con_loss: 1.780, RCL_loss: 0.472, FTI_loss: 0.017
+2026-04-07 21:29:15 [DEBUG]: con_loss: 1.789, RCL_loss: 0.197, FTI_loss: 0.000
+2026-04-07 21:29:15 [DEBUG]: con_loss: 1.764, RCL_loss: 1.383, FTI_loss: 0.007
+2026-04-07 21:29:16 [DEBUG]: con_loss: 1.730, RCL_loss: 0.677, FTI_loss: 0.195
+2026-04-07 21:29:16 [DEBUG]: con_loss: 1.735, RCL_loss: 0.201, FTI_loss: 0.001
+2026-04-07 21:29:16 [DEBUG]: con_loss: 1.770, RCL_loss: 0.207, FTI_loss: 0.001
+2026-04-07 21:29:17 [DEBUG]: con_loss: 1.760, RCL_loss: 0.221, FTI_loss: 0.112
+2026-04-07 21:29:17 [DEBUG]: con_loss: 1.725, RCL_loss: 1.209, FTI_loss: 0.011
+2026-04-07 21:29:18 [DEBUG]: con_loss: 1.744, RCL_loss: 0.862, FTI_loss: 0.204
+2026-04-07 21:29:18 [DEBUG]: con_loss: 1.786, RCL_loss: 0.351, FTI_loss: 0.005
+2026-04-07 21:29:18 [DEBUG]: con_loss: 1.761, RCL_loss: 0.435, FTI_loss: 0.005
+2026-04-07 21:29:19 [DEBUG]: con_loss: 1.802, RCL_loss: 0.537, FTI_loss: 0.001
+2026-04-07 21:29:19 [DEBUG]: con_loss: 1.736, RCL_loss: 0.740, FTI_loss: 0.042
+2026-04-07 21:29:19 [DEBUG]: con_loss: 1.791, RCL_loss: 0.767, FTI_loss: 0.085
+2026-04-07 21:29:20 [DEBUG]: con_loss: 1.732, RCL_loss: 1.003, FTI_loss: 0.000
+2026-04-07 21:29:20 [DEBUG]: con_loss: 1.752, RCL_loss: 0.264, FTI_loss: 0.004
+2026-04-07 21:29:20 [DEBUG]: con_loss: 1.792, RCL_loss: 0.581, FTI_loss: 0.028
+2026-04-07 21:29:21 [DEBUG]: con_loss: 1.744, RCL_loss: 0.325, FTI_loss: 0.000
+2026-04-07 21:29:21 [DEBUG]: con_loss: 1.789, RCL_loss: 0.442, FTI_loss: 0.012
+2026-04-07 21:29:21 [DEBUG]: con_loss: 1.763, RCL_loss: 0.388, FTI_loss: 0.000
+2026-04-07 21:29:22 [DEBUG]: con_loss: 1.803, RCL_loss: 0.805, FTI_loss: 0.008
+2026-04-07 21:29:22 [DEBUG]: con_loss: 1.747, RCL_loss: 0.941, FTI_loss: 0.002
+2026-04-07 21:29:22 [DEBUG]: con_loss: 1.724, RCL_loss: 0.079, FTI_loss: 0.007
+2026-04-07 21:29:23 [DEBUG]: con_loss: 1.821, RCL_loss: 0.354, FTI_loss: 0.003
+2026-04-07 21:29:23 [DEBUG]: con_loss: 1.752, RCL_loss: 1.156, FTI_loss: 0.017
+2026-04-07 21:29:23 [DEBUG]: con_loss: 1.821, RCL_loss: 0.258, FTI_loss: 0.008
+2026-04-07 21:29:24 [DEBUG]: con_loss: 1.772, RCL_loss: 1.076, FTI_loss: 0.323
+2026-04-07 21:29:24 [INFO]: Epoch 36 done. Loss: 3.271, Time per epoch: 13.258[s]
+2026-04-07 21:29:24 [DEBUG]: con_loss: 1.775, RCL_loss: 0.182, FTI_loss: 0.156
+2026-04-07 21:29:25 [DEBUG]: con_loss: 1.797, RCL_loss: 0.649, FTI_loss: 0.060
+2026-04-07 21:29:25 [DEBUG]: con_loss: 1.754, RCL_loss: 1.214, FTI_loss: 0.000
+2026-04-07 21:29:25 [DEBUG]: con_loss: 1.787, RCL_loss: 0.104, FTI_loss: 0.002
+2026-04-07 21:29:26 [DEBUG]: con_loss: 1.772, RCL_loss: 0.674, FTI_loss: 0.020
+2026-04-07 21:29:26 [DEBUG]: con_loss: 1.777, RCL_loss: 0.423, FTI_loss: 0.019
+2026-04-07 21:29:26 [DEBUG]: con_loss: 1.747, RCL_loss: 0.466, FTI_loss: 0.008
+2026-04-07 21:29:27 [DEBUG]: con_loss: 1.808, RCL_loss: 0.613, FTI_loss: 0.065
+2026-04-07 21:29:27 [DEBUG]: con_loss: 1.815, RCL_loss: 0.841, FTI_loss: 0.000
+2026-04-07 21:29:27 [DEBUG]: con_loss: 1.789, RCL_loss: 0.063, FTI_loss: 0.039
+2026-04-07 21:29:28 [DEBUG]: con_loss: 1.723, RCL_loss: 0.801, FTI_loss: 0.000
+2026-04-07 21:29:28 [DEBUG]: con_loss: 1.775, RCL_loss: 0.544, FTI_loss: 0.128
+2026-04-07 21:29:28 [DEBUG]: con_loss: 1.758, RCL_loss: 0.578, FTI_loss: 0.001
+2026-04-07 21:29:29 [DEBUG]: con_loss: 1.790, RCL_loss: 0.257, FTI_loss: 0.001
+2026-04-07 21:29:30 [DEBUG]: con_loss: 1.709, RCL_loss: 0.169, FTI_loss: 0.000
+2026-04-07 21:29:30 [DEBUG]: con_loss: 1.764, RCL_loss: 0.381, FTI_loss: 0.000
+2026-04-07 21:29:30 [DEBUG]: con_loss: 1.778, RCL_loss: 0.870, FTI_loss: 0.087
+2026-04-07 21:29:30 [DEBUG]: con_loss: 1.753, RCL_loss: 0.261, FTI_loss: 0.504
+2026-04-07 21:29:31 [DEBUG]: con_loss: 1.746, RCL_loss: 0.534, FTI_loss: 0.000
+2026-04-07 21:29:31 [DEBUG]: con_loss: 1.739, RCL_loss: 0.651, FTI_loss: 0.002
+2026-04-07 21:29:31 [DEBUG]: con_loss: 1.763, RCL_loss: 0.096, FTI_loss: 0.000
+2026-04-07 21:29:32 [DEBUG]: con_loss: 1.806, RCL_loss: 0.247, FTI_loss: 0.189
+2026-04-07 21:29:32 [DEBUG]: con_loss: 1.766, RCL_loss: 0.750, FTI_loss: 0.000
+2026-04-07 21:29:32 [DEBUG]: con_loss: 1.760, RCL_loss: 1.065, FTI_loss: 0.000
+2026-04-07 21:29:33 [DEBUG]: con_loss: 1.803, RCL_loss: 0.712, FTI_loss: 0.200
+2026-04-07 21:29:33 [DEBUG]: con_loss: 1.794, RCL_loss: 0.095, FTI_loss: 0.004
+2026-04-07 21:29:33 [DEBUG]: con_loss: 1.764, RCL_loss: 1.311, FTI_loss: 0.537
+2026-04-07 21:29:34 [DEBUG]: con_loss: 1.784, RCL_loss: 0.739, FTI_loss: 0.100
+2026-04-07 21:29:34 [DEBUG]: con_loss: 1.739, RCL_loss: 1.307, FTI_loss: 0.302
+2026-04-07 21:29:34 [DEBUG]: con_loss: 1.795, RCL_loss: 0.483, FTI_loss: 0.344
+2026-04-07 21:29:35 [DEBUG]: con_loss: 1.762, RCL_loss: 0.532, FTI_loss: 0.023
+2026-04-07 21:29:35 [DEBUG]: con_loss: 1.737, RCL_loss: 0.498, FTI_loss: 0.002
+2026-04-07 21:29:35 [DEBUG]: con_loss: 1.748, RCL_loss: 0.440, FTI_loss: 0.140
+2026-04-07 21:29:35 [DEBUG]: con_loss: 1.772, RCL_loss: 0.285, FTI_loss: 0.014
+2026-04-07 21:29:36 [DEBUG]: con_loss: 1.796, RCL_loss: 0.788, FTI_loss: 0.003
+2026-04-07 21:29:36 [DEBUG]: con_loss: 1.792, RCL_loss: 1.050, FTI_loss: 0.003
+2026-04-07 21:29:36 [DEBUG]: con_loss: 1.810, RCL_loss: 0.239, FTI_loss: 0.003
+2026-04-07 21:29:37 [DEBUG]: con_loss: 1.785, RCL_loss: 0.280, FTI_loss: 0.007
+2026-04-07 21:29:37 [INFO]: Epoch 37 done. Loss: 3.283, Time per epoch: 12.869[s]
+2026-04-07 21:29:37 [DEBUG]: con_loss: 1.819, RCL_loss: 0.438, FTI_loss: 0.013
+2026-04-07 21:29:37 [DEBUG]: con_loss: 1.788, RCL_loss: 0.331, FTI_loss: 0.130
+2026-04-07 21:29:38 [DEBUG]: con_loss: 1.774, RCL_loss: 0.667, FTI_loss: 0.005
+2026-04-07 21:29:38 [DEBUG]: con_loss: 1.746, RCL_loss: 0.725, FTI_loss: 0.040
+2026-04-07 21:29:38 [DEBUG]: con_loss: 1.765, RCL_loss: 0.336, FTI_loss: 0.000
+2026-04-07 21:29:39 [DEBUG]: con_loss: 1.779, RCL_loss: 0.810, FTI_loss: 0.000
+2026-04-07 21:29:39 [DEBUG]: con_loss: 1.801, RCL_loss: 0.320, FTI_loss: 0.064
+2026-04-07 21:29:39 [DEBUG]: con_loss: 1.789, RCL_loss: 0.698, FTI_loss: 0.002
+2026-04-07 21:29:39 [DEBUG]: con_loss: 1.756, RCL_loss: 0.265, FTI_loss: 0.000
+2026-04-07 21:29:40 [DEBUG]: con_loss: 1.798, RCL_loss: 0.712, FTI_loss: 0.235
+2026-04-07 21:29:40 [DEBUG]: con_loss: 1.790, RCL_loss: 0.295, FTI_loss: 0.002
+2026-04-07 21:29:40 [DEBUG]: con_loss: 1.822, RCL_loss: 0.185, FTI_loss: 0.008
+2026-04-07 21:29:41 [DEBUG]: con_loss: 1.831, RCL_loss: 0.581, FTI_loss: 0.212
+2026-04-07 21:29:41 [DEBUG]: con_loss: 1.751, RCL_loss: 0.531, FTI_loss: 0.114
+2026-04-07 21:29:41 [DEBUG]: con_loss: 1.759, RCL_loss: 1.226, FTI_loss: 0.009
+2026-04-07 21:29:42 [DEBUG]: con_loss: 1.734, RCL_loss: 0.230, FTI_loss: 0.019
+2026-04-07 21:29:42 [DEBUG]: con_loss: 1.748, RCL_loss: 1.686, FTI_loss: 0.061
+2026-04-07 21:29:42 [DEBUG]: con_loss: 1.812, RCL_loss: 0.246, FTI_loss: 0.148
+2026-04-07 21:29:43 [DEBUG]: con_loss: 1.802, RCL_loss: 0.503, FTI_loss: 0.010
+2026-04-07 21:29:43 [DEBUG]: con_loss: 1.761, RCL_loss: 0.909, FTI_loss: 0.256
+2026-04-07 21:29:43 [DEBUG]: con_loss: 1.770, RCL_loss: 0.815, FTI_loss: 0.001
+2026-04-07 21:29:44 [DEBUG]: con_loss: 1.776, RCL_loss: 0.780, FTI_loss: 0.015
+2026-04-07 21:29:44 [DEBUG]: con_loss: 1.764, RCL_loss: 0.950, FTI_loss: 0.008
+2026-04-07 21:29:44 [DEBUG]: con_loss: 1.769, RCL_loss: 0.459, FTI_loss: 0.004
+2026-04-07 21:29:44 [DEBUG]: con_loss: 1.777, RCL_loss: 0.380, FTI_loss: 0.003
+2026-04-07 21:29:45 [DEBUG]: con_loss: 1.761, RCL_loss: 0.456, FTI_loss: 0.743
+2026-04-07 21:29:45 [DEBUG]: con_loss: 1.756, RCL_loss: 0.495, FTI_loss: 0.204
+2026-04-07 21:29:45 [DEBUG]: con_loss: 1.733, RCL_loss: 0.988, FTI_loss: 0.070
+2026-04-07 21:29:46 [DEBUG]: con_loss: 1.760, RCL_loss: 0.476, FTI_loss: 0.001
+2026-04-07 21:29:46 [DEBUG]: con_loss: 1.859, RCL_loss: 1.757, FTI_loss: 0.195
+2026-04-07 21:29:46 [DEBUG]: con_loss: 1.750, RCL_loss: 0.076, FTI_loss: 0.001
+2026-04-07 21:29:47 [DEBUG]: con_loss: 1.735, RCL_loss: 0.436, FTI_loss: 0.004
+2026-04-07 21:29:47 [DEBUG]: con_loss: 1.799, RCL_loss: 1.260, FTI_loss: 0.037
+2026-04-07 21:29:47 [DEBUG]: con_loss: 1.755, RCL_loss: 0.302, FTI_loss: 0.002
+2026-04-07 21:29:48 [DEBUG]: con_loss: 1.812, RCL_loss: 0.713, FTI_loss: 0.039
+2026-04-07 21:29:48 [DEBUG]: con_loss: 1.808, RCL_loss: 1.230, FTI_loss: 0.001
+2026-04-07 21:29:48 [DEBUG]: con_loss: 1.767, RCL_loss: 1.211, FTI_loss: 0.101
+2026-04-07 21:29:48 [DEBUG]: con_loss: 1.740, RCL_loss: 0.237, FTI_loss: 0.001
+2026-04-07 21:29:49 [INFO]: Epoch 38 done. Loss: 3.329, Time per epoch: 11.808[s]
+2026-04-07 21:29:49 [DEBUG]: con_loss: 1.813, RCL_loss: 0.738, FTI_loss: 0.175
+2026-04-07 21:29:49 [DEBUG]: con_loss: 1.775, RCL_loss: 0.709, FTI_loss: 0.148
+2026-04-07 21:29:49 [DEBUG]: con_loss: 1.756, RCL_loss: 1.131, FTI_loss: 0.001
+2026-04-07 21:29:50 [DEBUG]: con_loss: 1.736, RCL_loss: 0.108, FTI_loss: 0.005
+2026-04-07 21:29:50 [DEBUG]: con_loss: 1.778, RCL_loss: 0.159, FTI_loss: 0.005
+2026-04-07 21:29:50 [DEBUG]: con_loss: 1.825, RCL_loss: 1.305, FTI_loss: 0.512
+2026-04-07 21:29:51 [DEBUG]: con_loss: 1.766, RCL_loss: 0.657, FTI_loss: 0.006
+2026-04-07 21:29:51 [DEBUG]: con_loss: 1.775, RCL_loss: 0.422, FTI_loss: 0.012
+2026-04-07 21:29:51 [DEBUG]: con_loss: 1.762, RCL_loss: 0.792, FTI_loss: 0.011
+2026-04-07 21:29:52 [DEBUG]: con_loss: 1.817, RCL_loss: 0.705, FTI_loss: 0.001
+2026-04-07 21:29:52 [DEBUG]: con_loss: 1.783, RCL_loss: 0.392, FTI_loss: 0.015
+2026-04-07 21:29:52 [DEBUG]: con_loss: 1.749, RCL_loss: 0.854, FTI_loss: 0.116
+2026-04-07 21:29:53 [DEBUG]: con_loss: 1.778, RCL_loss: 0.840, FTI_loss: 0.003
+2026-04-07 21:29:53 [DEBUG]: con_loss: 1.762, RCL_loss: 0.189, FTI_loss: 0.008
+2026-04-07 21:29:53 [DEBUG]: con_loss: 1.783, RCL_loss: 0.487, FTI_loss: 0.032
+2026-04-07 21:29:54 [DEBUG]: con_loss: 1.749, RCL_loss: 0.600, FTI_loss: 0.004
+2026-04-07 21:29:54 [DEBUG]: con_loss: 1.764, RCL_loss: 2.107, FTI_loss: 0.112
+2026-04-07 21:29:55 [DEBUG]: con_loss: 1.783, RCL_loss: 1.051, FTI_loss: 0.002
+2026-04-07 21:29:55 [DEBUG]: con_loss: 1.789, RCL_loss: 0.615, FTI_loss: 0.000
+2026-04-07 21:29:55 [DEBUG]: con_loss: 1.775, RCL_loss: 0.616, FTI_loss: 0.112
+2026-04-07 21:29:55 [DEBUG]: con_loss: 1.769, RCL_loss: 0.165, FTI_loss: 0.000
+2026-04-07 21:29:56 [DEBUG]: con_loss: 1.761, RCL_loss: 0.873, FTI_loss: 0.211
+2026-04-07 21:29:56 [DEBUG]: con_loss: 1.754, RCL_loss: 0.214, FTI_loss: 0.021
+2026-04-07 21:29:57 [DEBUG]: con_loss: 1.809, RCL_loss: 0.377, FTI_loss: 0.003
+2026-04-07 21:29:57 [DEBUG]: con_loss: 1.795, RCL_loss: 0.560, FTI_loss: 0.006
+2026-04-07 21:29:57 [DEBUG]: con_loss: 1.761, RCL_loss: 1.367, FTI_loss: 0.000
+2026-04-07 21:29:58 [DEBUG]: con_loss: 1.811, RCL_loss: 1.018, FTI_loss: 0.002
+2026-04-07 21:29:58 [DEBUG]: con_loss: 1.765, RCL_loss: 1.078, FTI_loss: 0.186
+2026-04-07 21:29:58 [DEBUG]: con_loss: 1.787, RCL_loss: 0.489, FTI_loss: 0.279
+2026-04-07 21:29:59 [DEBUG]: con_loss: 1.789, RCL_loss: 0.248, FTI_loss: 0.009
+2026-04-07 21:29:59 [DEBUG]: con_loss: 1.788, RCL_loss: 1.063, FTI_loss: 0.009
+2026-04-07 21:29:59 [DEBUG]: con_loss: 1.745, RCL_loss: 0.943, FTI_loss: 0.001
+2026-04-07 21:30:00 [DEBUG]: con_loss: 1.762, RCL_loss: 0.541, FTI_loss: 0.308
+2026-04-07 21:30:00 [DEBUG]: con_loss: 1.747, RCL_loss: 1.072, FTI_loss: 0.000
+2026-04-07 21:30:00 [DEBUG]: con_loss: 1.745, RCL_loss: 0.701, FTI_loss: 0.001
+2026-04-07 21:30:01 [DEBUG]: con_loss: 1.770, RCL_loss: 0.103, FTI_loss: 0.002
+2026-04-07 21:30:01 [DEBUG]: con_loss: 1.756, RCL_loss: 0.409, FTI_loss: 0.052
+2026-04-07 21:30:02 [DEBUG]: con_loss: 1.798, RCL_loss: 0.612, FTI_loss: 0.007
+2026-04-07 21:30:02 [INFO]: Epoch 39 done. Loss: 3.344, Time per epoch: 13.057[s]
+2026-04-07 21:30:02 [DEBUG]: con_loss: 1.738, RCL_loss: 0.267, FTI_loss: 0.009
+2026-04-07 21:30:02 [DEBUG]: con_loss: 1.768, RCL_loss: 0.429, FTI_loss: 0.012
+2026-04-07 21:30:03 [DEBUG]: con_loss: 1.798, RCL_loss: 0.092, FTI_loss: 0.002
+2026-04-07 21:30:03 [DEBUG]: con_loss: 1.738, RCL_loss: 0.638, FTI_loss: 0.089
+2026-04-07 21:30:03 [DEBUG]: con_loss: 1.763, RCL_loss: 0.456, FTI_loss: 0.037
+2026-04-07 21:30:04 [DEBUG]: con_loss: 1.826, RCL_loss: 1.100, FTI_loss: 0.118
+2026-04-07 21:30:04 [DEBUG]: con_loss: 1.750, RCL_loss: 0.469, FTI_loss: 0.080
+2026-04-07 21:30:04 [DEBUG]: con_loss: 1.798, RCL_loss: 0.682, FTI_loss: 0.002
+2026-04-07 21:30:05 [DEBUG]: con_loss: 1.807, RCL_loss: 0.595, FTI_loss: 0.241
+2026-04-07 21:30:05 [DEBUG]: con_loss: 1.798, RCL_loss: 0.621, FTI_loss: 0.001
+2026-04-07 21:30:05 [DEBUG]: con_loss: 1.763, RCL_loss: 0.140, FTI_loss: 0.011
+2026-04-07 21:30:06 [DEBUG]: con_loss: 1.747, RCL_loss: 0.314, FTI_loss: 0.002
+2026-04-07 21:30:06 [DEBUG]: con_loss: 1.755, RCL_loss: 0.889, FTI_loss: 0.000
+2026-04-07 21:30:06 [DEBUG]: con_loss: 1.740, RCL_loss: 0.325, FTI_loss: 0.008
+2026-04-07 21:30:07 [DEBUG]: con_loss: 1.773, RCL_loss: 0.046, FTI_loss: 0.001
+2026-04-07 21:30:07 [DEBUG]: con_loss: 1.747, RCL_loss: 0.109, FTI_loss: 0.001
+2026-04-07 21:30:07 [DEBUG]: con_loss: 1.710, RCL_loss: 0.334, FTI_loss: 0.001
+2026-04-07 21:30:08 [DEBUG]: con_loss: 1.806, RCL_loss: 0.149, FTI_loss: 0.009
+2026-04-07 21:30:08 [DEBUG]: con_loss: 1.789, RCL_loss: 0.255, FTI_loss: 0.015
+2026-04-07 21:30:09 [DEBUG]: con_loss: 1.768, RCL_loss: 0.087, FTI_loss: 0.005
+2026-04-07 21:30:09 [DEBUG]: con_loss: 1.778, RCL_loss: 0.917, FTI_loss: 0.010
+2026-04-07 21:30:09 [DEBUG]: con_loss: 1.757, RCL_loss: 0.157, FTI_loss: 0.008
+2026-04-07 21:30:10 [DEBUG]: con_loss: 1.793, RCL_loss: 1.049, FTI_loss: 0.083
+2026-04-07 21:30:10 [DEBUG]: con_loss: 1.780, RCL_loss: 0.631, FTI_loss: 0.147
+2026-04-07 21:30:10 [DEBUG]: con_loss: 1.757, RCL_loss: 1.004, FTI_loss: 0.187
+2026-04-07 21:30:11 [DEBUG]: con_loss: 1.732, RCL_loss: 0.375, FTI_loss: 0.000
+2026-04-07 21:30:11 [DEBUG]: con_loss: 1.771, RCL_loss: 0.159, FTI_loss: 0.245
+2026-04-07 21:30:11 [DEBUG]: con_loss: 1.750, RCL_loss: 0.660, FTI_loss: 0.306
+2026-04-07 21:30:12 [DEBUG]: con_loss: 1.779, RCL_loss: 0.416, FTI_loss: 0.071
+2026-04-07 21:30:12 [DEBUG]: con_loss: 1.729, RCL_loss: 0.115, FTI_loss: 0.005
+2026-04-07 21:30:12 [DEBUG]: con_loss: 1.791, RCL_loss: 0.587, FTI_loss: 0.000
+2026-04-07 21:30:13 [DEBUG]: con_loss: 1.738, RCL_loss: 0.263, FTI_loss: 0.000
+2026-04-07 21:30:13 [DEBUG]: con_loss: 1.760, RCL_loss: 1.047, FTI_loss: 0.216
+2026-04-07 21:30:14 [DEBUG]: con_loss: 1.771, RCL_loss: 0.529, FTI_loss: 0.006
+2026-04-07 21:30:14 [DEBUG]: con_loss: 1.771, RCL_loss: 0.758, FTI_loss: 0.028
+2026-04-07 21:30:14 [DEBUG]: con_loss: 1.755, RCL_loss: 0.197, FTI_loss: 0.021
+2026-04-07 21:30:15 [DEBUG]: con_loss: 1.726, RCL_loss: 0.616, FTI_loss: 0.060
+2026-04-07 21:30:15 [DEBUG]: con_loss: 1.767, RCL_loss: 0.899, FTI_loss: 0.006
+2026-04-07 21:30:15 [INFO]: Epoch 40 done. Loss: 3.231, Time per epoch: 13.356[s]
+2026-04-07 21:30:15 [DEBUG]: con_loss: 1.796, RCL_loss: 0.381, FTI_loss: 0.058
+2026-04-07 21:30:16 [DEBUG]: con_loss: 1.780, RCL_loss: 0.267, FTI_loss: 0.049
+2026-04-07 21:30:16 [DEBUG]: con_loss: 1.736, RCL_loss: 0.540, FTI_loss: 0.014
+2026-04-07 21:30:16 [DEBUG]: con_loss: 1.737, RCL_loss: 0.638, FTI_loss: 0.001
+2026-04-07 21:30:17 [DEBUG]: con_loss: 1.762, RCL_loss: 0.442, FTI_loss: 0.001
+2026-04-07 21:30:17 [DEBUG]: con_loss: 1.762, RCL_loss: 0.526, FTI_loss: 0.135
+2026-04-07 21:30:17 [DEBUG]: con_loss: 1.803, RCL_loss: 0.587, FTI_loss: 0.170
+2026-04-07 21:30:18 [DEBUG]: con_loss: 1.759, RCL_loss: 0.982, FTI_loss: 0.029
+2026-04-07 21:30:18 [DEBUG]: con_loss: 1.799, RCL_loss: 1.067, FTI_loss: 0.001
+2026-04-07 21:30:19 [DEBUG]: con_loss: 1.785, RCL_loss: 0.182, FTI_loss: 0.001
+2026-04-07 21:30:19 [DEBUG]: con_loss: 1.775, RCL_loss: 1.574, FTI_loss: 0.011
+2026-04-07 21:30:19 [DEBUG]: con_loss: 1.752, RCL_loss: 0.280, FTI_loss: 0.000
+2026-04-07 21:30:20 [DEBUG]: con_loss: 1.747, RCL_loss: 0.324, FTI_loss: 0.005
+2026-04-07 21:30:20 [DEBUG]: con_loss: 1.772, RCL_loss: 0.411, FTI_loss: 0.143
+2026-04-07 21:30:20 [DEBUG]: con_loss: 1.747, RCL_loss: 0.311, FTI_loss: 0.000
+2026-04-07 21:30:21 [DEBUG]: con_loss: 1.792, RCL_loss: 0.366, FTI_loss: 0.206
+2026-04-07 21:30:21 [DEBUG]: con_loss: 1.784, RCL_loss: 0.224, FTI_loss: 0.001
+2026-04-07 21:30:21 [DEBUG]: con_loss: 1.794, RCL_loss: 0.242, FTI_loss: 0.000
+2026-04-07 21:30:22 [DEBUG]: con_loss: 1.721, RCL_loss: 0.378, FTI_loss: 0.000
+2026-04-07 21:30:22 [DEBUG]: con_loss: 1.788, RCL_loss: 0.649, FTI_loss: 0.002
+2026-04-07 21:30:22 [DEBUG]: con_loss: 1.766, RCL_loss: 0.638, FTI_loss: 0.001
+2026-04-07 21:30:23 [DEBUG]: con_loss: 1.755, RCL_loss: 0.931, FTI_loss: 0.097
+2026-04-07 21:30:23 [DEBUG]: con_loss: 1.720, RCL_loss: 0.443, FTI_loss: 0.016
+2026-04-07 21:30:23 [DEBUG]: con_loss: 1.755, RCL_loss: 0.598, FTI_loss: 0.004
+2026-04-07 21:30:24 [DEBUG]: con_loss: 1.725, RCL_loss: 0.287, FTI_loss: 0.002
+2026-04-07 21:30:24 [DEBUG]: con_loss: 1.787, RCL_loss: 0.313, FTI_loss: 0.007
+2026-04-07 21:30:24 [DEBUG]: con_loss: 1.748, RCL_loss: 0.427, FTI_loss: 0.110
+2026-04-07 21:30:25 [DEBUG]: con_loss: 1.770, RCL_loss: 0.893, FTI_loss: 0.231
+2026-04-07 21:30:25 [DEBUG]: con_loss: 1.885, RCL_loss: 0.342, FTI_loss: 0.118
+2026-04-07 21:30:26 [DEBUG]: con_loss: 1.789, RCL_loss: 0.809, FTI_loss: 0.023
+2026-04-07 21:30:26 [DEBUG]: con_loss: 1.743, RCL_loss: 0.795, FTI_loss: 0.001
+2026-04-07 21:30:26 [DEBUG]: con_loss: 1.765, RCL_loss: 1.065, FTI_loss: 0.006
+2026-04-07 21:30:27 [DEBUG]: con_loss: 1.865, RCL_loss: 0.514, FTI_loss: 0.006
+2026-04-07 21:30:27 [DEBUG]: con_loss: 1.763, RCL_loss: 0.329, FTI_loss: 0.010
+2026-04-07 21:30:27 [DEBUG]: con_loss: 1.725, RCL_loss: 0.302, FTI_loss: 0.015
+2026-04-07 21:30:28 [DEBUG]: con_loss: 1.838, RCL_loss: 0.499, FTI_loss: 0.027
+2026-04-07 21:30:28 [DEBUG]: con_loss: 1.771, RCL_loss: 0.911, FTI_loss: 0.181
+2026-04-07 21:30:28 [DEBUG]: con_loss: 1.743, RCL_loss: 0.647, FTI_loss: 0.226
+2026-04-07 21:30:28 [INFO]: Epoch 41 done. Loss: 3.268, Time per epoch: 13.432[s]
+2026-04-07 21:30:29 [DEBUG]: con_loss: 1.791, RCL_loss: 0.542, FTI_loss: 0.018
+2026-04-07 21:30:29 [DEBUG]: con_loss: 1.787, RCL_loss: 0.355, FTI_loss: 0.007
+2026-04-07 21:30:29 [DEBUG]: con_loss: 1.776, RCL_loss: 0.639, FTI_loss: 0.171
+2026-04-07 21:30:30 [DEBUG]: con_loss: 1.753, RCL_loss: 0.936, FTI_loss: 0.099
+2026-04-07 21:30:30 [DEBUG]: con_loss: 1.778, RCL_loss: 0.710, FTI_loss: 0.002
+2026-04-07 21:30:30 [DEBUG]: con_loss: 1.760, RCL_loss: 1.459, FTI_loss: 0.006
+2026-04-07 21:30:31 [DEBUG]: con_loss: 1.765, RCL_loss: 0.476, FTI_loss: 0.026
+2026-04-07 21:30:31 [DEBUG]: con_loss: 1.785, RCL_loss: 1.123, FTI_loss: 0.002
+2026-04-07 21:30:32 [DEBUG]: con_loss: 1.769, RCL_loss: 0.352, FTI_loss: 0.000
+2026-04-07 21:30:32 [DEBUG]: con_loss: 1.758, RCL_loss: 1.224, FTI_loss: 0.127
+2026-04-07 21:30:32 [DEBUG]: con_loss: 1.760, RCL_loss: 0.770, FTI_loss: 0.492
+2026-04-07 21:30:33 [DEBUG]: con_loss: 1.763, RCL_loss: 1.236, FTI_loss: 0.002
+2026-04-07 21:30:33 [DEBUG]: con_loss: 1.785, RCL_loss: 0.286, FTI_loss: 0.027
+2026-04-07 21:30:33 [DEBUG]: con_loss: 1.780, RCL_loss: 0.430, FTI_loss: 0.000
+2026-04-07 21:30:34 [DEBUG]: con_loss: 1.737, RCL_loss: 1.206, FTI_loss: 0.000
+2026-04-07 21:30:34 [DEBUG]: con_loss: 1.799, RCL_loss: 0.140, FTI_loss: 0.029
+2026-04-07 21:30:34 [DEBUG]: con_loss: 1.699, RCL_loss: 0.343, FTI_loss: 0.019
+2026-04-07 21:30:35 [DEBUG]: con_loss: 1.784, RCL_loss: 0.129, FTI_loss: 0.005
+2026-04-07 21:30:35 [DEBUG]: con_loss: 1.745, RCL_loss: 0.221, FTI_loss: 0.005
+2026-04-07 21:30:35 [DEBUG]: con_loss: 1.743, RCL_loss: 0.381, FTI_loss: 0.074
+2026-04-07 21:30:36 [DEBUG]: con_loss: 1.729, RCL_loss: 0.317, FTI_loss: 0.000
+2026-04-07 21:30:36 [DEBUG]: con_loss: 1.755, RCL_loss: 0.408, FTI_loss: 0.120
+2026-04-07 21:30:36 [DEBUG]: con_loss: 1.776, RCL_loss: 0.350, FTI_loss: 0.086
+2026-04-07 21:30:37 [DEBUG]: con_loss: 1.782, RCL_loss: 0.211, FTI_loss: 0.000
+2026-04-07 21:30:37 [DEBUG]: con_loss: 1.734, RCL_loss: 0.436, FTI_loss: 0.001
+2026-04-07 21:30:38 [DEBUG]: con_loss: 1.789, RCL_loss: 0.605, FTI_loss: 0.151
+2026-04-07 21:30:38 [DEBUG]: con_loss: 1.842, RCL_loss: 0.347, FTI_loss: 0.006
+2026-04-07 21:30:38 [DEBUG]: con_loss: 1.744, RCL_loss: 0.294, FTI_loss: 0.001
+2026-04-07 21:30:39 [DEBUG]: con_loss: 1.738, RCL_loss: 0.648, FTI_loss: 0.001
+2026-04-07 21:30:39 [DEBUG]: con_loss: 1.768, RCL_loss: 0.344, FTI_loss: 0.010
+2026-04-07 21:30:39 [DEBUG]: con_loss: 1.724, RCL_loss: 0.337, FTI_loss: 0.001
+2026-04-07 21:30:40 [DEBUG]: con_loss: 1.734, RCL_loss: 0.043, FTI_loss: 0.002
+2026-04-07 21:30:40 [DEBUG]: con_loss: 1.746, RCL_loss: 1.100, FTI_loss: 0.004
+2026-04-07 21:30:40 [DEBUG]: con_loss: 1.763, RCL_loss: 0.475, FTI_loss: 0.097
+2026-04-07 21:30:41 [DEBUG]: con_loss: 1.758, RCL_loss: 0.640, FTI_loss: 0.000
+2026-04-07 21:30:41 [DEBUG]: con_loss: 1.754, RCL_loss: 0.690, FTI_loss: 0.005
+2026-04-07 21:30:41 [DEBUG]: con_loss: 1.764, RCL_loss: 0.229, FTI_loss: 0.007
+2026-04-07 21:30:42 [DEBUG]: con_loss: 1.754, RCL_loss: 0.143, FTI_loss: 0.000
+2026-04-07 21:30:42 [INFO]: Epoch 42 done. Loss: 3.252, Time per epoch: 13.402[s]
+2026-04-07 21:30:42 [DEBUG]: con_loss: 1.796, RCL_loss: 0.507, FTI_loss: 0.000
+2026-04-07 21:30:42 [DEBUG]: con_loss: 1.702, RCL_loss: 0.313, FTI_loss: 0.003
+2026-04-07 21:30:43 [DEBUG]: con_loss: 1.767, RCL_loss: 1.556, FTI_loss: 0.000
+2026-04-07 21:30:43 [DEBUG]: con_loss: 1.769, RCL_loss: 0.048, FTI_loss: 0.012
+2026-04-07 21:30:43 [DEBUG]: con_loss: 1.771, RCL_loss: 0.309, FTI_loss: 0.000
+2026-04-07 21:30:44 [DEBUG]: con_loss: 1.769, RCL_loss: 1.472, FTI_loss: 0.000
+2026-04-07 21:30:44 [DEBUG]: con_loss: 1.776, RCL_loss: 0.176, FTI_loss: 0.065
+2026-04-07 21:30:45 [DEBUG]: con_loss: 1.790, RCL_loss: 0.721, FTI_loss: 0.000
+2026-04-07 21:30:45 [DEBUG]: con_loss: 1.710, RCL_loss: 0.647, FTI_loss: 0.000
+2026-04-07 21:30:45 [DEBUG]: con_loss: 1.793, RCL_loss: 0.249, FTI_loss: 0.054
+2026-04-07 21:30:46 [DEBUG]: con_loss: 1.782, RCL_loss: 1.008, FTI_loss: 0.293
+2026-04-07 21:30:46 [DEBUG]: con_loss: 1.799, RCL_loss: 0.217, FTI_loss: 0.309
+2026-04-07 21:30:47 [DEBUG]: con_loss: 1.798, RCL_loss: 0.615, FTI_loss: 0.069
+2026-04-07 21:30:47 [DEBUG]: con_loss: 1.792, RCL_loss: 1.232, FTI_loss: 0.000
+2026-04-07 21:30:47 [DEBUG]: con_loss: 1.776, RCL_loss: 1.130, FTI_loss: 0.000
+2026-04-07 21:30:48 [DEBUG]: con_loss: 1.798, RCL_loss: 0.876, FTI_loss: 0.135
+2026-04-07 21:30:48 [DEBUG]: con_loss: 1.781, RCL_loss: 0.497, FTI_loss: 0.007
+2026-04-07 21:30:48 [DEBUG]: con_loss: 1.754, RCL_loss: 0.366, FTI_loss: 0.001
+2026-04-07 21:30:49 [DEBUG]: con_loss: 1.740, RCL_loss: 0.492, FTI_loss: 0.000
+2026-04-07 21:30:49 [DEBUG]: con_loss: 1.776, RCL_loss: 0.238, FTI_loss: 0.003
+2026-04-07 21:30:49 [DEBUG]: con_loss: 1.757, RCL_loss: 0.670, FTI_loss: 0.000
+2026-04-07 21:30:50 [DEBUG]: con_loss: 1.771, RCL_loss: 0.527, FTI_loss: 0.008
+2026-04-07 21:30:50 [DEBUG]: con_loss: 1.780, RCL_loss: 0.407, FTI_loss: 0.011
+2026-04-07 21:30:50 [DEBUG]: con_loss: 1.823, RCL_loss: 0.073, FTI_loss: 0.069
+2026-04-07 21:30:50 [DEBUG]: con_loss: 1.775, RCL_loss: 0.245, FTI_loss: 0.030
+2026-04-07 21:30:51 [DEBUG]: con_loss: 1.784, RCL_loss: 0.827, FTI_loss: 1.467
+2026-04-07 21:30:51 [DEBUG]: con_loss: 1.759, RCL_loss: 0.983, FTI_loss: 0.004
+2026-04-07 21:30:51 [DEBUG]: con_loss: 1.759, RCL_loss: 0.556, FTI_loss: 0.002
+2026-04-07 21:30:52 [DEBUG]: con_loss: 1.786, RCL_loss: 0.653, FTI_loss: 0.002
+2026-04-07 21:30:52 [DEBUG]: con_loss: 1.786, RCL_loss: 0.662, FTI_loss: 0.071
+2026-04-07 21:30:52 [DEBUG]: con_loss: 1.804, RCL_loss: 0.394, FTI_loss: 0.044
+2026-04-07 21:30:53 [DEBUG]: con_loss: 1.801, RCL_loss: 0.418, FTI_loss: 0.000
+2026-04-07 21:30:53 [DEBUG]: con_loss: 1.809, RCL_loss: 0.697, FTI_loss: 0.146
+2026-04-07 21:30:53 [DEBUG]: con_loss: 1.877, RCL_loss: 0.572, FTI_loss: 0.010
+2026-04-07 21:30:54 [DEBUG]: con_loss: 1.810, RCL_loss: 0.885, FTI_loss: 0.255
+2026-04-07 21:30:54 [DEBUG]: con_loss: 1.837, RCL_loss: 1.176, FTI_loss: 0.286
+2026-04-07 21:30:54 [DEBUG]: con_loss: 1.802, RCL_loss: 0.543, FTI_loss: 0.043
+2026-04-07 21:30:54 [DEBUG]: con_loss: 1.823, RCL_loss: 0.894, FTI_loss: 0.713
+2026-04-07 21:30:55 [INFO]: Epoch 43 done. Loss: 3.339, Time per epoch: 12.715[s]
+2026-04-07 21:30:55 [DEBUG]: con_loss: 1.805, RCL_loss: 0.689, FTI_loss: 0.000
+2026-04-07 21:30:55 [DEBUG]: con_loss: 1.821, RCL_loss: 0.638, FTI_loss: 0.004
+2026-04-07 21:30:55 [DEBUG]: con_loss: 1.791, RCL_loss: 0.361, FTI_loss: 0.010
+2026-04-07 21:30:56 [DEBUG]: con_loss: 1.820, RCL_loss: 0.275, FTI_loss: 0.000
+2026-04-07 21:30:56 [DEBUG]: con_loss: 1.861, RCL_loss: 0.728, FTI_loss: 0.072
+2026-04-07 21:30:56 [DEBUG]: con_loss: 1.790, RCL_loss: 0.780, FTI_loss: 0.005
+2026-04-07 21:30:57 [DEBUG]: con_loss: 1.800, RCL_loss: 0.408, FTI_loss: 0.027
+2026-04-07 21:30:57 [DEBUG]: con_loss: 1.771, RCL_loss: 0.144, FTI_loss: 0.002
+2026-04-07 21:30:57 [DEBUG]: con_loss: 1.840, RCL_loss: 0.644, FTI_loss: 0.240
+2026-04-07 21:30:58 [DEBUG]: con_loss: 1.786, RCL_loss: 0.735, FTI_loss: 0.211
+2026-04-07 21:30:58 [DEBUG]: con_loss: 1.771, RCL_loss: 0.801, FTI_loss: 0.001
+2026-04-07 21:30:58 [DEBUG]: con_loss: 1.799, RCL_loss: 0.170, FTI_loss: 0.021
+2026-04-07 21:30:59 [DEBUG]: con_loss: 1.784, RCL_loss: 0.819, FTI_loss: 0.001
+2026-04-07 21:30:59 [DEBUG]: con_loss: 1.787, RCL_loss: 1.674, FTI_loss: 0.038
+2026-04-07 21:30:59 [DEBUG]: con_loss: 1.842, RCL_loss: 0.330, FTI_loss: 0.055
+2026-04-07 21:30:59 [DEBUG]: con_loss: 1.739, RCL_loss: 0.325, FTI_loss: 0.001
+2026-04-07 21:31:00 [DEBUG]: con_loss: 1.793, RCL_loss: 0.158, FTI_loss: 0.084
+2026-04-07 21:31:00 [DEBUG]: con_loss: 1.777, RCL_loss: 0.193, FTI_loss: 0.001
+2026-04-07 21:31:00 [DEBUG]: con_loss: 1.817, RCL_loss: 0.586, FTI_loss: 0.004
+2026-04-07 21:31:01 [DEBUG]: con_loss: 1.804, RCL_loss: 0.959, FTI_loss: 0.299
+2026-04-07 21:31:01 [DEBUG]: con_loss: 1.810, RCL_loss: 0.774, FTI_loss: 0.204
+2026-04-07 21:31:01 [DEBUG]: con_loss: 1.809, RCL_loss: 2.477, FTI_loss: 0.949
+2026-04-07 21:31:02 [DEBUG]: con_loss: 1.825, RCL_loss: 0.376, FTI_loss: 0.125
+2026-04-07 21:31:02 [DEBUG]: con_loss: 1.759, RCL_loss: 0.474, FTI_loss: 0.002
+2026-04-07 21:31:02 [DEBUG]: con_loss: 1.756, RCL_loss: 0.335, FTI_loss: 0.184
+2026-04-07 21:31:03 [DEBUG]: con_loss: 1.783, RCL_loss: 0.093, FTI_loss: 0.001
+2026-04-07 21:31:03 [DEBUG]: con_loss: 1.745, RCL_loss: 0.935, FTI_loss: 0.003
+2026-04-07 21:31:03 [DEBUG]: con_loss: 1.814, RCL_loss: 0.588, FTI_loss: 0.001
+2026-04-07 21:31:04 [DEBUG]: con_loss: 1.827, RCL_loss: 0.635, FTI_loss: 0.025
+2026-04-07 21:31:04 [DEBUG]: con_loss: 1.815, RCL_loss: 1.227, FTI_loss: 0.080
+2026-04-07 21:31:04 [DEBUG]: con_loss: 1.781, RCL_loss: 1.279, FTI_loss: 0.031
+2026-04-07 21:31:05 [DEBUG]: con_loss: 1.788, RCL_loss: 0.175, FTI_loss: 0.046
+2026-04-07 21:31:05 [DEBUG]: con_loss: 1.821, RCL_loss: 0.913, FTI_loss: 0.001
+2026-04-07 21:31:05 [DEBUG]: con_loss: 1.823, RCL_loss: 0.454, FTI_loss: 0.063
+2026-04-07 21:31:05 [DEBUG]: con_loss: 1.840, RCL_loss: 0.828, FTI_loss: 0.001
+2026-04-07 21:31:06 [DEBUG]: con_loss: 1.799, RCL_loss: 0.784, FTI_loss: 0.232
+2026-04-07 21:31:06 [DEBUG]: con_loss: 1.740, RCL_loss: 1.350, FTI_loss: 0.060
+2026-04-07 21:31:06 [DEBUG]: con_loss: 1.796, RCL_loss: 0.109, FTI_loss: 0.008
+2026-04-07 21:31:06 [INFO]: Epoch 44 done. Loss: 3.351, Time per epoch: 11.850[s]
+2026-04-07 21:31:07 [DEBUG]: con_loss: 1.761, RCL_loss: 0.433, FTI_loss: 0.028
+2026-04-07 21:31:07 [DEBUG]: con_loss: 1.813, RCL_loss: 0.862, FTI_loss: 0.042
+2026-04-07 21:31:07 [DEBUG]: con_loss: 1.795, RCL_loss: 0.676, FTI_loss: 0.028
+2026-04-07 21:31:08 [DEBUG]: con_loss: 1.860, RCL_loss: 1.113, FTI_loss: 2.363
+2026-04-07 21:31:08 [DEBUG]: con_loss: 1.812, RCL_loss: 0.623, FTI_loss: 0.004
+2026-04-07 21:31:08 [DEBUG]: con_loss: 1.758, RCL_loss: 0.964, FTI_loss: 0.000
+2026-04-07 21:31:09 [DEBUG]: con_loss: 1.818, RCL_loss: 0.332, FTI_loss: 0.073
+2026-04-07 21:31:09 [DEBUG]: con_loss: 1.808, RCL_loss: 0.210, FTI_loss: 0.014
+2026-04-07 21:31:09 [DEBUG]: con_loss: 1.795, RCL_loss: 1.461, FTI_loss: 0.368
+2026-04-07 21:31:10 [DEBUG]: con_loss: 1.779, RCL_loss: 0.390, FTI_loss: 0.011
+2026-04-07 21:31:10 [DEBUG]: con_loss: 1.770, RCL_loss: 0.403, FTI_loss: 0.309
+2026-04-07 21:31:10 [DEBUG]: con_loss: 1.742, RCL_loss: 0.419, FTI_loss: 0.001
+2026-04-07 21:31:11 [DEBUG]: con_loss: 1.750, RCL_loss: 0.536, FTI_loss: 0.232
+2026-04-07 21:31:11 [DEBUG]: con_loss: 1.824, RCL_loss: 0.548, FTI_loss: 0.098
+2026-04-07 21:31:11 [DEBUG]: con_loss: 1.788, RCL_loss: 0.846, FTI_loss: 0.170
+2026-04-07 21:31:12 [DEBUG]: con_loss: 1.796, RCL_loss: 0.664, FTI_loss: 0.023
+2026-04-07 21:31:12 [DEBUG]: con_loss: 1.798, RCL_loss: 0.671, FTI_loss: 0.069
+2026-04-07 21:31:13 [DEBUG]: con_loss: 1.856, RCL_loss: 0.404, FTI_loss: 0.002
+2026-04-07 21:31:13 [DEBUG]: con_loss: 1.782, RCL_loss: 0.402, FTI_loss: 0.131
+2026-04-07 21:31:13 [DEBUG]: con_loss: 1.788, RCL_loss: 0.852, FTI_loss: 0.283
+2026-04-07 21:31:14 [DEBUG]: con_loss: 1.795, RCL_loss: 0.223, FTI_loss: 0.001
+2026-04-07 21:31:14 [DEBUG]: con_loss: 1.842, RCL_loss: 0.560, FTI_loss: 0.012
+2026-04-07 21:31:14 [DEBUG]: con_loss: 1.827, RCL_loss: 1.550, FTI_loss: 0.018
+2026-04-07 21:31:15 [DEBUG]: con_loss: 1.838, RCL_loss: 0.441, FTI_loss: 0.014
+2026-04-07 21:31:15 [DEBUG]: con_loss: 1.787, RCL_loss: 0.279, FTI_loss: 0.315
+2026-04-07 21:31:15 [DEBUG]: con_loss: 1.804, RCL_loss: 0.294, FTI_loss: 0.014
+2026-04-07 21:31:16 [DEBUG]: con_loss: 1.798, RCL_loss: 0.425, FTI_loss: 0.231
+2026-04-07 21:31:16 [DEBUG]: con_loss: 1.738, RCL_loss: 0.838, FTI_loss: 0.243
+2026-04-07 21:31:16 [DEBUG]: con_loss: 1.808, RCL_loss: 0.789, FTI_loss: 0.748
+2026-04-07 21:31:17 [DEBUG]: con_loss: 1.789, RCL_loss: 0.406, FTI_loss: 0.365
+2026-04-07 21:31:17 [DEBUG]: con_loss: 1.779, RCL_loss: 0.160, FTI_loss: 0.014
+2026-04-07 21:31:18 [DEBUG]: con_loss: 1.805, RCL_loss: 0.754, FTI_loss: 0.000
+2026-04-07 21:31:18 [DEBUG]: con_loss: 1.772, RCL_loss: 0.226, FTI_loss: 0.000
+2026-04-07 21:31:18 [DEBUG]: con_loss: 1.823, RCL_loss: 0.637, FTI_loss: 0.021
+2026-04-07 21:31:19 [DEBUG]: con_loss: 1.808, RCL_loss: 1.112, FTI_loss: 0.001
+2026-04-07 21:31:19 [DEBUG]: con_loss: 1.729, RCL_loss: 0.533, FTI_loss: 0.001
+2026-04-07 21:31:19 [DEBUG]: con_loss: 1.778, RCL_loss: 0.908, FTI_loss: 0.000
+2026-04-07 21:31:20 [DEBUG]: con_loss: 1.762, RCL_loss: 0.131, FTI_loss: 0.017
+2026-04-07 21:31:20 [INFO]: Epoch 45 done. Loss: 3.363, Time per epoch: 13.273[s]
+2026-04-07 21:31:20 [INFO]: Early stop at epoch 45 due to lack of improvement.
+2026-04-07 21:31:20 [INFO]: Training has finished.
+2026-04-07 21:31:20 [DEBUG]: The training time is 566.8910775184631[s]
+2026-04-07 21:31:20 [DEBUG]: The training time per epoch is 12.323719076488329[s]
+2026-04-07 21:31:20 [INFO]: Model checkpoint and metadata has been saved at corrected_index_data_trained_model_gaia_weighted_ce.pt.
+2026-04-07 21:33:37 [INFO]: [Root localization] top1: 85.240%, top2: 95.600%, top3: 96.392%, top4: 96.987%,avg@3: 0.924, NDCG@3: 0.922
+2026-04-07 21:33:37 [INFO]: [Failure type classification] precision: 98.849%, recall: 98.976%, f1-score: 98.902%
+2026-04-07 21:33:37 [INFO]: Evaluated checkpoint: corrected_index_data_trained_model_gaia_weighted_ce.pt
+2026-04-07 21:33:37 [INFO]: The average test time is 0.007283034164707876[s]
+2026-04-07 21:33:37 [INFO]: The total test time is 100.31651258468628[s]
