@@ -1,0 +1,21 @@
+{
+  "gaia_index": 2012,
+  "fold": 1,
+  "group": "C_trace_disagree_correct",
+  "rcl_pred": 5,
+  "rcl_pred_service": "mobservice2",
+  "fti_pred": "2.0",
+  "rcl_correct": true,
+  "fti_correct": true,
+  "prompt": "Sample id (GAIA): 2012\nModel prediction: root_cause=mobservice2, failure_type=2.0\n\n--- TRACE attention top-3 ---\n* mobservice1 (lift=3.95x)\n    incoming webservice2: performance degradation (count=1)\n* dbservice1 (lift=1.18x)\n    incoming logservice1: HTTP 500 server error (count=1)\n    incoming logservice1: performance degradation (count=1)\n* redisservice1 (lift=1.04x)\n    incoming mobservice2: HTTP 400 client error (count=1)\n\n--- LOG attention top-3 ---\n* logservice1 (lift=1.90x)\n    (no log events)\n* logservice2 (lift=1.90x)\n    (no log events)\n* webservice1 (lift=1.13x)\n    tid=4 (n=1): 2021-07-05 03:17:03,153 | INFO | 0.0.0.1 | 172.17.0.3 | webservice1 | 9173816bcd699bdb | uuid: 69e051ac-dcfc-11eb-9940-0242ac110003 write redis successfully\n    tid=7 (n=1): 2021-07-05 03:17:03,258 | INFO | 0.0.0.1 | 172.17.0.3 | webservice1 | 9173816bcd699bdb | complete information: {'uuid': '69e051ac-dcfc-11eb-9940-0242ac110003', \n\n--- METRIC attention top-3 ---\n* redisservice1 (lift=1.21x)\n    (no metric anomalies)\n* redisservice2 (lift=1.21x)\n    (no metric anomalies)\n* dbservice1 (lift=0.96x)\n    (no metric anomalies)",
+  "raw_response": "{\n  \"rcl_agreement\": \"contradict\",\n  \"dominant_modality\": \"trace\",\n  \"evidence_summary\": \"Trace modality shows redisservice1 receiving HTTP 400 client error from mobservice2, while mobservice1 has performance degradation from webservice2. No log or metric anomalies support mobservice2 as root cause.\",\n  \"explanation\": \"The model predicted mobservice2 as root cause, but trace evidence points to redisservice1 being impacted by mobservice2's client error. No log or metric signals implicate mobservice2 as the primary failure source.\"\n}",
+  "parsed": {
+    "rcl_agreement": "contradict",
+    "dominant_modality": "trace",
+    "evidence_summary": "Trace modality shows redisservice1 receiving HTTP 400 client error from mobservice2, while mobservice1 has performance degradation from webservice2. No log or metric anomalies support mobservice2 as root cause.",
+    "explanation": "The model predicted mobservice2 as root cause, but trace evidence points to redisservice1 being impacted by mobservice2's client error. No log or metric signals implicate mobservice2 as the primary failure source."
+  },
+  "status": "ok",
+  "latency_sec": 2.178079128265381,
+  "model": "qwen3-235b-a22b"
+}

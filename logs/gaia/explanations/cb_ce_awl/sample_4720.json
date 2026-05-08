@@ -1,0 +1,21 @@
+{
+  "gaia_index": 4720,
+  "fold": 1,
+  "group": "C_trace_disagree_correct",
+  "rcl_pred": 5,
+  "rcl_pred_service": "mobservice2",
+  "fti_pred": "2.0",
+  "rcl_correct": true,
+  "fti_correct": true,
+  "prompt": "Sample id (GAIA): 4720\nModel prediction: root_cause=mobservice2, failure_type=2.0\n\n--- TRACE attention top-3 ---\n* mobservice1 (lift=4.10x)\n    incoming webservice2: performance degradation (count=1)\n    outgoing redisservice1: performance degradation (count=1)\n* redisservice1 (lift=0.88x)\n    incoming mobservice2: HTTP 400 client error (count=1)\n    incoming mobservice1: performance degradation (count=1)\n* dbservice1 (lift=0.82x)\n    incoming logservice1: HTTP 500 server error (count=1)\n    incoming logservice1: performance degradation (count=1)\n\n--- LOG attention top-3 ---\n* logservice1 (lift=1.81x)\n    (no log events)\n* logservice2 (lift=1.81x)\n    (no log events)\n* webservice1 (lift=1.33x)\n    tid=4 (n=1): 2021-07-11 18:43:36,283 | INFO | 0.0.0.1 | 172.17.0.3 | webservice1 | 494c48de2ee53c7c | uuid: d868a0ba-e234-11eb-acbe-0242ac110003 write redis successfully\n    tid=7 (n=1): 2021-07-11 18:43:36,389 | INFO | 0.0.0.1 | 172.17.0.3 | webservice1 | 494c48de2ee53c7c | complete information: {'uuid': 'd868a0ba-e234-11eb-acbe-0242ac110003', \n\n--- METRIC attention top-3 ---\n* redisservice2 (lift=1.50x)\n    hosts=['0.0.0.2']; anomalies: docker_cpu_core_7_norm_pct, docker_cpu_core_7_pct, docker_memory_rss_pct, docker_memory_rss_total, docker_memory_stats_active_anon\n* webservice1 (lift=1.23x)\n    hosts=['0.0.0.1']; anomalies: docker_cpu_core_11_ticks, docker_cpu_core_1_norm_pct, docker_cpu_core_1_pct, docker_cpu_core_14_norm_pct, docker_cpu_core_14_pct\n* mobservice2 (lift=1.09x) [predicted RCL]\n    hosts=['0.0.0.4']; anomalies: docker_memory_stats_active_file, docker_memory_stats_total_active_file",
+  "raw_response": "{\n  \"rcl_agreement\": \"unclear\",\n  \"dominant_modality\": \"trace\",\n  \"evidence_summary\": \"Trace modality shows mobservice1 has performance degradation with webservice2 and redisservice1, while redisservice1 has a client error from mobservice2. Metric modality shows mobservice2 has minor memory anomalies.\",\n  \"explanation\": \"The trace data shows issues involving mobservice1 and redisservice1, but the client error from mobservice2 to redisservice1 suggests potential involvement. However, the metric anomalies for mobservice2 are minor and not definitive. The log data does not provide additional evidence, making the root cause unclear.\"\n}",
+  "parsed": {
+    "rcl_agreement": "unclear",
+    "dominant_modality": "trace",
+    "evidence_summary": "Trace modality shows mobservice1 has performance degradation with webservice2 and redisservice1, while redisservice1 has a client error from mobservice2. Metric modality shows mobservice2 has minor memory anomalies.",
+    "explanation": "The trace data shows issues involving mobservice1 and redisservice1, but the client error from mobservice2 to redisservice1 suggests potential involvement. However, the metric anomalies for mobservice2 are minor and not definitive. The log data does not provide additional evidence, making the root cause unclear."
+  },
+  "status": "ok",
+  "latency_sec": 2.568986177444458,
+  "model": "qwen3-235b-a22b"
+}

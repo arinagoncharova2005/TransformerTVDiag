@@ -1,0 +1,10 @@
+,False,True,all
+metric: top1==rcl_pred=False,5765,7929,13694
+metric: top1==rcl_pred=True,1034,1477,2511
+metric: top1==rcl_pred=all,6799,9406,16205
+trace: top1==rcl_pred=False,5366,5959,11325
+trace: top1==rcl_pred=True,1433,3447,4880
+trace: top1==rcl_pred=all,6799,9406,16205
+log: top1==rcl_pred=False,6625,9205,15830
+log: top1==rcl_pred=True,174,201,375
+log: top1==rcl_pred=all,6799,9406,16205

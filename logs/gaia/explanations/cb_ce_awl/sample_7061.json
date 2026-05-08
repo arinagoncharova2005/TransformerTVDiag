@@ -1,0 +1,21 @@
+{
+  "gaia_index": 7061,
+  "fold": 1,
+  "group": "B_trace_agree_wrong",
+  "rcl_pred": 4,
+  "rcl_pred_service": "mobservice1",
+  "fti_pred": "2.0",
+  "rcl_correct": false,
+  "fti_correct": false,
+  "prompt": "Sample id (GAIA): 7061\nModel prediction: root_cause=mobservice1, failure_type=2.0\n\n--- TRACE attention top-3 ---\n* mobservice1 (lift=3.42x) [predicted RCL]\n    incoming webservice2: performance degradation (count=1)\n    outgoing redisservice1: performance degradation (count=1)\n    incoming webservice1: performance degradation (count=1)\n* dbservice1 (lift=1.21x)\n    outgoing redisservice2: performance degradation (count=1)\n    outgoing redisservice1: performance degradation (count=1)\n* mobservice2 (lift=0.99x)\n    incoming webservice2: performance degradation (count=1)\n    incoming webservice1: performance degradation (count=1)\n    outgoing redisservice2: performance degradation (count=1)\n\n--- LOG attention top-3 ---\n* webservice1 (lift=1.80x)\n    tid=4 (n=1): 2021-07-15 16:22:10,857 | INFO | 0.0.0.1 | 172.17.0.3 | webservice1 | 233d1f0cf99eb123 | uuid: c05fabda-e545-11eb-a3f6-0242ac110003 write redis successfully\n    tid=7 (n=1): 2021-07-15 16:22:10,963 | INFO | 0.0.0.1 | 172.17.0.3 | webservice1 | 233d1f0cf99eb123 | complete information: {'uuid': 'c05fabda-e545-11eb-a3f6-0242ac110003', \n* webservice2 (lift=1.45x)\n    tid=1 (n=1): 2021-07-15 16:26:15,876 | INFO | 0.0.0.3 | webservice2 | web_helper.py -> web_service_resource -> 58 | 970f0d8eaf7b0286 | the list of all available services are\n    tid=4 (n=1): 2021-07-15 16:22:14,380 | INFO | 0.0.0.3 | 172.17.0.4 | webservice2 | 1e57125119e7d0c5 | uuid: c2740d08-e545-11eb-95bd-0242ac110004 write redis successfully\n* redisservice1 (lift=1.37x)\n    tid=4 (n=1): 2021-07-15 16:22:08,354 | INFO | 0.0.0.1 | 172.17.0.4 | redisservice1 | e301b70b393f6747 | service accept, status_code: 200\n    tid=15 (n=1): 2021-07-15 16:27:38,338 | ERROR | 0.0.0.1 | redisservice1 | redis_helper.py -> get_value_from_redis -> 67 | a9fef8fde114fa28 | 二维码已过期， 请刷新重新扫描, status_code: 400\n\n--- METRIC attention top-3 ---\n* redisservice2 (lift=1.62x)\n    hosts=['0.0.0.2']; anomalies: docker_cpu_core_3_norm_pct, docker_cpu_core_3_pct, docker_memory_rss_pct, docker_memory_rss_total, docker_memory_stats_active_anon\n* webservice1 (lift=1.11x)\n    hosts=['0.0.0.1']; anomalies: docker_cpu_core_0_norm_pct, docker_cpu_core_0_pct, docker_cpu_core_12_norm_pct, docker_cpu_core_12_pct, docker_cpu_core_2_norm_pct\n* mobservice2 (lift=1.09x)\n    hosts=['0.0.0.4']; anomalies: docker_cpu_core_2_norm_pct, docker_cpu_core_2_pct, docker_cpu_core_1_ticks, docker_cpu_core_3_ticks, docker_network_inbound_bytes",
+  "raw_response": "{\n  \"rcl_agreement\": \"support\",\n  \"dominant_modality\": \"trace\",\n  \"evidence_summary\": \"mobservice1 shows multiple incoming and outgoing performance degradation edges from webservice1/2 and redisservice1, with highest trace attention lift (3.42x). Redisservice1 also shows error logs and metric anomalies, but mobservice1's trace signals dominate.\",\n  \"explanation\": \"The model's prediction of mobservice1 as root cause is supported by trace modality showing it as central node with performance degradation edges from multiple services. Log and metric signals provide weaker or indirect evidence compared to the strong trace correlations.\"\n}",
+  "parsed": {
+    "rcl_agreement": "support",
+    "dominant_modality": "trace",
+    "evidence_summary": "mobservice1 shows multiple incoming and outgoing performance degradation edges from webservice1/2 and redisservice1, with highest trace attention lift (3.42x). Redisservice1 also shows error logs and metric anomalies, but mobservice1's trace signals dominate.",
+    "explanation": "The model's prediction of mobservice1 as root cause is supported by trace modality showing it as central node with performance degradation edges from multiple services. Log and metric signals provide weaker or indirect evidence compared to the strong trace correlations."
+  },
+  "status": "ok",
+  "latency_sec": 2.1682488918304443,
+  "model": "qwen3-235b-a22b"
+}

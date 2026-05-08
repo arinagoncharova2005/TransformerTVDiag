@@ -1,0 +1,21 @@
+{
+  "gaia_index": 1777,
+  "fold": 1,
+  "group": "D_log_dominates",
+  "rcl_pred": 4,
+  "rcl_pred_service": "mobservice1",
+  "fti_pred": "2.0",
+  "rcl_correct": true,
+  "fti_correct": true,
+  "prompt": "Sample id (GAIA): 1777\nModel prediction: root_cause=mobservice1, failure_type=2.0\n\n--- TRACE attention top-3 ---\n* mobservice1 (lift=2.67x) [predicted RCL]\n    incoming webservice1: performance degradation (count=1)\n    incoming webservice1: HTTP 500 server error (count=1)\n    outgoing redisservice1: HTTP 400 client error (count=1)\n* mobservice2 (lift=2.34x)\n    (no trace events)\n* dbservice1 (lift=1.10x)\n    incoming logservice2: performance degradation (count=1)\n    incoming logservice1: performance degradation (count=1)\n    incoming logservice1: HTTP 500 server error (count=1)\n\n--- LOG attention top-3 ---\n* webservice2 (lift=3.51x)\n    tid=4 (n=1): 2021-07-04 08:09:24,184 | INFO | 0.0.0.3 | 172.17.0.4 | webservice2 | f8bc6eecfa65361f | uuid: 16b7ae08-dc5c-11eb-a977-0242ac110004 write redis successfully\n    tid=11 (n=1): 2021-07-04 08:09:24,135 | INFO | 0.0.0.3 | 172.17.0.4 | webservice2 | f8bc6eecfa65361f | the list of all available services are redisservice1: http://0.0.0.1:93\n* redisservice1 (lift=1.10x)\n    tid=4 (n=1): 2021-07-04 08:09:26,916 | INFO | 0.0.0.1 | 172.17.0.4 | redisservice1 | 6f82951052ea4afc | service accept, status_code: 200\n    tid=19 (n=1): 2021-07-04 08:09:26,705 | INFO | 0.0.0.1 | 172.17.0.4 | redisservice1 | 6f82951052ea4afc | redis write success\n* webservice1 (lift=1.04x)\n    tid=4 (n=1): 2021-07-04 08:09:26,398 | INFO | 0.0.0.1 | 172.17.0.3 | webservice1 | 6f82951052ea4afc | uuid: 180a1d4a-dc5c-11eb-9d41-0242ac110003 write redis successfully\n    tid=7 (n=1): 2021-07-04 08:09:26,502 | INFO | 0.0.0.1 | 172.17.0.3 | webservice1 | 6f82951052ea4afc | complete information: {'uuid': '180a1d4a-dc5c-11eb-9d41-0242ac110003', \n\n--- METRIC attention top-3 ---\n* mobservice1 (lift=1.33x) [predicted RCL]\n    hosts=['0.0.0.1']; anomalies: docker_memory_stats_inactive_anon, docker_memory_stats_total_inactive_anon, docker_cpu_core_15_ticks, docker_cpu_core_4_norm_pct, docker_cpu_core_4_pct\n* webservice1 (lift=1.29x)\n    hosts=['0.0.0.1']; anomalies: docker_memory_stats_inactive_anon, docker_memory_stats_total_inactive_anon, docker_cpu_core_8_norm_pct, docker_cpu_core_8_pct, docker_cpu_core_7_norm_pct\n* dbservice1 (lift=1.20x)\n    hosts=['0.0.0.4']; anomalies: docker_cpu_core_0_ticks, docker_memory_rss_pct, docker_memory_rss_total, docker_memory_stats_inactive_anon, docker_memory_stats_rss",
+  "raw_response": "{\n  \"rcl_agreement\": \"support\",\n  \"dominant_modality\": \"trace\",\n  \"evidence_summary\": \"mobservice1 received error signals from webservice1 (500 error, performance degradation) and sent 400 errors to redisservice1. Metric anomalies in mobservice1's memory and CPU usage suggest resource exhaustion.\",\n  \"explanation\": \"The trace modality shows mobservice1 experiencing both incoming and outgoing errors, directly linking it to failure propagation. Metric anomalies reinforce resource stress, aligning with the model's prediction of mobservice1 as root cause.\"\n}",
+  "parsed": {
+    "rcl_agreement": "support",
+    "dominant_modality": "trace",
+    "evidence_summary": "mobservice1 received error signals from webservice1 (500 error, performance degradation) and sent 400 errors to redisservice1. Metric anomalies in mobservice1's memory and CPU usage suggest resource exhaustion.",
+    "explanation": "The trace modality shows mobservice1 experiencing both incoming and outgoing errors, directly linking it to failure propagation. Metric anomalies reinforce resource stress, aligning with the model's prediction of mobservice1 as root cause."
+  },
+  "status": "ok",
+  "latency_sec": 2.220674991607666,
+  "model": "qwen3-235b-a22b"
+}

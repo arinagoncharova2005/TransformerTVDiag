@@ -1,0 +1,21 @@
+{
+  "gaia_index": 1398,
+  "fold": 1,
+  "group": "B_trace_agree_wrong",
+  "rcl_pred": 4,
+  "rcl_pred_service": "mobservice1",
+  "fti_pred": "2.0",
+  "rcl_correct": false,
+  "fti_correct": false,
+  "prompt": "Sample id (GAIA): 1398\nModel prediction: root_cause=mobservice1, failure_type=2.0\n\n--- TRACE attention top-3 ---\n* mobservice1 (lift=3.60x) [predicted RCL]\n    outgoing redisservice2: performance degradation (count=1)\n    incoming webservice1: performance degradation (count=1)\n    incoming webservice1: HTTP 500 server error (count=1)\n* redisservice1 (lift=1.11x)\n    incoming mobservice2: performance degradation (count=1)\n    incoming logservice2: performance degradation (count=1)\n    incoming mobservice1: HTTP 400 client error (count=1)\n* dbservice1 (lift=1.02x)\n    incoming logservice2: performance degradation (count=1)\n    incoming logservice1: HTTP 500 server error (count=1)\n    incoming logservice2: HTTP 500 server error (count=1)\n\n--- LOG attention top-3 ---\n* webservice2 (lift=2.73x)\n    tid=4 (n=1): 2021-07-04 08:00:01,851 | INFO | 0.0.0.3 | 172.17.0.4 | webservice2 | e9bad4aa24c634d3 | uuid: c78ddef2-dc5a-11eb-8cc5-0242ac110004 write redis successfully\n    tid=11 (n=1): 2021-07-04 08:00:01,809 | INFO | 0.0.0.3 | 172.17.0.4 | webservice2 | e9bad4aa24c634d3 | the list of all available services are redisservice1: http://0.0.0.1:93\n* redisservice1 (lift=1.10x)\n    tid=4 (n=1): 2021-07-04 08:00:06,243 | INFO | 0.0.0.1 | 172.17.0.4 | redisservice1 | 62c396f354643f6f | service accept, status_code: 200\n    tid=15 (n=1): 2021-07-04 08:02:59,178 | ERROR | 0.0.0.1 | redisservice1 | redis_helper.py -> get_value_from_redis -> 67 | 915cbb85b777ca42 | 二维码已过期， 请刷新重新扫描, status_code: 400\n* webservice1 (lift=1.09x)\n    tid=4 (n=1): 2021-07-04 08:00:02,085 | INFO | 0.0.0.1 | 172.17.0.3 | webservice1 | c8583cd6bb550a03 | uuid: c7b02aca-dc5a-11eb-bf74-0242ac110003 write redis successfully\n    tid=7 (n=1): 2021-07-04 08:00:01,056 | INFO | 0.0.0.1 | 172.17.0.3 | webservice1 | 877c3268a0e6cd82 | complete information: {'uuid': 'c7040f10-dc5a-11eb-9b14-0242ac110003', \n\n--- METRIC attention top-3 ---\n* webservice1 (lift=1.29x)\n    hosts=['0.0.0.1']; anomalies: docker_cpu_core_7_norm_pct, docker_cpu_core_7_pct, docker_memory_stats_pgpgin, docker_memory_stats_pgpgout, docker_memory_stats_total_pgpgin\n* dbservice1 (lift=1.28x)\n    hosts=['0.0.0.4']; anomalies: docker_cpu_kernel_norm_pct, docker_cpu_kernel_pct, docker_cpu_core_1_norm_pct, docker_cpu_core_1_pct, docker_diskio_reads\n* mobservice1 (lift=1.11x) [predicted RCL]\n    hosts=['0.0.0.1']; anomalies: docker_cpu_core_7_norm_pct, docker_cpu_core_7_pct, docker_cpu_core_8_norm_pct, docker_cpu_core_8_pct, docker_memory_stats_active_anon",
+  "raw_response": "{\n  \"rcl_agreement\": \"support\",\n  \"dominant_modality\": \"trace\",\n  \"evidence_summary\": \"mobservice1 shows performance degradation in outgoing to redisservice2 and incoming from webservice1, which aligns with the model's prediction of mobservice1 as the root cause.\",\n  \"explanation\": \"The trace modality indicates that mobservice1 is experiencing both incoming and outgoing performance issues, suggesting it is the central point of failure. Other modalities do not provide strong contradictory evidence.\"\n}",
+  "parsed": {
+    "rcl_agreement": "support",
+    "dominant_modality": "trace",
+    "evidence_summary": "mobservice1 shows performance degradation in outgoing to redisservice2 and incoming from webservice1, which aligns with the model's prediction of mobservice1 as the root cause.",
+    "explanation": "The trace modality indicates that mobservice1 is experiencing both incoming and outgoing performance issues, suggesting it is the central point of failure. Other modalities do not provide strong contradictory evidence."
+  },
+  "status": "ok",
+  "latency_sec": 1.7428672313690186,
+  "model": "qwen3-235b-a22b"
+}

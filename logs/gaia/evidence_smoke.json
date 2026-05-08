@@ -1,0 +1,237 @@
+{
+  "sample_idx": 1393,
+  "gaia_index": 7072,
+  "fti_pred": "[memory_anomalies]",
+  "rcl_pred": 9,
+  "rcl_pred_service": "webservice2",
+  "n_real_services": 10,
+  "uniform_baseline": 0.1,
+  "top_k": 5,
+  "evidence": [
+    {
+      "rank": 1,
+      "modality": "trace",
+      "service": "webservice2",
+      "service_idx": 9,
+      "attention_weight": 0.42385491728782654,
+      "attention_lift": 4.238549172878265,
+      "is_predicted_rcl": true,
+      "details": {
+        "n_events": 5,
+        "edges": [
+          {
+            "direction": "outgoing",
+            "peer_service": "mobservice1",
+            "error_type": "PD",
+            "error_description": "performance degradation",
+            "count": 1
+          },
+          {
+            "direction": "outgoing",
+            "peer_service": "mobservice2",
+            "error_type": "PD",
+            "error_description": "performance degradation",
+            "count": 1
+          },
+          {
+            "direction": "outgoing",
+            "peer_service": "redisservice2",
+            "error_type": "PD",
+            "error_description": "performance degradation",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "rank": 2,
+      "modality": "trace",
+      "service": "webservice1",
+      "service_idx": 8,
+      "attention_weight": 0.2096381038427353,
+      "attention_lift": 2.096381038427353,
+      "is_predicted_rcl": false,
+      "details": {
+        "n_events": 4,
+        "edges": [
+          {
+            "direction": "outgoing",
+            "peer_service": "mobservice2",
+            "error_type": "PD",
+            "error_description": "performance degradation",
+            "count": 1
+          },
+          {
+            "direction": "outgoing",
+            "peer_service": "mobservice1",
+            "error_type": "PD",
+            "error_description": "performance degradation",
+            "count": 1
+          },
+          {
+            "direction": "outgoing",
+            "peer_service": "mobservice2",
+            "error_type": "500",
+            "error_description": "HTTP 500 server error",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "rank": 3,
+      "modality": "log",
+      "service": "logservice1",
+      "service_idx": 2,
+      "attention_weight": 0.15108999609947205,
+      "attention_lift": 1.5108999609947205,
+      "is_predicted_rcl": false,
+      "details": {
+        "n_events": 5,
+        "templates": [
+          {
+            "template_id": 4,
+            "count": 1,
+            "template_text": "<:TIME:> INFO <:HOST:> <:HOST:> <:POD:> <:ID:> <:*:> <:*:> <:*:> <:*:> <:*:>",
+            "raw_examples": [
+              {
+                "message": "2021-07-16 09:56:56,457 | INFO | 0.0.0.3 | 172.17.0.3 | logservice1 | 79a0afaa9650cda9 | request http://0.0.0.1:9386/get_value_from_redis and param={'keys': '194cafe8-e5d9-11eb-9eae-0242ac110003'}",
+                "timestamp": "1626418616000"
+              },
+              {
+                "message": "2021-07-16 09:56:57,592 | INFO | 0.0.0.3 | 172.17.0.3 | logservice1 | a53194f5b4044437 | request http://0.0.0.1:9386/get_value_from_redis and param={'keys': '1a0070e6-e5d9-11eb-ba23-0242ac110004'}",
+                "timestamp": "1626418617000"
+              }
+            ]
+          },
+          {
+            "template_id": 11,
+            "count": 1,
+            "template_text": "<:TIME:> INFO <:HOST:> <:HOST:> <:POD:> <:ID:> the list of all available services are <:POD:>: <:IP:> <:POD:>: <:IP:>",
+            "raw_examples": [
+              {
+                "message": "2021-07-16 09:56:56,456 | INFO | 0.0.0.3 | 172.17.0.3 | logservice1 | 79a0afaa9650cda9 | the list of all available services are redisservice1: http://0.0.0.1:9386, redisservice2: http://0.0.0.2:9387",
+                "timestamp": "1626418616000"
+              },
+              {
+                "message": "2021-07-16 09:56:57,591 | INFO | 0.0.0.3 | 172.17.0.3 | logservice1 | a53194f5b4044437 | the list of all available services are redisservice1: http://0.0.0.1:9386, redisservice2: http://0.0.0.2:9387",
+                "timestamp": "1626418617000"
+              }
+            ]
+          },
+          {
+            "template_id": 12,
+            "count": 1,
+            "template_text": "<:TIME:> INFO <:HOST:> <:HOST:> <:POD:> <:ID:> <:*:> <:*:> <:*:> <:*:> <:*:> <:*:> <:*:> <:*:>",
+            "raw_examples": [
+              {
+                "message": "2021-07-16 09:56:56,457 | INFO | 0.0.0.3 | 172.17.0.3 | logservice1 | 79a0afaa9650cda9 | now call service:redisservice1, inst:http://0.0.0.1:9386 as a downstream service",
+                "timestamp": "1626418616000"
+              },
+              {
+                "message": "2021-07-16 09:56:56,518 | INFO | 0.0.0.3 | 172.17.0.3 | logservice1 | 79a0afaa9650cda9 | now call service:logservice2, inst:http://0.0.0.2:9385 as a downstream service",
+                "timestamp": "1626418616000"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "rank": 4,
+      "modality": "log",
+      "service": "mobservice2",
+      "service_idx": 5,
+      "attention_weight": 0.1431533843278885,
+      "attention_lift": 1.4315338432788849,
+      "is_predicted_rcl": false,
+      "details": {
+        "n_events": 6,
+        "templates": [
+          {
+            "template_id": 4,
+            "count": 1,
+            "template_text": "<:TIME:> INFO <:HOST:> <:HOST:> <:POD:> <:ID:> <:*:> <:*:> <:*:> <:*:> <:*:>",
+            "raw_examples": [
+              {
+                "message": "2021-07-16 09:56:56,258 | INFO | 0.0.0.4 | 172.17.0.2 | mobservice2 | 79a0afaa9650cda9 | request http://0.0.0.2:9387/get_value_from_redis and param={'keys': '194cafe8-e5d9-11eb-9eae-0242ac110003'}",
+                "timestamp": "1626418616000"
+              },
+              {
+                "message": "2021-07-16 09:56:57,423 | INFO | 0.0.0.4 | 172.17.0.2 | mobservice2 | a53194f5b4044437 | request http://0.0.0.2:9387/get_value_from_redis and param={'keys': '1a0070e6-e5d9-11eb-ba23-0242ac110004'}",
+                "timestamp": "1626418617000"
+              }
+            ]
+          },
+          {
+            "template_id": 7,
+            "count": 1,
+            "template_text": "<:TIME:> INFO <:HOST:> <:HOST:> <:POD:> <:ID:> <:*:> <:*:> <:*:> <:*:> <:*:> <:*:> <:*:>",
+            "raw_examples": [
+              {
+                "message": "2021-07-16 09:56:56,317 | INFO | 0.0.0.4 | 172.17.0.2 | mobservice2 | 79a0afaa9650cda9 | request http://0.0.0.2:9387/set_key_value_into_redis and param={'keys': '194cafe8-e5d9-11eb-9eae-0242ac110003', 'value': 'xMrHpLuv'}",
+                "timestamp": "1626418616000"
+              },
+              {
+                "message": "2021-07-16 09:56:57,476 | INFO | 0.0.0.4 | 172.17.0.2 | mobservice2 | a53194f5b4044437 | request http://0.0.0.2:9387/set_key_value_into_redis and param={'keys': '1a0070e6-e5d9-11eb-ba23-0242ac110004', 'value': 'nuUlzgDr'}",
+                "timestamp": "1626418617000"
+              }
+            ]
+          },
+          {
+            "template_id": 11,
+            "count": 1,
+            "template_text": "<:TIME:> INFO <:HOST:> <:HOST:> <:POD:> <:ID:> the list of all available services are <:POD:>: <:IP:> <:POD:>: <:IP:>",
+            "raw_examples": [
+              {
+                "message": "2021-07-16 09:56:56,257 | INFO | 0.0.0.4 | 172.17.0.2 | mobservice2 | 79a0afaa9650cda9 | the list of all available services are redisservice1: http://0.0.0.1:9386, redisservice2: http://0.0.0.2:9387",
+                "timestamp": "1626418616000"
+              },
+              {
+                "message": "2021-07-16 09:56:57,422 | INFO | 0.0.0.4 | 172.17.0.2 | mobservice2 | a53194f5b4044437 | the list of all available services are redisservice1: http://0.0.0.1:9386, redisservice2: http://0.0.0.2:9387",
+                "timestamp": "1626418617000"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "rank": 5,
+      "modality": "metric",
+      "service": "redisservice1",
+      "service_idx": 6,
+      "attention_weight": 0.1321151703596115,
+      "attention_lift": 1.3211517035961151,
+      "is_predicted_rcl": false,
+      "details": {
+        "n_events": 58,
+        "hosts": [
+          "0.0.0.1"
+        ],
+        "anomalies": [
+          {
+            "metric_name": "docker_cpu_core_10_norm_pct",
+            "count": 1
+          },
+          {
+            "metric_name": "docker_cpu_core_10_pct",
+            "count": 1
+          },
+          {
+            "metric_name": "docker_cpu_core_14_norm_pct",
+            "count": 1
+          },
+          {
+            "metric_name": "docker_cpu_core_14_pct",
+            "count": 1
+          },
+          {
+            "metric_name": "docker_cpu_core_3_norm_pct",
+            "count": 1
+          }
+        ]
+      }
+    }
+  ]
+}

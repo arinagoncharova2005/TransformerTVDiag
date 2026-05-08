@@ -1,0 +1,21 @@
+{
+  "gaia_index": 4234,
+  "fold": 1,
+  "group": "C_trace_disagree_correct",
+  "rcl_pred": 5,
+  "rcl_pred_service": "mobservice2",
+  "fti_pred": "2.0",
+  "rcl_correct": true,
+  "fti_correct": true,
+  "prompt": "Sample id (GAIA): 4234\nModel prediction: root_cause=mobservice2, failure_type=2.0\n\n--- TRACE attention top-3 ---\n* mobservice1 (lift=4.33x)\n    outgoing redisservice1: performance degradation (count=1)\n    incoming webservice2: performance degradation (count=1)\n* dbservice1 (lift=1.00x)\n    incoming logservice2: performance degradation (count=1)\n    incoming logservice2: HTTP 500 server error (count=1)\n    outgoing redisservice2: performance degradation (count=1)\n* redisservice1 (lift=0.79x)\n    incoming logservice1: HTTP 400 client error (count=1)\n    incoming mobservice2: performance degradation (count=1)\n    incoming mobservice2: HTTP 400 client error (count=1)\n\n--- LOG attention top-3 ---\n* logservice1 (lift=1.76x)\n    tid=4 (n=1): 2021-07-10 15:37:29,921 | INFO | 0.0.0.3 | 172.17.0.3 | logservice1 | 1c49096c19d9221 | request http://0.0.0.1:9386/get_value_from_redis and param={'keys': 'a78\n    tid=11 (n=1): 2021-07-10 15:37:29,920 | INFO | 0.0.0.3 | 172.17.0.3 | logservice1 | 1c49096c19d9221 | the list of all available services are redisservice1: http://0.0.0.1:938\n* webservice2 (lift=1.58x)\n    tid=21 (n=1): 2021-07-10 15:37:30,103 | ERROR | 0.0.0.3 | 172.17.0.4 | webservice2 | 1c49096c19d9221 | an error occurred in the downstream service\n* logservice2 (lift=1.45x)\n    (no log events)\n\n--- METRIC attention top-3 ---\n* redisservice2 (lift=1.26x)\n    hosts=['0.0.0.2']; anomalies: docker_cpu_core_1_norm_pct, docker_cpu_core_1_pct, docker_cpu_user_norm_pct, docker_cpu_user_pct\n* webservice1 (lift=1.20x)\n    hosts=['0.0.0.1']; anomalies: docker_cpu_core_4_norm_pct, docker_cpu_core_4_pct, docker_cpu_core_11_norm_pct, docker_cpu_core_11_pct, docker_cpu_core_14_norm_pct\n* mobservice1 (lift=1.16x)\n    hosts=['0.0.0.1']; anomalies: docker_cpu_core_6_ticks, docker_memory_rss_pct, docker_memory_rss_total, docker_memory_stats_active_anon, docker_memory_stats_rss",
+  "raw_response": "{\n  \"rcl_agreement\": \"contradict\",\n  \"dominant_modality\": \"trace\",\n  \"evidence_summary\": \"Trace modality shows mobservice1 has incoming performance degradation from webservice2 and outgoing to redisservice1, while dbservice1 has incoming errors from logservice2 and outgoing to redisservice2. Redisservice1 has incoming client errors from mobservice2.\",\n  \"explanation\": \"The model predicted mobservice2 as root cause, but trace evidence shows mobservice1 has higher attention lift (4.33x vs 0.79x for redisservice1) and multiple error flows. No clear evidence directly implicates mobservice2 as root cause.\"\n}",
+  "parsed": {
+    "rcl_agreement": "contradict",
+    "dominant_modality": "trace",
+    "evidence_summary": "Trace modality shows mobservice1 has incoming performance degradation from webservice2 and outgoing to redisservice1, while dbservice1 has incoming errors from logservice2 and outgoing to redisservice2. Redisservice1 has incoming client errors from mobservice2.",
+    "explanation": "The model predicted mobservice2 as root cause, but trace evidence shows mobservice1 has higher attention lift (4.33x vs 0.79x for redisservice1) and multiple error flows. No clear evidence directly implicates mobservice2 as root cause."
+  },
+  "status": "ok",
+  "latency_sec": 2.3103320598602295,
+  "model": "qwen3-235b-a22b"
+}

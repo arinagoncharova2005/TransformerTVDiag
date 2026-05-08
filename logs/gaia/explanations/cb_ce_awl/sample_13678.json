@@ -1,0 +1,21 @@
+{
+  "gaia_index": 13678,
+  "fold": 4,
+  "group": "D_log_dominates",
+  "rcl_pred": 4,
+  "rcl_pred_service": "mobservice1",
+  "fti_pred": "2.0",
+  "rcl_correct": false,
+  "fti_correct": true,
+  "prompt": "Sample id (GAIA): 13678\nModel prediction: root_cause=mobservice1, failure_type=2.0\n\n--- TRACE attention top-3 ---\n* webservice2 (lift=2.05x)\n    outgoing mobservice2: performance degradation (count=1)\n    outgoing mobservice2: HTTP 500 server error (count=1)\n* webservice1 (lift=1.46x)\n    outgoing redisservice1: performance degradation (count=1)\n* redisservice1 (lift=1.24x)\n    incoming mobservice2: HTTP 400 client error (count=1)\n    incoming logservice2: HTTP 400 client error (count=1)\n    incoming webservice1: performance degradation (count=1)\n\n--- LOG attention top-3 ---\n* dbservice2 (lift=3.49x)\n    tid=1 (n=1): 2021-07-28 06:31:12,639 | INFO | 0.0.0.2 | dbservice2 | permission_operate.py -> permission_operation -> 35 | 55f8261ac6935768 | the list of all available servi\n    tid=2 (n=1): 2021-07-28 06:31:12,639 | INFO | 0.0.0.2 | dbservice2 | permission_operate.py -> permission_operation -> 51 | 55f8261ac6935768 | now call service:redisservice1,\n* dbservice1 (lift=1.36x)\n    (no log events)\n* webservice2 (lift=1.11x)\n    tid=21 (n=1): 2021-07-28 06:31:10,017 | ERROR | 0.0.0.3 | 172.17.0.4 | webservice2 | 986a44427cf6eddd | an error occurred in the downstream service\n\n--- METRIC attention top-3 ---\n* dbservice2 (lift=1.96x)\n    hosts=['0.0.0.2']; anomalies: docker_cpu_core_7_ticks, docker_cpu_core_7_norm_pct, docker_cpu_core_7_pct, docker_cpu_core_5_norm_pct, docker_cpu_core_5_pct\n* webservice1 (lift=1.15x)\n    hosts=['0.0.0.1']; anomalies: docker_cpu_core_0_norm_pct, docker_cpu_core_0_pct, docker_cpu_core_15_norm_pct, docker_cpu_core_15_pct, docker_cpu_kernel_norm_pct\n* redisservice1 (lift=0.97x)\n    hosts=['0.0.0.1']; anomalies: docker_cpu_user_norm_pct, docker_cpu_user_pct, docker_cpu_core_0_norm_pct, docker_cpu_core_0_pct, docker_cpu_core_7_norm_pct",
+  "raw_response": "{\n  \"rcl_agreement\": \"contradict\",\n  \"dominant_modality\": \"trace\",\n  \"evidence_summary\": \"Trace modality shows webservice2 has outgoing performance degradation and HTTP 500 errors to mobservice2, not mobservice1. Redisservice1 has incoming HTTP 400 errors from mobservice2, but no direct link to mobservice1.\",\n  \"explanation\": \"The model predicted mobservice1 as root cause, but trace evidence points to issues between webservice2 and mobservice2. No significant trace anomalies involving mobservice1 were observed.\"\n}",
+  "parsed": {
+    "rcl_agreement": "contradict",
+    "dominant_modality": "trace",
+    "evidence_summary": "Trace modality shows webservice2 has outgoing performance degradation and HTTP 500 errors to mobservice2, not mobservice1. Redisservice1 has incoming HTTP 400 errors from mobservice2, but no direct link to mobservice1.",
+    "explanation": "The model predicted mobservice1 as root cause, but trace evidence points to issues between webservice2 and mobservice2. No significant trace anomalies involving mobservice1 were observed."
+  },
+  "status": "ok",
+  "latency_sec": 2.135396957397461,
+  "model": "qwen3-235b-a22b"
+}

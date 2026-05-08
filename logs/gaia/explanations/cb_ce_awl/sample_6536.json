@@ -1,0 +1,21 @@
+{
+  "gaia_index": 6536,
+  "fold": 0,
+  "group": "A_trace_agree_correct",
+  "rcl_pred": 4,
+  "rcl_pred_service": "mobservice1",
+  "fti_pred": "2.0",
+  "rcl_correct": true,
+  "fti_correct": true,
+  "prompt": "Sample id (GAIA): 6536\nModel prediction: root_cause=mobservice1, failure_type=2.0\n\n--- TRACE attention top-3 ---\n* mobservice1 (lift=3.71x) [predicted RCL]\n    incoming webservice2: performance degradation (count=1)\n    incoming webservice2: HTTP 500 server error (count=1)\n    outgoing redisservice1: HTTP 400 client error (count=1)\n* redisservice2 (lift=1.24x)\n    incoming mobservice2: HTTP 400 client error (count=1)\n    incoming mobservice1: HTTP 400 client error (count=1)\n    incoming webservice2: performance degradation (count=1)\n* webservice2 (lift=0.87x)\n    outgoing mobservice2: performance degradation (count=1)\n    outgoing mobservice2: HTTP 500 server error (count=1)\n    outgoing mobservice1: performance degradation (count=1)\n\n--- LOG attention top-3 ---\n* logservice1 (lift=1.91x)\n    tid=4 (n=1): 2021-07-14 23:03:03,121 | INFO | 0.0.0.3 | 172.17.0.3 | logservice1 | b5a75b8cdd7aaf44 | request http://0.0.0.1:9386/get_value_from_redis and param={'keys': '8f\n    tid=11 (n=1): 2021-07-14 23:03:03,120 | INFO | 0.0.0.3 | 172.17.0.3 | logservice1 | b5a75b8cdd7aaf44 | the list of all available services are redisservice1: http://0.0.0.1:93\n* redisservice1 (lift=1.38x)\n    tid=15 (n=1): 2021-07-14 23:03:03,161 | ERROR | 0.0.0.1 | redisservice1 | redis_helper.py -> get_value_from_redis -> 67 | b5a75b8cdd7aaf44 | 二维码已过期， 请刷新重新扫描, status_code: 400\n* logservice2 (lift=1.02x)\n    (no log events)\n\n--- METRIC attention top-3 ---\n* mobservice1 (lift=1.82x) [predicted RCL]\n    hosts=['0.0.0.1']; anomalies: docker_memory_rss_pct, docker_memory_rss_total, docker_memory_stats_active_anon, docker_memory_stats_rss, docker_memory_stats_total_active_anon\n* webservice1 (lift=1.17x)\n    hosts=['0.0.0.1']; anomalies: docker_memory_rss_pct, docker_memory_rss_total, docker_memory_stats_active_anon, docker_memory_stats_inactive_anon, docker_memory_stats_rss\n* dbservice2 (lift=1.13x)\n    hosts=['0.0.0.2']; anomalies: docker_cpu_core_6_norm_pct, docker_cpu_core_6_pct, docker_cpu_core_5_norm_pct, docker_cpu_core_5_pct, docker_cpu_core_5_ticks",
+  "raw_response": "{\n  \"rcl_agreement\": \"support\",\n  \"dominant_modality\": \"metric\",\n  \"evidence_summary\": \"mobservice1 shows multiple memory-related anomalies in metrics, and receives error traffic from webservice2 in traces.\",\n  \"explanation\": \"The metric modality shows mobservice1 with 5 memory-related anomalies, which aligns with the model's prediction. Trace data supports this with incoming errors from webservice2 to mobservice1, indicating potential resource exhaustion as the root cause.\"\n}",
+  "parsed": {
+    "rcl_agreement": "support",
+    "dominant_modality": "metric",
+    "evidence_summary": "mobservice1 shows multiple memory-related anomalies in metrics, and receives error traffic from webservice2 in traces.",
+    "explanation": "The metric modality shows mobservice1 with 5 memory-related anomalies, which aligns with the model's prediction. Trace data supports this with incoming errors from webservice2 to mobservice1, indicating potential resource exhaustion as the root cause."
+  },
+  "status": "ok",
+  "latency_sec": 1.8888087272644043,
+  "model": "qwen3-235b-a22b"
+}

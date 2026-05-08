@@ -1,0 +1,21 @@
+{
+  "gaia_index": 783,
+  "fold": 0,
+  "group": "B_trace_agree_wrong",
+  "rcl_pred": 4,
+  "rcl_pred_service": "mobservice1",
+  "fti_pred": "2.0",
+  "rcl_correct": false,
+  "fti_correct": false,
+  "prompt": "Sample id (GAIA): 783\nModel prediction: root_cause=mobservice1, failure_type=2.0\n\n--- TRACE attention top-3 ---\n* mobservice1 (lift=3.47x) [predicted RCL]\n    outgoing redisservice2: performance degradation (count=1)\n    outgoing redisservice2: HTTP 400 client error (count=1)\n    incoming webservice1: performance degradation (count=1)\n* redisservice1 (lift=2.16x)\n    incoming logservice2: performance degradation (count=1)\n    incoming logservice1: performance degradation (count=1)\n    incoming logservice2: HTTP 400 client error (count=1)\n* dbservice2 (lift=1.29x)\n    incoming logservice2: performance degradation (count=1)\n    incoming logservice2: HTTP 500 server error (count=1)\n    incoming logservice1: performance degradation (count=1)\n\n--- LOG attention top-3 ---\n* redisservice2 (lift=1.85x)\n    tid=4 (n=1): 2021-07-02 22:13:21,657 | INFO | 0.0.0.2 | 172.17.0.4 | redisservice2 | 51c9dc310c5b852 | service accept, status_code: 200\n    tid=15 (n=1): 2021-07-02 22:14:31,213 | ERROR | 0.0.0.2 | redisservice2 | redis_helper.py -> get_value_from_redis -> 67 | 695816f64a424ad9 | 二维码已过期， 请刷新重新扫描, status_code: 400\n* dbservice1 (lift=1.62x)\n    tid=1 (n=1): 2021-07-02 22:13:21,610 | INFO | 0.0.0.4 | dbservice1 | permission_operate.py -> permission_operation -> 35 | 51c9dc310c5b852 | the list of all available servic\n    tid=2 (n=1): 2021-07-02 22:13:21,610 | INFO | 0.0.0.4 | dbservice1 | permission_operate.py -> permission_operation -> 51 | 51c9dc310c5b852 | now call service:redisservice2, \n* webservice1 (lift=1.29x)\n    tid=4 (n=1): 2021-07-02 22:13:21,867 | INFO | 0.0.0.1 | 172.17.0.3 | webservice1 | 296b79d34524da6e | uuid: a84fb0a4-db3f-11eb-8d28-0242ac110003 write redis successfully\n    tid=7 (n=1): 2021-07-02 22:13:21,974 | INFO | 0.0.0.1 | 172.17.0.3 | webservice1 | 296b79d34524da6e | complete information: {'uuid': 'a84fb0a4-db3f-11eb-8d28-0242ac110003', \n\n--- METRIC attention top-3 ---\n* dbservice1 (lift=0.97x)\n    (no metric anomalies)\n* dbservice2 (lift=0.97x)\n    (no metric anomalies)\n* mobservice1 (lift=0.97x) [predicted RCL]\n    (no metric anomalies)",
+  "raw_response": "{\n  \"rcl_agreement\": \"support\",\n  \"dominant_modality\": \"trace\",\n  \"evidence_summary\": \"mobservice1 shows outgoing performance degradation and HTTP 400 client errors to redisservice2, with incoming performance degradation from webservice1. redisservice1 and dbservice2 also show incoming performance degradation from logservices.\",\n  \"explanation\": \"The model's prediction of mobservice1 as root cause is supported by trace data showing its outgoing errors to redisservice2 and incoming errors from webservice1, indicating it's a central failure point in the call chain.\"\n}",
+  "parsed": {
+    "rcl_agreement": "support",
+    "dominant_modality": "trace",
+    "evidence_summary": "mobservice1 shows outgoing performance degradation and HTTP 400 client errors to redisservice2, with incoming performance degradation from webservice1. redisservice1 and dbservice2 also show incoming performance degradation from logservices.",
+    "explanation": "The model's prediction of mobservice1 as root cause is supported by trace data showing its outgoing errors to redisservice2 and incoming errors from webservice1, indicating it's a central failure point in the call chain."
+  },
+  "status": "ok",
+  "latency_sec": 2.0701353549957275,
+  "model": "qwen3-235b-a22b"
+}

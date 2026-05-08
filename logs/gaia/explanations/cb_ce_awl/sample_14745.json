@@ -1,0 +1,21 @@
+{
+  "gaia_index": 14745,
+  "fold": 0,
+  "group": "A_trace_agree_correct",
+  "rcl_pred": 4,
+  "rcl_pred_service": "mobservice1",
+  "fti_pred": "2.0",
+  "rcl_correct": true,
+  "fti_correct": true,
+  "prompt": "Sample id (GAIA): 14745\nModel prediction: root_cause=mobservice1, failure_type=2.0\n\n--- TRACE attention top-3 ---\n* mobservice1 (lift=3.75x) [predicted RCL]\n    incoming webservice1: performance degradation (count=1)\n    incoming webservice1: HTTP 500 server error (count=1)\n    outgoing redisservice2: HTTP 400 client error (count=1)\n* logservice2 (lift=2.30x)\n    outgoing redisservice1: HTTP 400 client error (count=1)\n    outgoing dbservice2: performance degradation (count=1)\n* logservice1 (lift=0.72x)\n    (no trace events)\n\n--- LOG attention top-3 ---\n* dbservice1 (lift=2.09x)\n    tid=1 (n=1): 2021-07-29 18:53:16,179 | INFO | 0.0.0.4 | dbservice1 | permission_operate.py -> permission_operation -> 35 | 31db9d0673eab2bb | the list of all available servi\n    tid=2 (n=1): 2021-07-29 18:53:16,179 | INFO | 0.0.0.4 | dbservice1 | permission_operate.py -> permission_operation -> 51 | 31db9d0673eab2bb | now call service:redisservice2,\n* webservice1 (lift=1.38x)\n    tid=4 (n=1): 2021-07-29 18:53:12,891 | INFO | 0.0.0.1 | 172.17.0.3 | webservice1 | 4b4f9401f123f6fb | uuid: 2b8daf0e-f05b-11eb-b2fa-0242ac110003 write redis successfully\n    tid=7 (n=1): 2021-07-29 18:53:12,996 | INFO | 0.0.0.1 | 172.17.0.3 | webservice1 | 4b4f9401f123f6fb | complete information: {'uuid': '2b8daf0e-f05b-11eb-b2fa-0242ac110003', \n* redisservice2 (lift=1.33x)\n    tid=4 (n=1): 2021-07-29 18:53:16,210 | INFO | 0.0.0.2 | 172.17.0.4 | redisservice2 | 31db9d0673eab2bb | service accept, status_code: 200\n    tid=17 (n=1): 2021-07-29 18:53:10,286 | INFO | 0.0.0.2 | 172.17.0.4 | redisservice2 | 23a8d14b8e235841 | redis读取信息成功, status_code: 200\n\n--- METRIC attention top-3 ---\n* dbservice1 (lift=0.97x)\n    (no metric anomalies)\n* dbservice2 (lift=0.97x)\n    (no metric anomalies)\n* mobservice1 (lift=0.97x) [predicted RCL]\n    (no metric anomalies)",
+  "raw_response": "{\n  \"rcl_agreement\": \"support\",\n  \"dominant_modality\": \"trace\",\n  \"evidence_summary\": \"mobservice1 received performance degradation and HTTP 500 errors from webservice1, and sent HTTP 400 errors to redisservice2.\",\n  \"explanation\": \"The trace modality shows mobservice1 as the root cause with high attention, receiving errors from webservice1 and sending client errors to redisservice2, supporting the model's prediction.\"\n}",
+  "parsed": {
+    "rcl_agreement": "support",
+    "dominant_modality": "trace",
+    "evidence_summary": "mobservice1 received performance degradation and HTTP 500 errors from webservice1, and sent HTTP 400 errors to redisservice2.",
+    "explanation": "The trace modality shows mobservice1 as the root cause with high attention, receiving errors from webservice1 and sending client errors to redisservice2, supporting the model's prediction."
+  },
+  "status": "ok",
+  "latency_sec": 1.6365258693695068,
+  "model": "qwen3-235b-a22b"
+}

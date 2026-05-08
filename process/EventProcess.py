@@ -15,7 +15,7 @@ class EventProcess():
         self.dataset = args.dataset
         self.labels_file = args.labels_file
 
-    def process(self, reconstruct=False):
+    def process(self, reconstruct=False, train_indices=None, test_indices=None):
         self.data_path = f"data/{self.dataset}"
 
         label_path = f"data/{self.dataset}/{self.labels_file}"
@@ -39,11 +39,11 @@ class EventProcess():
         self.types = ['normal'] + self.labels['anomaly_type'].unique().tolist()
 
         if reconstruct:
-            self.build_embedding()
+            self.build_embedding(train_indices = train_indices)
 
-        return self.build_dataset()
+        return self.build_dataset(train_indices = train_indices, test_indices = test_indices)
 
-    def build_embedding(self):
+    def build_embedding(self, train_indices=None):
         self.logger.info(f"Build embedding for raw events")
         # metric event: (instance, host, metric_name, 'abnormal')
         # trace event: (edge, host, error_type)
@@ -54,9 +54,17 @@ class EventProcess():
         for key, data in data_map.items():
             encoder = FastTextEncoder(key, self.nodes, self.types, embedding_dim=self.embedding_dim, epochs=5)
 
-            train_idxs = self.labels[self.labels['data_type']=='train']['index'].values.tolist()
-            train_ins_labels = self.labels[self.labels['data_type']=='train']['instance'].values.tolist()
-            train_type_labels = self.labels[self.labels['data_type']=='train']['anomaly_type'].values.tolist()
+            # train_idxs = self.labels[self.labels['data_type']=='train']['index'].values.tolist()
+            # train_ins_labels = self.labels[self.labels['data_type']=='train']['instance'].values.tolist()
+            # train_type_labels = self.labels[self.labels['data_type']=='train']['anomaly_type'].values.tolist()
+            if train_indices is None:
+                train_rows = self.labels[self.labels['data_type']=='train']
+            else:
+                train_rows = self.labels.iloc[np.asarray(train_indices)]
+
+            train_idxs = train_rows['index'].values.tolist()
+            train_ins_labels = train_rows['instance'].values.tolist()
+            train_type_labels = train_rows['anomaly_type'].values.tolist()
             docs = []
             labels = []
             for i, idx in enumerate(train_idxs):
@@ -116,7 +124,7 @@ class EventProcess():
         io_util.save(f"data/{self.dataset}/tmp/trace-edge.pkl", np.array(edge_feats))
 
 
-    def build_dataset(self):
+    def build_dataset(self, train_indices=None, test_indices=None):
         self.logger.info(f"Build dataset for training")
         metric_embs = io_util.load(f"data/{self.dataset}/tmp/metric.pkl")
         trace_embs = io_util.load(f"data/{self.dataset}/tmp/trace.pkl")
@@ -125,11 +133,23 @@ class EventProcess():
 
         label_types = ['anomaly_type', 'instance']
         label_dict = {label_type: None for label_type in label_types}
+        label_names = {}
         for label_type in label_types:
             label_dict[label_type] = self.get_label(label_type, self.labels)
+            label_names[label_type] = sorted(list(set(list(self.labels[label_type]))))
 
-        train_index = np.where(self.labels['data_type'].values == 'train')
-        test_index = np.where(self.labels['data_type'].values == 'test')
+        # train_index = np.where(self.labels['data_type'].values == 'train')
+        # test_index = np.where(self.labels['data_type'].values == 'test')
+
+        if train_indices is None:
+            train_index = np.where(self.labels['data_type'].values == 'train')
+        else:
+            train_index = np.asarray(train_indices)
+
+        if test_indices is None:
+            test_index = np.where(self.labels['data_type'].values == 'test')
+        else:
+            test_index = np.asarray(test_indices)
 
         train_metric_Xs = metric_embs[train_index]
         train_trace_Xs = trace_embs[train_index]
@@ -161,7 +181,11 @@ class EventProcess():
                                       test_type_labels, 
                                       self.nodes, 
                                       self.edges)
-
+        train_data.instance_label_names = label_names['instance']
+        train_data.type_label_names = label_names['anomaly_type']
+        test_data.instance_label_names = label_names['instance']
+        test_data.type_label_names = label_names['anomaly_type']
+        
         aug_data = []
         for (graph, (root, type)) in train_data:
             aug_graph = aug_drop_node(graph, root, drop_percent=self.args.aug_percent)

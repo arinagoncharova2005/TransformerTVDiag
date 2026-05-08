@@ -1,0 +1,21 @@
+{
+  "gaia_index": 5569,
+  "fold": 1,
+  "group": "E_random",
+  "rcl_pred": 5,
+  "rcl_pred_service": "mobservice2",
+  "fti_pred": "2.0",
+  "rcl_correct": true,
+  "fti_correct": true,
+  "prompt": "Sample id (GAIA): 5569\nModel prediction: root_cause=mobservice2, failure_type=2.0\n\n--- TRACE attention top-3 ---\n* mobservice1 (lift=2.11x)\n    outgoing redisservice1: performance degradation (count=1)\n    incoming webservice1: performance degradation (count=1)\n* dbservice2 (lift=1.87x)\n    (no trace events)\n* dbservice1 (lift=1.52x)\n    outgoing redisservice1: performance degradation (count=1)\n\n--- LOG attention top-3 ---\n* logservice1 (lift=1.71x)\n    (no log events)\n* logservice2 (lift=1.71x)\n    (no log events)\n* webservice2 (lift=1.71x)\n    (no log events)\n\n--- METRIC attention top-3 ---\n* redisservice2 (lift=1.65x)\n    hosts=['0.0.0.2']; anomalies: docker_cpu_core_0_norm_pct, docker_cpu_core_0_pct, docker_cpu_core_2_norm_pct, docker_cpu_core_2_pct, docker_cpu_core_3_norm_pct\n* webservice1 (lift=1.20x)\n    hosts=['0.0.0.1']; anomalies: docker_cpu_core_0_norm_pct, docker_cpu_core_0_pct, docker_cpu_core_15_norm_pct, docker_cpu_core_15_pct, docker_cpu_core_1_norm_pct\n* mobservice1 (lift=1.08x)\n    hosts=['0.0.0.1']; anomalies: docker_cpu_user_norm_pct, docker_cpu_user_pct, docker_cpu_core_9_ticks, docker_cpu_core_5_norm_pct, docker_cpu_core_5_pct",
+  "raw_response": "{\n  \"rcl_agreement\": \"unclear\",\n  \"dominant_modality\": \"metric\",\n  \"evidence_summary\": \"Metric anomalies show high CPU usage in redisservice2 and webservice1, with mobservice1 also showing CPU-related anomalies.\",\n  \"explanation\": \"The model predicted mobservice2 as the root cause, but the evidence shows metric anomalies primarily in redisservice2, webservice1, and mobservice1. There is no direct evidence pointing to mobservice2 as the root cause, making the prediction unclear.\"\n}",
+  "parsed": {
+    "rcl_agreement": "unclear",
+    "dominant_modality": "metric",
+    "evidence_summary": "Metric anomalies show high CPU usage in redisservice2 and webservice1, with mobservice1 also showing CPU-related anomalies.",
+    "explanation": "The model predicted mobservice2 as the root cause, but the evidence shows metric anomalies primarily in redisservice2, webservice1, and mobservice1. There is no direct evidence pointing to mobservice2 as the root cause, making the prediction unclear."
+  },
+  "status": "ok",
+  "latency_sec": 1.913435697555542,
+  "model": "qwen3-235b-a22b"
+}

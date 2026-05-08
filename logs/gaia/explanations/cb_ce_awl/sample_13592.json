@@ -1,0 +1,21 @@
+{
+  "gaia_index": 13592,
+  "fold": 1,
+  "group": "B_trace_agree_wrong",
+  "rcl_pred": 4,
+  "rcl_pred_service": "mobservice1",
+  "fti_pred": "2.0",
+  "rcl_correct": false,
+  "fti_correct": false,
+  "prompt": "Sample id (GAIA): 13592\nModel prediction: root_cause=mobservice1, failure_type=2.0\n\n--- TRACE attention top-3 ---\n* mobservice1 (lift=3.76x) [predicted RCL]\n    incoming webservice2: performance degradation (count=1)\n    incoming webservice1: performance degradation (count=1)\n    outgoing redisservice2: performance degradation (count=1)\n* redisservice1 (lift=1.14x)\n    incoming webservice1: performance degradation (count=1)\n    incoming logservice2: performance degradation (count=1)\n    incoming mobservice2: performance degradation (count=1)\n* dbservice1 (lift=0.97x)\n    incoming logservice1: HTTP 500 server error (count=1)\n    incoming logservice2: HTTP 500 server error (count=1)\n    incoming logservice1: performance degradation (count=1)\n\n--- LOG attention top-3 ---\n* webservice1 (lift=2.51x)\n    tid=2 (n=1): 2021-07-28 04:04:31,871 | INFO | 0.0.0.1 | webservice1 | web_helper.py -> web_service_resource -> 69 | a5ba13db716f930d | now call service:redisservice1, inst:h\n    tid=4 (n=1): 2021-07-28 04:00:01,168 | INFO | 0.0.0.1 | 172.17.0.3 | webservice1 | 9dfc0eb4ca5f8aaf | uuid: 39f6cf2c-ef15-11eb-ac32-0242ac110003 write redis successfully\n* webservice2 (lift=1.32x)\n    tid=1 (n=1): 2021-07-28 04:04:12,487 | INFO | 0.0.0.3 | webservice2 | web_helper.py -> web_service_resource -> 58 | e316189f1e51a60 | the list of all available services are \n    tid=2 (n=1): 2021-07-28 04:04:12,492 | INFO | 0.0.0.3 | webservice2 | web_helper.py -> web_service_resource -> 69 | e316189f1e51a60 | now call service:redisservice2, inst:ht\n* redisservice1 (lift=1.19x)\n    tid=4 (n=1): 2021-07-28 04:00:04,454 | INFO | 0.0.0.1 | 172.17.0.4 | redisservice1 | 6e67eae2e4defe24 | service accept, status_code: 200\n    tid=15 (n=1): 2021-07-28 04:00:49,361 | INFO | 0.0.0.1 | redisservice1 | redis_helper.py -> keys_existence_check -> 102 | 5162523da128f5c4 | service accept, status_code: 200\n\n--- METRIC attention top-3 ---\n* redisservice2 (lift=1.40x)\n    hosts=['0.0.0.2']; anomalies: docker_cpu_core_3_norm_pct, docker_cpu_core_3_pct, docker_cpu_core_4_norm_pct, docker_cpu_core_4_pct, docker_cpu_core_7_norm_pct\n* webservice1 (lift=1.19x)\n    hosts=['0.0.0.1']; anomalies: docker_cpu_core_7_norm_pct, docker_cpu_core_7_pct, docker_cpu_core_9_norm_pct, docker_cpu_core_9_pct, docker_cpu_core_15_norm_pct\n* dbservice1 (lift=1.09x)\n    hosts=['0.0.0.4']; anomalies: docker_cpu_core_3_ticks, docker_memory_stats_total_writeback, docker_memory_stats_writeback, docker_cpu_core_1_ticks, docker_cpu_core_1_norm_pct",
+  "raw_response": "{\n  \"rcl_agreement\": \"support\",\n  \"dominant_modality\": \"trace\",\n  \"evidence_summary\": \"mobservice1 shows incoming performance degradation from webservice1/2 and outgoing to redisservice2. redisservice1 and dbservice1 have incoming performance issues but no root cause signals.\",\n  \"explanation\": \"The trace modality shows mobservice1 as a central point of performance degradation with both incoming and outgoing issues, aligning with the model's prediction. Other services show symptoms but lack the combined inflow/outflow pattern indicating root cause.\"\n}",
+  "parsed": {
+    "rcl_agreement": "support",
+    "dominant_modality": "trace",
+    "evidence_summary": "mobservice1 shows incoming performance degradation from webservice1/2 and outgoing to redisservice2. redisservice1 and dbservice1 have incoming performance issues but no root cause signals.",
+    "explanation": "The trace modality shows mobservice1 as a central point of performance degradation with both incoming and outgoing issues, aligning with the model's prediction. Other services show symptoms but lack the combined inflow/outflow pattern indicating root cause."
+  },
+  "status": "ok",
+  "latency_sec": 1.912196159362793,
+  "model": "qwen3-235b-a22b"
+}

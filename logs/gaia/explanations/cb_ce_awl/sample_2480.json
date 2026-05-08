@@ -1,0 +1,21 @@
+{
+  "gaia_index": 2480,
+  "fold": 1,
+  "group": "B_trace_agree_wrong",
+  "rcl_pred": 4,
+  "rcl_pred_service": "mobservice1",
+  "fti_pred": "2.0",
+  "rcl_correct": false,
+  "fti_correct": false,
+  "prompt": "Sample id (GAIA): 2480\nModel prediction: root_cause=mobservice1, failure_type=2.0\n\n--- TRACE attention top-3 ---\n* mobservice1 (lift=3.68x) [predicted RCL]\n    outgoing redisservice2: HTTP 400 client error (count=1)\n    incoming webservice1: performance degradation (count=1)\n    incoming webservice1: HTTP 500 server error (count=1)\n* dbservice1 (lift=1.08x)\n    outgoing redisservice1: performance degradation (count=1)\n    incoming logservice2: performance degradation (count=1)\n    incoming logservice1: performance degradation (count=1)\n* redisservice1 (lift=1.06x)\n    incoming mobservice2: performance degradation (count=1)\n    incoming dbservice1: performance degradation (count=1)\n    incoming dbservice2: performance degradation (count=1)\n\n--- LOG attention top-3 ---\n* webservice1 (lift=1.69x)\n    tid=4 (n=1): 2021-07-05 03:12:58,124 | INFO | 0.0.0.1 | 172.17.0.3 | webservice1 | 811b70361dc778d0 | uuid: d7cfbd2a-dcfb-11eb-a782-0242ac110003 write redis successfully\n    tid=7 (n=1): 2021-07-05 03:12:58,228 | INFO | 0.0.0.1 | 172.17.0.3 | webservice1 | 811b70361dc778d0 | complete information: {'uuid': 'd7cfbd2a-dcfb-11eb-a782-0242ac110003', \n* logservice1 (lift=1.42x)\n    (no log events)\n* logservice2 (lift=1.42x)\n    (no log events)\n\n--- METRIC attention top-3 ---\n* redisservice1 (lift=1.21x)\n    (no metric anomalies)\n* redisservice2 (lift=1.21x)\n    (no metric anomalies)\n* dbservice1 (lift=0.96x)\n    (no metric anomalies)",
+  "raw_response": "{\n  \"rcl_agreement\": \"support\",\n  \"dominant_modality\": \"trace\",\n  \"evidence_summary\": \"mobservice1 shows outgoing HTTP 400 client error to redisservice2 and incoming performance degradation and HTTP 500 server error from webservice1.\",\n  \"explanation\": \"The trace modality provides clear evidence supporting mobservice1 as the root cause, showing both outgoing client errors and incoming errors from dependent services, aligning with the model's prediction.\"\n}",
+  "parsed": {
+    "rcl_agreement": "support",
+    "dominant_modality": "trace",
+    "evidence_summary": "mobservice1 shows outgoing HTTP 400 client error to redisservice2 and incoming performance degradation and HTTP 500 server error from webservice1.",
+    "explanation": "The trace modality provides clear evidence supporting mobservice1 as the root cause, showing both outgoing client errors and incoming errors from dependent services, aligning with the model's prediction."
+  },
+  "status": "ok",
+  "latency_sec": 1.695326328277588,
+  "model": "qwen3-235b-a22b"
+}

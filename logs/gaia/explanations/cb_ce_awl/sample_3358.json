@@ -1,0 +1,21 @@
+{
+  "gaia_index": 3358,
+  "fold": 2,
+  "group": "C_trace_disagree_correct",
+  "rcl_pred": 8,
+  "rcl_pred_service": "webservice1",
+  "fti_pred": "3.0",
+  "rcl_correct": true,
+  "fti_correct": true,
+  "prompt": "Sample id (GAIA): 3358\nModel prediction: root_cause=webservice1, failure_type=3.0\n\n--- TRACE attention top-3 ---\n* webservice2 (lift=3.94x)\n    outgoing mobservice1: performance degradation (count=1)\n    outgoing mobservice1: HTTP 500 server error (count=1)\n    outgoing mobservice2: performance degradation (count=1)\n* webservice1 (lift=2.12x) [predicted RCL]\n    outgoing mobservice1: performance degradation (count=1)\n    outgoing mobservice2: performance degradation (count=1)\n    outgoing mobservice2: HTTP 500 server error (count=1)\n* redisservice2 (lift=0.92x)\n    incoming logservice1: performance degradation (count=1)\n    incoming dbservice2: performance degradation (count=1)\n    incoming mobservice1: performance degradation (count=1)\n\n--- LOG attention top-3 ---\n* logservice1 (lift=1.54x)\n    tid=4 (n=1): 2021-07-08 20:45:06,577 | INFO | 0.0.0.3 | 172.17.0.3 | logservice1 | 21ea5acb01435e0d | request http://0.0.0.2:9387/get_value_from_redis and param={'keys': '52\n    tid=11 (n=1): 2021-07-08 20:45:05,870 | INFO | 0.0.0.3 | 172.17.0.3 | logservice1 | 7c4aac820f5d3e6c | the list of all available services are dbservice1: http://0.0.0.4:9388,\n* mobservice2 (lift=1.42x)\n    tid=4 (n=1): 2021-07-08 20:45:06,147 | INFO | 0.0.0.4 | 172.17.0.2 | mobservice2 | 21ea5acb01435e0d | request http://0.0.0.2:9387/get_value_from_redis and param={'keys': '52\n    tid=7 (n=1): 2021-07-08 20:45:06,305 | INFO | 0.0.0.4 | 172.17.0.2 | mobservice2 | 21ea5acb01435e0d | request http://0.0.0.2:9387/set_key_value_into_redis and param={'keys':\n* logservice2 (lift=1.15x)\n    tid=4 (n=1): 2021-07-08 20:45:05,621 | INFO | 0.0.0.2 | 172.17.0.3 | logservice2 | 7c4aac820f5d3e6c | request http://0.0.0.2:9387/get_value_from_redis and param={'keys': '51\n    tid=11 (n=1): 2021-07-08 20:45:05,620 | INFO | 0.0.0.2 | 172.17.0.3 | logservice2 | 7c4aac820f5d3e6c | the list of all available services are redisservice1: http://0.0.0.1:93\n\n--- METRIC attention top-3 ---\n* dbservice1 (lift=1.11x)\n    hosts=['0.0.0.4']; anomalies: docker_cpu_core_1_norm_pct, docker_cpu_core_1_pct, docker_cpu_kernel_norm_pct, docker_cpu_kernel_pct, docker_cpu_total_norm_pct\n* webservice2 (lift=1.05x)\n    hosts=['0.0.0.3']; anomalies: docker_cpu_core_6_norm_pct, docker_cpu_core_6_pct, docker_cpu_core_12_norm_pct, docker_cpu_core_12_pct, docker_cpu_core_4_norm_pct\n* redisservice1 (lift=1.05x)\n    hosts=['0.0.0.1']; anomalies: docker_cpu_core_14_norm_pct, docker_cpu_core_14_pct, docker_cpu_core_15_norm_pct, docker_cpu_core_15_pct, docker_cpu_core_12_norm_pct",
+  "raw_response": "{\n  \"rcl_agreement\": \"unclear\",\n  \"dominant_modality\": \"trace\",\n  \"evidence_summary\": \"webservice1 and webservice2 both show multiple outgoing performance degradation and HTTP 500 errors to mobservice1/2, with webservice2 having higher attention lift. Metric anomalies are distributed across services without clear root cause signal.\",\n  \"explanation\": \"The trace modality shows similar error patterns in both webservice1 and webservice2, with webservice2 having higher lift. The model's prediction of webservice1 as root cause is not strongly supported by the evidence, as webservice2 appears more anomalous in trace data.\"\n}",
+  "parsed": {
+    "rcl_agreement": "unclear",
+    "dominant_modality": "trace",
+    "evidence_summary": "webservice1 and webservice2 both show multiple outgoing performance degradation and HTTP 500 errors to mobservice1/2, with webservice2 having higher attention lift. Metric anomalies are distributed across services without clear root cause signal.",
+    "explanation": "The trace modality shows similar error patterns in both webservice1 and webservice2, with webservice2 having higher lift. The model's prediction of webservice1 as root cause is not strongly supported by the evidence, as webservice2 appears more anomalous in trace data."
+  },
+  "status": "ok",
+  "latency_sec": 2.368842840194702,
+  "model": "qwen3-235b-a22b"
+}

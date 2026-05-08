@@ -1,0 +1,21 @@
+{
+  "gaia_index": 4456,
+  "fold": 4,
+  "group": "D_log_dominates",
+  "rcl_pred": 4,
+  "rcl_pred_service": "mobservice1",
+  "fti_pred": "2.0",
+  "rcl_correct": true,
+  "fti_correct": true,
+  "prompt": "Sample id (GAIA): 4456\nModel prediction: root_cause=mobservice1, failure_type=2.0\n\n--- TRACE attention top-3 ---\n* mobservice1 (lift=1.71x) [predicted RCL]\n    incoming webservice1: performance degradation (count=1)\n    incoming webservice1: HTTP 500 server error (count=1)\n    outgoing redisservice1: performance degradation (count=1)\n* dbservice2 (lift=1.49x)\n    outgoing redisservice1: performance degradation (count=1)\n* webservice2 (lift=1.32x)\n    outgoing mobservice2: performance degradation (count=1)\n\n--- LOG attention top-3 ---\n* dbservice2 (lift=3.49x)\n    tid=1 (n=1): 2021-07-10 16:34:24,448 | INFO | 0.0.0.2 | dbservice2 | permission_operate.py -> permission_operation -> 35 | 86fa80244f9ce382 | the list of all available servi\n    tid=2 (n=1): 2021-07-10 16:34:24,448 | INFO | 0.0.0.2 | dbservice2 | permission_operate.py -> permission_operation -> 51 | 86fa80244f9ce382 | now call service:redisservice1,\n* dbservice1 (lift=1.30x)\n    (no log events)\n* webservice2 (lift=1.05x)\n    (no log events)\n\n--- METRIC attention top-3 ---\n* dbservice2 (lift=1.75x)\n    hosts=['0.0.0.2']; anomalies: docker_memory_rss_pct, docker_memory_rss_total, docker_memory_stats_active_anon, docker_memory_stats_cache, docker_memory_stats_inactive_anon\n* logservice2 (lift=1.20x)\n    hosts=['0.0.0.2']; anomalies: docker_memory_stats_cache, docker_memory_stats_inactive_anon, docker_memory_stats_inactive_file, docker_memory_stats_total_cache, docker_memory_stats_total_inactive_anon\n* webservice1 (lift=1.01x)\n    hosts=['0.0.0.1']; anomalies: docker_cpu_core_13_norm_pct, docker_cpu_core_13_pct, docker_cpu_core_9_norm_pct, docker_cpu_core_9_pct, docker_cpu_kernel_norm_pct",
+  "raw_response": "{\n  \"rcl_agreement\": \"contradict\",\n  \"dominant_modality\": \"log\",\n  \"evidence_summary\": \"The log modality shows dbservice2 with high attention and log entries indicating permission operations and calls to redisservice1, while mobservice1 has no log events.\",\n  \"explanation\": \"The model predicted mobservice1 as the root cause, but the log evidence points to dbservice2 with relevant log entries, contradicting the prediction.\"\n}",
+  "parsed": {
+    "rcl_agreement": "contradict",
+    "dominant_modality": "log",
+    "evidence_summary": "The log modality shows dbservice2 with high attention and log entries indicating permission operations and calls to redisservice1, while mobservice1 has no log events.",
+    "explanation": "The model predicted mobservice1 as the root cause, but the log evidence points to dbservice2 with relevant log entries, contradicting the prediction."
+  },
+  "status": "ok",
+  "latency_sec": 1.6934385299682617,
+  "model": "qwen3-235b-a22b"
+}

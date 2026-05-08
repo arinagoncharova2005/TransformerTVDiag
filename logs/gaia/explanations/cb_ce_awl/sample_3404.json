@@ -1,0 +1,21 @@
+{
+  "gaia_index": 3404,
+  "fold": 1,
+  "group": "C_trace_disagree_correct",
+  "rcl_pred": 5,
+  "rcl_pred_service": "mobservice2",
+  "fti_pred": "2.0",
+  "rcl_correct": true,
+  "fti_correct": true,
+  "prompt": "Sample id (GAIA): 3404\nModel prediction: root_cause=mobservice2, failure_type=2.0\n\n--- TRACE attention top-3 ---\n* mobservice1 (lift=4.04x)\n    incoming webservice2: performance degradation (count=1)\n    outgoing redisservice1: performance degradation (count=1)\n* redisservice1 (lift=0.88x)\n    incoming mobservice1: performance degradation (count=1)\n    incoming mobservice2: performance degradation (count=1)\n    incoming mobservice2: HTTP 400 client error (count=1)\n* dbservice1 (lift=0.86x)\n    incoming logservice1: performance degradation (count=1)\n    incoming logservice1: HTTP 500 server error (count=1)\n\n--- LOG attention top-3 ---\n* webservice1 (lift=2.30x)\n    tid=4 (n=1): 2021-07-08 06:25:32,396 | INFO | 0.0.0.1 | 172.17.0.3 | webservice1 | a760ec3de367bf59 | uuid: 3de866e8-df72-11eb-bdc6-0242ac110003 write redis successfully\n    tid=7 (n=1): 2021-07-08 06:25:32,501 | INFO | 0.0.0.1 | 172.17.0.3 | webservice1 | a760ec3de367bf59 | complete information: {'uuid': '3de866e8-df72-11eb-bdc6-0242ac110003', \n* logservice1 (lift=1.23x)\n    tid=4 (n=1): 2021-07-08 06:25:32,959 | INFO | 0.0.0.3 | 172.17.0.3 | logservice1 | a760ec3de367bf59 | request http://0.0.0.1:9386/get_value_from_redis and param={'keys': '3d\n    tid=11 (n=1): 2021-07-08 06:25:32,958 | INFO | 0.0.0.3 | 172.17.0.3 | logservice1 | a760ec3de367bf59 | the list of all available services are redisservice1: http://0.0.0.1:93\n* webservice2 (lift=1.19x)\n    tid=4 (n=1): 2021-07-08 06:25:35,882 | INFO | 0.0.0.3 | 172.17.0.4 | webservice2 | d6df5751f20f66c0 | uuid: 3ff90546-df72-11eb-971c-0242ac110004 write redis successfully\n    tid=7 (n=1): 2021-07-08 06:25:35,987 | INFO | 0.0.0.3 | 172.17.0.4 | webservice2 | d6df5751f20f66c0 | complete information: {'uuid': '3ff90546-df72-11eb-971c-0242ac110004', \n\n--- METRIC attention top-3 ---\n* redisservice2 (lift=1.50x)\n    hosts=['0.0.0.2']; anomalies: docker_memory_rss_pct, docker_memory_rss_total, docker_memory_stats_active_anon, docker_memory_stats_rss, docker_memory_stats_total_active_anon\n* webservice1 (lift=1.23x)\n    hosts=['0.0.0.1']; anomalies: docker_cpu_core_10_norm_pct, docker_cpu_core_10_pct, docker_cpu_core_8_norm_pct, docker_cpu_core_8_pct, docker_memory_rss_pct\n* mobservice2 (lift=0.98x) [predicted RCL]\n    hosts=['0.0.0.4']; anomalies: docker_cpu_core_1_norm_pct, docker_cpu_core_1_pct, docker_cpu_core_1_ticks, docker_cpu_user_ticks, docker_cpu_core_2_ticks",
+  "raw_response": "{\n  \"rcl_agreement\": \"unclear\",\n  \"dominant_modality\": \"trace\",\n  \"evidence_summary\": \"Trace data shows mobservice1 and redisservice1 have performance degradation and client errors, while metric data shows mobservice2 has CPU anomalies but no clear failure signals in logs.\",\n  \"explanation\": \"The model predicted mobservice2 as the root cause, but trace data highlights issues in mobservice1 and redisservice1 with performance degradation and client errors. Metric data shows CPU anomalies in mobservice2 but lacks clear failure signals in logs. The evidence is mixed, making the prediction uncertain.\"\n}",
+  "parsed": {
+    "rcl_agreement": "unclear",
+    "dominant_modality": "trace",
+    "evidence_summary": "Trace data shows mobservice1 and redisservice1 have performance degradation and client errors, while metric data shows mobservice2 has CPU anomalies but no clear failure signals in logs.",
+    "explanation": "The model predicted mobservice2 as the root cause, but trace data highlights issues in mobservice1 and redisservice1 with performance degradation and client errors. Metric data shows CPU anomalies in mobservice2 but lacks clear failure signals in logs. The evidence is mixed, making the prediction uncertain."
+  },
+  "status": "ok",
+  "latency_sec": 2.2416412830352783,
+  "model": "qwen3-235b-a22b"
+}

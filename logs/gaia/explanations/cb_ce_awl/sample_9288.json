@@ -1,0 +1,21 @@
+{
+  "gaia_index": 9288,
+  "fold": 1,
+  "group": "B_trace_agree_wrong",
+  "rcl_pred": 4,
+  "rcl_pred_service": "mobservice1",
+  "fti_pred": "2.0",
+  "rcl_correct": false,
+  "fti_correct": false,
+  "prompt": "Sample id (GAIA): 9288\nModel prediction: root_cause=mobservice1, failure_type=2.0\n\n--- TRACE attention top-3 ---\n* mobservice1 (lift=3.66x) [predicted RCL]\n    incoming webservice1: performance degradation (count=1)\n    outgoing redisservice2: performance degradation (count=1)\n    incoming webservice2: performance degradation (count=1)\n* redisservice1 (lift=1.19x)\n    incoming logservice2: performance degradation (count=1)\n    incoming logservice1: performance degradation (count=1)\n    incoming mobservice1: HTTP 400 client error (count=1)\n* mobservice2 (lift=0.89x)\n    incoming webservice2: performance degradation (count=1)\n    outgoing redisservice2: performance degradation (count=1)\n    incoming webservice1: performance degradation (count=1)\n\n--- LOG attention top-3 ---\n* webservice1 (lift=2.30x)\n    tid=4 (n=1): 2021-07-20 12:12:41,025 | INFO | 0.0.0.1 | 172.17.0.3 | webservice1 | b043f3fc72941927 | uuid: b9b893fe-e910-11eb-9f35-0242ac110003 write redis successfully\n    tid=7 (n=1): 2021-07-20 12:12:41,131 | INFO | 0.0.0.1 | 172.17.0.3 | webservice1 | b043f3fc72941927 | complete information: {'uuid': 'b9b893fe-e910-11eb-9f35-0242ac110003', \n* redisservice2 (lift=1.53x)\n    tid=4 (n=1): 2021-07-20 12:12:42,733 | INFO | 0.0.0.2 | 172.17.0.4 | redisservice2 | de8281e83949c673 | service accept, status_code: 200\n    tid=15 (n=1): 2021-07-20 12:19:15,934 | INFO | 0.0.0.2 | redisservice2 | redis_helper.py -> keys_existence_check -> 102 | ff00f95d14a7ee1e | service accept, status_code: 200\n* webservice2 (lift=1.28x)\n    tid=4 (n=1): 2021-07-20 12:12:40,173 | INFO | 0.0.0.3 | 172.17.0.4 | webservice2 | 7914e967021df0 | uuid: b9385fd6-e910-11eb-b4cc-0242ac110004 write redis successfully\n    tid=7 (n=1): 2021-07-20 12:12:40,279 | INFO | 0.0.0.3 | 172.17.0.4 | webservice2 | 7914e967021df0 | complete information: {'uuid': 'b9385fd6-e910-11eb-b4cc-0242ac110004', 'u\n\n--- METRIC attention top-3 ---\n* redisservice2 (lift=1.43x)\n    hosts=['0.0.0.2']; anomalies: docker_cpu_core_6_norm_pct, docker_cpu_core_6_pct, docker_memory_rss_pct, docker_memory_rss_total, docker_memory_stats_active_anon\n* webservice1 (lift=1.17x)\n    hosts=['0.0.0.1']; anomalies: docker_cpu_core_11_ticks, docker_cpu_core_0_norm_pct, docker_cpu_core_0_pct, docker_cpu_core_2_norm_pct, docker_cpu_core_2_pct\n* mobservice2 (lift=1.07x)\n    hosts=['0.0.0.4']; anomalies: docker_cpu_user_norm_pct, docker_cpu_user_pct, docker_memory_stats_cache, docker_memory_stats_total_cache, docker_network_inbound_bytes",
+  "raw_response": "{\n  \"rcl_agreement\": \"support\",\n  \"dominant_modality\": \"trace\",\n  \"evidence_summary\": \"mobservice1 shows incoming and outgoing performance degradation edges from webservice1/2 and redisservice2, with highest trace attention lift (3.66x). redisservice2 has high metric anomalies but no direct client errors.\",\n  \"explanation\": \"The model's prediction of mobservice1 as root cause is supported by trace data showing it as a central performance bottleneck with multiple degraded RPCs, despite no direct error logs. The high trace attention lift and cross-service degradation patterns align with it being the source of cascading issues.\"\n}",
+  "parsed": {
+    "rcl_agreement": "support",
+    "dominant_modality": "trace",
+    "evidence_summary": "mobservice1 shows incoming and outgoing performance degradation edges from webservice1/2 and redisservice2, with highest trace attention lift (3.66x). redisservice2 has high metric anomalies but no direct client errors.",
+    "explanation": "The model's prediction of mobservice1 as root cause is supported by trace data showing it as a central performance bottleneck with multiple degraded RPCs, despite no direct error logs. The high trace attention lift and cross-service degradation patterns align with it being the source of cascading issues."
+  },
+  "status": "ok",
+  "latency_sec": 2.244877338409424,
+  "model": "qwen3-235b-a22b"
+}

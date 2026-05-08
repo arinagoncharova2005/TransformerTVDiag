@@ -1,0 +1,21 @@
+{
+  "gaia_index": 1235,
+  "fold": 2,
+  "group": "C_trace_disagree_correct",
+  "rcl_pred": 4,
+  "rcl_pred_service": "mobservice1",
+  "fti_pred": "2.0",
+  "rcl_correct": true,
+  "fti_correct": true,
+  "prompt": "Sample id (GAIA): 1235\nModel prediction: root_cause=mobservice1, failure_type=2.0\n\n--- TRACE attention top-3 ---\n* webservice2 (lift=4.16x)\n    outgoing mobservice1: performance degradation (count=1)\n    outgoing mobservice1: HTTP 500 server error (count=1)\n* mobservice2 (lift=1.26x)\n    (no trace events)\n* webservice1 (lift=0.94x)\n    outgoing mobservice1: performance degradation (count=1)\n\n--- LOG attention top-3 ---\n* logservice1 (lift=1.52x)\n    tid=4 (n=1): 2021-07-03 11:12:11,052 | INFO | 0.0.0.3 | 172.17.0.3 | logservice1 | 72b632e5e2348e52 | request http://0.0.0.2:9387/get_value_from_redis and param={'keys': '74\n    tid=11 (n=1): 2021-07-03 11:12:11,050 | INFO | 0.0.0.3 | 172.17.0.3 | logservice1 | 72b632e5e2348e52 | the list of all available services are redisservice1: http://0.0.0.1:93\n* mobservice2 (lift=1.39x)\n    tid=4 (n=1): 2021-07-03 11:12:10,908 | INFO | 0.0.0.4 | 172.17.0.2 | mobservice2 | 72b632e5e2348e52 | request http://0.0.0.2:9387/get_value_from_redis and param={'keys': '74\n    tid=7 (n=1): 2021-07-03 11:12:10,950 | INFO | 0.0.0.4 | 172.17.0.2 | mobservice2 | 72b632e5e2348e52 | request http://0.0.0.2:9387/set_key_value_into_redis and param={'keys':\n* logservice2 (lift=1.12x)\n    tid=4 (n=1): 2021-07-03 11:12:16,808 | INFO | 0.0.0.2 | 172.17.0.3 | logservice2 | 50959126052610ee | request http://0.0.0.2:9387/get_value_from_redis and param={'keys': '78\n    tid=11 (n=1): 2021-07-03 11:12:11,153 | INFO | 0.0.0.2 | 172.17.0.3 | logservice2 | 72b632e5e2348e52 | the list of all available services are dbservice1: http://0.0.0.4:9388,\n\n--- METRIC attention top-3 ---\n* redisservice1 (lift=1.59x)\n    hosts=['0.0.0.1']; anomalies: docker_cpu_core_8_norm_pct, docker_cpu_core_8_pct, docker_cpu_core_14_norm_pct, docker_cpu_core_14_pct, docker_cpu_total_norm_pct\n* dbservice1 (lift=1.45x)\n    hosts=['0.0.0.4']; anomalies: docker_diskio_read_bytes, docker_diskio_read_ops, docker_diskio_read_service_time, docker_diskio_read_wait_time, docker_diskio_summary_bytes\n* mobservice1 (lift=0.92x) [predicted RCL]\n    hosts=['0.0.0.1']; anomalies: docker_cpu_core_3_norm_pct, docker_cpu_core_3_pct, docker_cpu_core_7_norm_pct, docker_cpu_core_7_pct, docker_cpu_core_9_norm_pct",
+  "raw_response": "{\n  \"rcl_agreement\": \"support\",\n  \"dominant_modality\": \"trace\",\n  \"evidence_summary\": \"Webservice2 and webservice1 both show outgoing performance degradation and HTTP 500 errors to mobservice1, indicating issues with mobservice1's availability or performance.\",\n  \"explanation\": \"The trace modality shows multiple services encountering errors when calling mobservice1, directly supporting it as the root cause. The log and metric data provide contextual anomalies but don't contradict the trace evidence pointing to mobservice1.\"\n}",
+  "parsed": {
+    "rcl_agreement": "support",
+    "dominant_modality": "trace",
+    "evidence_summary": "Webservice2 and webservice1 both show outgoing performance degradation and HTTP 500 errors to mobservice1, indicating issues with mobservice1's availability or performance.",
+    "explanation": "The trace modality shows multiple services encountering errors when calling mobservice1, directly supporting it as the root cause. The log and metric data provide contextual anomalies but don't contradict the trace evidence pointing to mobservice1."
+  },
+  "status": "ok",
+  "latency_sec": 1.9885015487670898,
+  "model": "qwen3-235b-a22b"
+}

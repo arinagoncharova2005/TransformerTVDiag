@@ -1,0 +1,21 @@
+{
+  "gaia_index": 15462,
+  "fold": 3,
+  "group": "E_random",
+  "rcl_pred": 8,
+  "rcl_pred_service": "webservice1",
+  "fti_pred": "3.0",
+  "rcl_correct": false,
+  "fti_correct": true,
+  "prompt": "Sample id (GAIA): 15462\nModel prediction: root_cause=webservice1, failure_type=3.0\n\n--- TRACE attention top-3 ---\n* webservice2 (lift=3.11x)\n    outgoing mobservice2: performance degradation (count=1)\n    outgoing mobservice1: performance degradation (count=1)\n    outgoing mobservice1: HTTP 500 server error (count=1)\n* mobservice2 (lift=1.60x)\n    incoming webservice2: performance degradation (count=1)\n    incoming webservice1: performance degradation (count=1)\n    outgoing redisservice2: performance degradation (count=1)\n* dbservice2 (lift=1.48x)\n    incoming logservice2: HTTP 500 server error (count=1)\n    incoming logservice1: HTTP 500 server error (count=1)\n    outgoing redisservice2: performance degradation (count=1)\n\n--- LOG attention top-3 ---\n* dbservice1 (lift=2.50x)\n    tid=1 (n=1): 2021-07-31 07:53:05,739 | INFO | 0.0.0.4 | dbservice1 | permission_operate.py -> permission_operation -> 35 | 2f08b349fbfd4ed3 | the list of all available servi\n    tid=2 (n=1): 2021-07-31 07:53:05,739 | INFO | 0.0.0.4 | dbservice1 | permission_operate.py -> permission_operation -> 51 | 2f08b349fbfd4ed3 | now call service:redisservice2,\n* dbservice2 (lift=1.36x)\n    tid=1 (n=1): 2021-07-31 07:53:04,425 | INFO | 0.0.0.2 | dbservice2 | permission_operate.py -> permission_operation -> 35 | 94058a9bd78ff73 | the list of all available servic\n    tid=2 (n=1): 2021-07-31 07:53:04,425 | INFO | 0.0.0.2 | dbservice2 | permission_operate.py -> permission_operation -> 51 | 94058a9bd78ff73 | now call service:redisservice1, \n* logservice1 (lift=1.18x)\n    tid=1 (n=1): 2021-07-31 07:57:07,033 | INFO | 0.0.0.3 | logservice1 | login_helper.py -> login_query_methods_model -> 42 | 7ccbac0104156281 | the list of all available servi\n    tid=2 (n=1): 2021-07-31 07:54:07,110 | INFO | 0.0.0.3 | logservice1 | login_helper.py -> login_query_methods_model -> 131 | 68a42d8b81a409ec | now call service:logservice2, \n\n--- METRIC attention top-3 ---\n* mobservice1 (lift=1.50x)\n    hosts=['0.0.0.1']; anomalies: docker_cpu_core_14_norm_pct, docker_cpu_core_14_pct, docker_cpu_core_6_ticks, docker_cpu_core_0_ticks, docker_cpu_core_14_ticks\n* logservice2 (lift=1.40x)\n    hosts=['0.0.0.2']; anomalies: docker_cpu_core_0_norm_pct, docker_cpu_core_0_pct, docker_cpu_core_7_norm_pct, docker_cpu_core_7_pct, docker_cpu_core_3_norm_pct\n* redisservice2 (lift=0.93x)\n    hosts=['0.0.0.2']; anomalies: docker_cpu_core_7_norm_pct, docker_cpu_core_7_pct, docker_cpu_core_0_norm_pct, docker_cpu_core_0_pct, docker_cpu_core_3_norm_pct",
+  "raw_response": "{\n  \"rcl_agreement\": \"contradict\",\n  \"dominant_modality\": \"trace\",\n  \"evidence_summary\": \"webservice2 shows high attention with outgoing performance degradation and HTTP 500 errors to mobservice1/2. mobservice2 has incoming performance degradation from webservice1, but webservice1 itself has no direct errors in traces.\",\n  \"explanation\": \"The model predicted webservice1 as root cause, but trace evidence shows webservice2 has direct errors (500s) and higher attention lift. webservice1 only appears in incoming edges to mobservice2 without direct error signals, making the prediction inconsistent with the strongest evidence.\"\n}",
+  "parsed": {
+    "rcl_agreement": "contradict",
+    "dominant_modality": "trace",
+    "evidence_summary": "webservice2 shows high attention with outgoing performance degradation and HTTP 500 errors to mobservice1/2. mobservice2 has incoming performance degradation from webservice1, but webservice1 itself has no direct errors in traces.",
+    "explanation": "The model predicted webservice1 as root cause, but trace evidence shows webservice2 has direct errors (500s) and higher attention lift. webservice1 only appears in incoming edges to mobservice2 without direct error signals, making the prediction inconsistent with the strongest evidence."
+  },
+  "status": "ok",
+  "latency_sec": 2.436434030532837,
+  "model": "qwen3-235b-a22b"
+}

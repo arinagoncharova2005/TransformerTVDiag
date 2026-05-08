@@ -1,0 +1,21 @@
+{
+  "gaia_index": 8796,
+  "fold": 1,
+  "group": "B_trace_agree_wrong",
+  "rcl_pred": 4,
+  "rcl_pred_service": "mobservice1",
+  "fti_pred": "2.0",
+  "rcl_correct": false,
+  "fti_correct": false,
+  "prompt": "Sample id (GAIA): 8796\nModel prediction: root_cause=mobservice1, failure_type=2.0\n\n--- TRACE attention top-3 ---\n* mobservice1 (lift=3.55x) [predicted RCL]\n    outgoing redisservice2: HTTP 400 client error (count=1)\n    incoming webservice1: performance degradation (count=1)\n    incoming webservice1: HTTP 500 server error (count=1)\n* redisservice1 (lift=1.21x)\n    incoming logservice1: HTTP 400 client error (count=1)\n    incoming mobservice2: HTTP 400 client error (count=1)\n    incoming logservice2: performance degradation (count=1)\n* dbservice1 (lift=1.08x)\n    incoming logservice2: HTTP 500 server error (count=1)\n    incoming logservice2: performance degradation (count=1)\n    outgoing redisservice1: performance degradation (count=1)\n\n--- LOG attention top-3 ---\n* webservice1 (lift=2.42x)\n    tid=4 (n=1): 2021-07-18 18:03:30,560 | INFO | 0.0.0.1 | 172.17.0.3 | webservice1 | 80f9fb99be1d9b27 | uuid: 67667f24-e7af-11eb-aeea-0242ac110003 write redis successfully\n    tid=7 (n=1): 2021-07-18 18:03:30,666 | INFO | 0.0.0.1 | 172.17.0.3 | webservice1 | 80f9fb99be1d9b27 | complete information: {'uuid': '67667f24-e7af-11eb-aeea-0242ac110003', \n* logservice1 (lift=1.22x)\n    tid=1 (n=1): 2021-07-18 18:07:42,948 | INFO | 0.0.0.3 | logservice1 | login_helper.py -> login_methods_model -> 171 | 2821a10c422f5a11 | the list of all available services a\n    tid=4 (n=1): 2021-07-18 18:03:30,907 | INFO | 0.0.0.3 | 172.17.0.3 | logservice1 | 80f9fb99be1d9b27 | request http://0.0.0.1:9386/get_value_from_redis and param={'keys': '67\n* redisservice1 (lift=1.15x)\n    tid=4 (n=1): 2021-07-18 18:03:31,350 | INFO | 0.0.0.1 | 172.17.0.4 | redisservice1 | f488be3740d4205c | service accept, status_code: 200\n    tid=15 (n=1): 2021-07-18 18:04:06,026 | ERROR | 0.0.0.1 | redisservice1 | redis_helper.py -> get_value_from_redis -> 67 | 5ef54d6b7217b73b | 二维码已过期， 请刷新重新扫描, status_code: 400\n\n--- METRIC attention top-3 ---\n* redisservice2 (lift=1.68x)\n    hosts=['0.0.0.2']; anomalies: docker_cpu_core_2_norm_pct, docker_cpu_core_2_pct, docker_cpu_core_1_norm_pct, docker_cpu_core_1_pct, docker_cpu_core_3_norm_pct\n* webservice1 (lift=1.14x)\n    hosts=['0.0.0.1']; anomalies: docker_cpu_core_11_ticks, docker_cpu_core_4_norm_pct, docker_cpu_core_4_pct, docker_cpu_core_12_norm_pct, docker_cpu_core_12_pct\n* mobservice2 (lift=1.07x)\n    hosts=['0.0.0.4']; anomalies: docker_cpu_core_3_ticks, docker_cpu_core_1_ticks, docker_memory_rss_pct, docker_memory_rss_total, docker_memory_stats_active_anon",
+  "raw_response": "{\n  \"rcl_agreement\": \"contradict\",\n  \"dominant_modality\": \"trace\",\n  \"evidence_summary\": \"mobservice1 has incoming 500 errors from webservice1 and outgoing 400 errors to redisservice2, but no direct self-reported failures. redisservice1 shows 400 errors in logs and metric anomalies on redisservice2.\",\n  \"explanation\": \"The model predicted mobservice1 as root cause, but trace data shows it's receiving errors from webservice1 and sending to redisservice2. No log or metric evidence directly implicates mobservice1 in failure. More signals point to redisservice issues.\"\n}",
+  "parsed": {
+    "rcl_agreement": "contradict",
+    "dominant_modality": "trace",
+    "evidence_summary": "mobservice1 has incoming 500 errors from webservice1 and outgoing 400 errors to redisservice2, but no direct self-reported failures. redisservice1 shows 400 errors in logs and metric anomalies on redisservice2.",
+    "explanation": "The model predicted mobservice1 as root cause, but trace data shows it's receiving errors from webservice1 and sending to redisservice2. No log or metric evidence directly implicates mobservice1 in failure. More signals point to redisservice issues."
+  },
+  "status": "ok",
+  "latency_sec": 2.341167688369751,
+  "model": "qwen3-235b-a22b"
+}

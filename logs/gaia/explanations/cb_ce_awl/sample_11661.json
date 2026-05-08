@@ -1,0 +1,21 @@
+{
+  "gaia_index": 11661,
+  "fold": 4,
+  "group": "E_random",
+  "rcl_pred": 4,
+  "rcl_pred_service": "mobservice1",
+  "fti_pred": "2.0",
+  "rcl_correct": true,
+  "fti_correct": true,
+  "prompt": "Sample id (GAIA): 11661\nModel prediction: root_cause=mobservice1, failure_type=2.0\n\n--- TRACE attention top-3 ---\n* webservice2 (lift=2.16x)\n    outgoing mobservice2: performance degradation (count=1)\n    outgoing redisservice2: performance degradation (count=1)\n* mobservice1 (lift=1.73x) [predicted RCL]\n    incoming webservice1: performance degradation (count=1)\n    incoming webservice1: HTTP 500 server error (count=1)\n    outgoing redisservice1: HTTP 400 client error (count=1)\n* webservice1 (lift=1.42x)\n    outgoing mobservice1: performance degradation (count=1)\n    outgoing mobservice1: HTTP 500 server error (count=1)\n    outgoing mobservice2: performance degradation (count=1)\n\n--- LOG attention top-3 ---\n* dbservice1 (lift=1.68x)\n    (no log events)\n* dbservice2 (lift=1.68x)\n    (no log events)\n* mobservice2 (lift=1.68x)\n    (no log events)\n\n--- METRIC attention top-3 ---\n* dbservice2 (lift=2.09x)\n    hosts=['0.0.0.2']; anomalies: docker_cpu_core_4_norm_pct, docker_cpu_core_4_pct, docker_cpu_core_5_norm_pct, docker_cpu_core_5_pct, docker_cpu_core_5_ticks\n* logservice2 (lift=1.09x)\n    hosts=['0.0.0.2']; anomalies: docker_cpu_core_6_norm_pct, docker_cpu_core_6_pct, docker_cpu_core_7_norm_pct, docker_cpu_core_7_pct, docker_cpu_user_norm_pct\n* webservice2 (lift=1.00x)\n    hosts=['0.0.0.3']; anomalies: docker_cpu_core_0_norm_pct, docker_cpu_core_0_pct, docker_cpu_core_8_norm_pct, docker_cpu_core_8_pct, docker_memory_stats_active_file",
+  "raw_response": "{\n  \"rcl_agreement\": \"support\",\n  \"dominant_modality\": \"trace\",\n  \"evidence_summary\": \"mobservice1 received HTTP 500 server errors from webservice1 and sent HTTP 400 client errors to redisservice1, indicating it was both failing and propagating errors.\",\n  \"explanation\": \"The trace modality shows mobservice1 as a central point of failure, experiencing incoming server errors and generating outgoing client errors, consistent with it being the root cause.\"\n}",
+  "parsed": {
+    "rcl_agreement": "support",
+    "dominant_modality": "trace",
+    "evidence_summary": "mobservice1 received HTTP 500 server errors from webservice1 and sent HTTP 400 client errors to redisservice1, indicating it was both failing and propagating errors.",
+    "explanation": "The trace modality shows mobservice1 as a central point of failure, experiencing incoming server errors and generating outgoing client errors, consistent with it being the root cause."
+  },
+  "status": "ok",
+  "latency_sec": 1.7365334033966064,
+  "model": "qwen3-235b-a22b"
+}

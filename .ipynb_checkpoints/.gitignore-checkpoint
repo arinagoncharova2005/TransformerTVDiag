@@ -1,5 +1,91 @@
-*.pyc
-tmp/
+# python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
 .ipynb_checkpoints/
+.pytest_cache/
+.mypy_cache/
+*.egg-info/
+
+# os
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# latex artifacts
+*.aux
+*.log
+*.out
+*.bbl
+*.blg
+*.synctex.gz
+*.toc
+*.lof
+*.lot
+*.fdb_latexmk
+*.fls
+*.nav
+*.snm
+*.vrb
+
+# trained model checkpoints (heavy)
+*.pt
+*.pth
+*.ckpt
+*.bin
+
+# FastText embedding caches (can be regenerated while training)
+tmp/
+*-train.txt
+*-train-aug.txt
+
+# old exploratory notebooks
+Untitled.ipynb
+eval_report.ipynb
+evaluate_predictions_correct_initial_data.ipynb
+evaluate_predictions_fixed_weighted_loss.ipynb
+evaluate_predictions_full.ipynb
+evaluate_predictions_full_corrected_labels.ipynb
+evaluate_predictions_gaia_my.ipynb
+preprocess_data.ipynb
+labels_EDA.ipynb
+
+# old data variants (paper uses only gaia.csv + events/) ---
+data/gaia/events_gaia/
+data/gaia/events_index_not_correct/
+data/gaia/tmp/
+data/gaia/tmp_full/
+data/gaia/tmp_gaia/
+data/gaia/tmp_index_not_correct/
+data/gaia/gaia_without_mobservice.csv
+data/gaia/label_15_85.csv
+data/gaia/label_15_85_corrected_index.csv
+data/gaia/label_without_mobservice.csv
+data/gaia/label_without_mobservice_correct_index.csv
+data/gaia/labels_without_login.csv
+data/gaia/new_labels_deneration.ipynb
+
+# heavy data files
+# README points users to the GAIA source for these.
+data/gaia/events/log_per_sample_lookup.json
+data/gaia/events/log.json
 data/gaia/events/metric.json
-data/gaia/events_index_not_correct/metric.json
+data/gaia/events/trace.json
+data/gaia/events/edges.pkl
+data/gaia/events/nodes.pkl
+
+# large logs
+logs/gaia/cv_results_*.csv
+logs/gaia/attention/
+logs/gaia/extract_attention.log
+logs/gaia/evidence/cb_ce_awl/evidence_fold_*.jsonl
+# (keep aggregate stats files: sanity_*.csv, sanity_report.txt, batch_summary.json)
+# (keep LLM outputs: explanations/cb_ce_awl/*.json, summary.csv)
+
+# metadata
+.vscode/
+.idea/
+*.swp
+*.swo

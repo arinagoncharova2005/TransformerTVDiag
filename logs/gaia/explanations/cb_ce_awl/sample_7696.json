@@ -1,0 +1,21 @@
+{
+  "gaia_index": 7696,
+  "fold": 1,
+  "group": "C_trace_disagree_correct",
+  "rcl_pred": 5,
+  "rcl_pred_service": "mobservice2",
+  "fti_pred": "2.0",
+  "rcl_correct": true,
+  "fti_correct": true,
+  "prompt": "Sample id (GAIA): 7696\nModel prediction: root_cause=mobservice2, failure_type=2.0\n\n--- TRACE attention top-3 ---\n* mobservice1 (lift=4.29x)\n    incoming webservice2: performance degradation (count=1)\n    outgoing redisservice1: performance degradation (count=1)\n* dbservice1 (lift=0.94x)\n    incoming logservice2: performance degradation (count=1)\n    incoming logservice2: HTTP 500 server error (count=1)\n* redisservice2 (lift=0.92x)\n    incoming mobservice2: HTTP 400 client error (count=1)\n    incoming logservice2: performance degradation (count=1)\n    incoming logservice2: HTTP 400 client error (count=1)\n\n--- LOG attention top-3 ---\n* webservice1 (lift=2.34x)\n    tid=4 (n=1): 2021-07-17 06:59:38,244 | INFO | 0.0.0.1 | 172.17.0.3 | webservice1 | 3cfab2471a42648c | uuid: 7f13dfbc-e689-11eb-8e82-0242ac110003 write redis successfully\n    tid=7 (n=1): 2021-07-17 06:59:38,348 | INFO | 0.0.0.1 | 172.17.0.3 | webservice1 | 3cfab2471a42648c | complete information: {'uuid': '7f13dfbc-e689-11eb-8e82-0242ac110003', \n* redisservice1 (lift=1.21x)\n    tid=4 (n=1): 2021-07-17 06:59:41,868 | INFO | 0.0.0.1 | 172.17.0.4 | redisservice1 | aca2342a573beeca | service accept, status_code: 200\n    tid=17 (n=1): 2021-07-17 06:59:38,674 | INFO | 0.0.0.1 | 172.17.0.4 | redisservice1 | 3cfab2471a42648c | redis读取信息成功, status_code: 200\n* logservice1 (lift=1.19x)\n    tid=4 (n=1): 2021-07-17 06:59:38,639 | INFO | 0.0.0.3 | 172.17.0.3 | logservice1 | 3cfab2471a42648c | request http://0.0.0.1:9386/get_value_from_redis and param={'keys': '7f\n    tid=11 (n=1): 2021-07-17 06:59:38,638 | INFO | 0.0.0.3 | 172.17.0.3 | logservice1 | 3cfab2471a42648c | the list of all available services are redisservice1: http://0.0.0.1:93\n\n--- METRIC attention top-3 ---\n* redisservice2 (lift=1.70x)\n    hosts=['0.0.0.2']; anomalies: docker_network_in_bytes, docker_network_in_packets, docker_network_out_bytes, docker_cpu_core_3_ticks, docker_cpu_core_0_ticks\n* webservice1 (lift=1.13x)\n    hosts=['0.0.0.1']; anomalies: docker_cpu_core_11_ticks, docker_cpu_core_7_norm_pct, docker_cpu_core_7_pct, docker_cpu_core_9_norm_pct, docker_cpu_core_9_pct\n* mobservice1 (lift=1.01x)\n    hosts=['0.0.0.1']; anomalies: docker_cpu_core_10_norm_pct, docker_cpu_core_10_pct, docker_cpu_core_3_norm_pct, docker_cpu_core_3_pct, docker_cpu_core_4_norm_pct",
+  "raw_response": "{\n  \"rcl_agreement\": \"contradict\",\n  \"dominant_modality\": \"trace\",\n  \"evidence_summary\": \"Trace data shows mobservice2 has incoming HTTP 400 client errors from logservice2, but no other significant errors. Mobservice1 shows performance degradation in both incoming and outgoing RPCs.\",\n  \"explanation\": \"The model predicted mobservice2 as root cause, but trace evidence shows mobservice1 has more significant error patterns with performance degradation on both incoming and outgoing calls. The HTTP 400 errors to mobservice2 appear to originate from logservice2, suggesting it's not the root cause but rather a downstream victim.\"\n}",
+  "parsed": {
+    "rcl_agreement": "contradict",
+    "dominant_modality": "trace",
+    "evidence_summary": "Trace data shows mobservice2 has incoming HTTP 400 client errors from logservice2, but no other significant errors. Mobservice1 shows performance degradation in both incoming and outgoing RPCs.",
+    "explanation": "The model predicted mobservice2 as root cause, but trace evidence shows mobservice1 has more significant error patterns with performance degradation on both incoming and outgoing calls. The HTTP 400 errors to mobservice2 appear to originate from logservice2, suggesting it's not the root cause but rather a downstream victim."
+  },
+  "status": "ok",
+  "latency_sec": 2.266427516937256,
+  "model": "qwen3-235b-a22b"
+}

@@ -1,0 +1,56 @@
+# Evidence sanity report — config=cb_ce_awl
+Total bundles: 16205
+
+## 1. Coverage
+With at least one raw log example: 16172/16205 (99.8%)
+top-1 metric has events: 14167/16205 (87.4%)
+top-1 trace has events: 14661/16205 (90.5%)
+top-1 log has events: 15205/16205 (93.8%)
+
+## 2. Winning modality (argmax of top-1 lift over modalities)
+  trace: 8893/16205 (54.9%)
+  log: 7240/16205 (44.7%)
+  metric: 72/16205 (0.4%)
+
+## 3. Per-modality top-1 lift (median / mean / p90)
+  metric: median=1.477, mean=1.510, p90=1.918, p99=2.228
+  trace: median=2.357, mean=2.416, p90=3.267, p99=3.828
+  log: median=2.318, mean=2.225, p90=2.888, p99=3.394
+
+## 4. Attention top-1 service == rcl_pred (per modality)
+  metric: 2511/16205 (15.5%)
+  trace: 4880/16205 (30.1%)
+  log: 375/16205 (2.3%)
+
+## 5. Model accuracy (from fold index csv)
+  RCL accuracy: 9406/16205 (58.0%)
+  FTI accuracy: 15781/16205 (97.4%)
+
+## 6. Cross-tab: attention top-1 matches rcl_pred  ×  RCL correct
+(rows: attention–prediction agreement; cols: model RCL correct)
+
+rcl_correct                   False  True    all
+metric: top1==rcl_pred=False   5765  7929  13694
+metric: top1==rcl_pred=True    1034  1477   2511
+metric: top1==rcl_pred=all     6799  9406  16205
+trace: top1==rcl_pred=False    5366  5959  11325
+trace: top1==rcl_pred=True     1433  3447   4880
+trace: top1==rcl_pred=all      6799  9406  16205
+log: top1==rcl_pred=False      6625  9205  15830
+log: top1==rcl_pred=True        174   201    375
+log: top1==rcl_pred=all        6799  9406  16205
+
+## 7. Lift conditional on RCL correctness
+Median top-1 lift, split by rcl_correct:
+  metric: incorrect=1.490, correct=1.467
+  trace: incorrect=2.327, correct=2.385
+  log: incorrect=2.340, correct=2.255
+
+## 8. Per-fold breakdown
+         n   rcl_acc   fti_acc  with_raw
+fold                                    
+0     3241  0.672015  0.979636  0.997532
+1     3241  0.511879  0.949398  0.998457
+2     3241  0.623882  0.983647  0.998457
+3     3241  0.573280  0.987967  0.998457
+4     3241  0.521135  0.968528  0.996915

@@ -1,0 +1,21 @@
+{
+  "gaia_index": 937,
+  "fold": 2,
+  "group": "C_trace_disagree_correct",
+  "rcl_pred": 5,
+  "rcl_pred_service": "mobservice2",
+  "fti_pred": "2.0",
+  "rcl_correct": true,
+  "fti_correct": true,
+  "prompt": "Sample id (GAIA): 937\nModel prediction: root_cause=mobservice2, failure_type=2.0\n\n--- TRACE attention top-3 ---\n* webservice2 (lift=3.97x)\n    outgoing redisservice2: performance degradation (count=1)\n* webservice1 (lift=1.85x)\n    outgoing mobservice2: performance degradation (count=1)\n    outgoing mobservice2: HTTP 500 server error (count=1)\n* mobservice2 (lift=1.44x) [predicted RCL]\n    incoming webservice1: performance degradation (count=1)\n    incoming webservice1: HTTP 500 server error (count=1)\n    outgoing redisservice1: HTTP 400 client error (count=1)\n\n--- LOG attention top-3 ---\n* logservice1 (lift=1.52x)\n    tid=4 (n=1): 2021-07-03 11:50:29,561 | INFO | 0.0.0.3 | 172.17.0.3 | logservice1 | 93b4fb27bd922c8b | request http://0.0.0.1:9386/get_value_from_redis and param={'keys': 'ce\n    tid=11 (n=1): 2021-07-03 11:50:29,560 | INFO | 0.0.0.3 | 172.17.0.3 | logservice1 | 93b4fb27bd922c8b | the list of all available services are redisservice1: http://0.0.0.1:93\n* mobservice2 (lift=1.39x) [predicted RCL]\n    tid=4 (n=1): 2021-07-03 11:50:29,431 | INFO | 0.0.0.4 | 172.17.0.2 | mobservice2 | 93b4fb27bd922c8b | request http://0.0.0.2:9387/get_value_from_redis and param={'keys': 'ce\n    tid=7 (n=1): 2021-07-03 11:50:29,473 | INFO | 0.0.0.4 | 172.17.0.2 | mobservice2 | 93b4fb27bd922c8b | request http://0.0.0.2:9387/set_key_value_into_redis and param={'keys':\n* logservice2 (lift=1.13x)\n    tid=4 (n=1): 2021-07-03 11:50:31,372 | INFO | 0.0.0.2 | 172.17.0.3 | logservice2 | 7d02deb9a3f548d1 | request http://0.0.0.1:9386/get_value_from_redis and param={'keys': 'd0\n    tid=11 (n=1): 2021-07-03 11:50:29,648 | INFO | 0.0.0.2 | 172.17.0.3 | logservice2 | 93b4fb27bd922c8b | the list of all available services are dbservice1: http://0.0.0.4:9388,\n\n--- METRIC attention top-3 ---\n* dbservice1 (lift=1.49x)\n    hosts=['0.0.0.4']; anomalies: docker_cpu_core_3_ticks, docker_memory_stats_active_anon, docker_memory_stats_total_active_anon, docker_memory_rss_pct, docker_memory_rss_total\n* redisservice1 (lift=1.29x)\n    hosts=['0.0.0.1']; anomalies: docker_cpu_core_15_norm_pct, docker_cpu_core_15_pct\n* mobservice1 (lift=1.02x)\n    hosts=['0.0.0.1']; anomalies: docker_memory_stats_pgpgin, docker_memory_stats_pgpgout, docker_memory_stats_total_pgpgin, docker_memory_stats_total_pgpgout, docker_cpu_core_7_norm_pct",
+  "raw_response": "{\n  \"rcl_agreement\": \"support\",\n  \"dominant_modality\": \"trace\",\n  \"evidence_summary\": \"webservice1 shows performance degradation and HTTP 500 errors when calling mobservice2, which in turn shows incoming performance degradation and HTTP 500 errors from webservice1, and outgoing HTTP 400 errors to redisservice1.\",\n  \"explanation\": \"The trace modality provides strong evidence supporting mobservice2 as the root cause, showing it receives degraded requests from webservice1 and propagates errors downstream to redisservice1, consistent with failure type 2.0 (service degradation).\"\n}",
+  "parsed": {
+    "rcl_agreement": "support",
+    "dominant_modality": "trace",
+    "evidence_summary": "webservice1 shows performance degradation and HTTP 500 errors when calling mobservice2, which in turn shows incoming performance degradation and HTTP 500 errors from webservice1, and outgoing HTTP 400 errors to redisservice1.",
+    "explanation": "The trace modality provides strong evidence supporting mobservice2 as the root cause, showing it receives degraded requests from webservice1 and propagates errors downstream to redisservice1, consistent with failure type 2.0 (service degradation)."
+  },
+  "status": "ok",
+  "latency_sec": 2.378450632095337,
+  "model": "qwen3-235b-a22b"
+}

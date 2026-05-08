@@ -1,0 +1,21 @@
+{
+  "gaia_index": 4535,
+  "fold": 1,
+  "group": "B_trace_agree_wrong",
+  "rcl_pred": 4,
+  "rcl_pred_service": "mobservice1",
+  "fti_pred": "2.0",
+  "rcl_correct": false,
+  "fti_correct": false,
+  "prompt": "Sample id (GAIA): 4535\nModel prediction: root_cause=mobservice1, failure_type=2.0\n\n--- TRACE attention top-3 ---\n* mobservice1 (lift=3.98x) [predicted RCL]\n    incoming webservice1: performance degradation (count=1)\n    outgoing redisservice1: performance degradation (count=1)\n    incoming webservice2: performance degradation (count=1)\n* dbservice1 (lift=1.02x)\n    incoming logservice2: HTTP 500 server error (count=1)\n    incoming logservice2: performance degradation (count=1)\n    incoming logservice1: performance degradation (count=1)\n* redisservice1 (lift=0.90x)\n    incoming mobservice1: performance degradation (count=1)\n    incoming mobservice2: performance degradation (count=1)\n    incoming dbservice2: performance degradation (count=1)\n\n--- LOG attention top-3 ---\n* logservice1 (lift=1.41x)\n    (no log events)\n* logservice2 (lift=1.41x)\n    (no log events)\n* redisservice1 (lift=1.25x)\n    tid=4 (n=1): 2021-07-11 22:34:00,141 | INFO | 0.0.0.1 | 172.17.0.4 | redisservice1 | d08e9d637dba5f27 | service accept, status_code: 200\n    tid=15 (n=1): 2021-07-11 22:37:35,603 | INFO | 0.0.0.1 | redisservice1 | redis_helper.py -> keys_existence_check -> 102 | c820f57dedbc6365 | service accept, status_code: 200\n\n--- METRIC attention top-3 ---\n* redisservice2 (lift=1.63x)\n    hosts=['0.0.0.2']; anomalies: docker_network_outbound_bytes, docker_diskio_read_bytes, docker_diskio_read_ops, docker_diskio_read_service_time, docker_diskio_read_wait_time\n* webservice1 (lift=1.16x)\n    hosts=['0.0.0.1']; anomalies: docker_cpu_core_10_norm_pct, docker_cpu_core_10_pct, docker_cpu_core_14_norm_pct, docker_cpu_core_14_pct, docker_cpu_core_13_norm_pct\n* dbservice1 (lift=1.08x)\n    hosts=['0.0.0.4']; anomalies: docker_cpu_core_3_ticks, docker_cpu_core_0_ticks, docker_memory_rss_pct, docker_memory_rss_total, docker_memory_stats_active_anon",
+  "raw_response": "{\n  \"rcl_agreement\": \"support\",\n  \"dominant_modality\": \"trace\",\n  \"evidence_summary\": \"mobservice1 has incoming performance degradation from webservice1 and webservice2, and outgoing performance degradation to redisservice1.\",\n  \"explanation\": \"The trace modality shows multiple performance degradation signals connected to mobservice1, supporting it as the root cause. Other modalities don't provide strong contradictory or supporting evidence.\"\n}",
+  "parsed": {
+    "rcl_agreement": "support",
+    "dominant_modality": "trace",
+    "evidence_summary": "mobservice1 has incoming performance degradation from webservice1 and webservice2, and outgoing performance degradation to redisservice1.",
+    "explanation": "The trace modality shows multiple performance degradation signals connected to mobservice1, supporting it as the root cause. Other modalities don't provide strong contradictory or supporting evidence."
+  },
+  "status": "ok",
+  "latency_sec": 1.5412099361419678,
+  "model": "qwen3-235b-a22b"
+}

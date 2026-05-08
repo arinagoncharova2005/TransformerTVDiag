@@ -1,0 +1,43 @@
+{
+  "config": "cb_ce_awl",
+  "top_k_per_modality": 5,
+  "layer": 0,
+  "folds": [
+    {
+      "fold": 0,
+      "written": 3241,
+      "lookup_hits": 3235,
+      "with_raw_log": 3233,
+      "out_path": "logs/gaia/evidence/cb_ce_awl/evidence_fold_0.jsonl"
+    },
+    {
+      "fold": 1,
+      "written": 3241,
+      "lookup_hits": 3236,
+      "with_raw_log": 3236,
+      "out_path": "logs/gaia/evidence/cb_ce_awl/evidence_fold_1.jsonl"
+    },
+    {
+      "fold": 2,
+      "written": 3241,
+      "lookup_hits": 3236,
+      "with_raw_log": 3236,
+      "out_path": "logs/gaia/evidence/cb_ce_awl/evidence_fold_2.jsonl"
+    },
+    {
+      "fold": 3,
+      "written": 3241,
+      "lookup_hits": 3238,
+      "with_raw_log": 3236,
+      "out_path": "logs/gaia/evidence/cb_ce_awl/evidence_fold_3.jsonl"
+    },
+    {
+      "fold": 4,
+      "written": 3241,
+      "lookup_hits": 3237,
+      "with_raw_log": 3231,
+      "out_path": "logs/gaia/evidence/cb_ce_awl/evidence_fold_4.jsonl"
+    }
+  ],
+  "total_written": 16205
+}

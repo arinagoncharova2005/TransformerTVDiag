@@ -1,0 +1,11 @@
+,dbservice1,dbservice2,logservice1,logservice2,mobservice1,mobservice2,redisservice1,redisservice2,webservice1,webservice2
+dbservice1,4,1,4,1,0,0,0,1,2,3
+dbservice2,1,5,2,2,0,0,1,1,3,4
+logservice1,2,4,0,1,0,0,0,2,1,3
+logservice2,0,2,2,1,0,0,1,1,4,2
+mobservice1,1,2,1,3,1439,115,0,0,2,1
+mobservice2,2,1,1,1,191,1356,0,0,4,3
+redisservice1,2,0,2,3,0,0,0,0,2,2
+redisservice2,0,2,1,4,0,0,0,0,2,2
+webservice1,2,0,2,4,0,0,1,1,5,2
+webservice2,2,2,2,1,0,0,2,2,1,6
