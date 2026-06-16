@@ -1,0 +1,15 @@
+{
+  "row": {
+    "gaia_index": 5569,
+    "group": "E_random",
+    "rcl_correct": true,
+    "rcl_agreement": "unclear",
+    "judge_faithfulness": 5,
+    "judge_completeness": 2,
+    "judge_actionability": 2,
+    "judge_verdict_correct": "no",
+    "status": "ok"
+  },
+  "raw_response": "{\"faithfulness\":5,\"completeness\":2,\"actionability\":2,\"verdict_correct\":\"no\",\"comment\":\"Misses strong trace evidence and should label prediction as contradicted rather than unclear.\"}",
+  "model": "gpt-oss-120b"
+}

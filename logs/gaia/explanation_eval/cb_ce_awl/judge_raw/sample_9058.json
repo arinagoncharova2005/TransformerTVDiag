@@ -1,0 +1,15 @@
+{
+  "row": {
+    "gaia_index": 9058,
+    "group": "E_random",
+    "rcl_correct": false,
+    "rcl_agreement": "unclear",
+    "judge_faithfulness": 5,
+    "judge_completeness": 3,
+    "judge_actionability": 2,
+    "judge_verdict_correct": "yes",
+    "status": "ok"
+  },
+  "raw_response": "{\"faithfulness\":5,\"completeness\":3,\"actionability\":2,\"verdict_correct\":\"yes\",\"comment\":\"Explanation stays within evidence but omits key trace from webservice2 and offers little actionable guidance.\"}",
+  "model": "gpt-oss-120b"
+}

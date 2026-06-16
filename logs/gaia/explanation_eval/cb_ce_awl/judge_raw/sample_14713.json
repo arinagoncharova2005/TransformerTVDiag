@@ -1,0 +1,15 @@
+{
+  "row": {
+    "gaia_index": 14713,
+    "group": "A_trace_agree_correct",
+    "rcl_correct": true,
+    "rcl_agreement": "support",
+    "judge_faithfulness": 5,
+    "judge_completeness": 4,
+    "judge_actionability": 3,
+    "judge_verdict_correct": "no",
+    "status": "ok"
+  },
+  "raw_response": "{\n  \"faithfulness\": 5,\n  \"completeness\": 4,\n  \"actionability\": 3,\n  \"verdict_correct\": \"no\",\n  \"comment\": \"Explanation is faithful but overstates support; lacks clear actionable steps.\"\n}",
+  "model": "gpt-oss-120b"
+}

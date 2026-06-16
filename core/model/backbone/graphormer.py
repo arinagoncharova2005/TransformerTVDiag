@@ -16,11 +16,13 @@ class GraphormerEncoder(nn.Module):
                 pre_layernorm=True,
                 activation_fn=nn.GELU(),
                 edge_dim=1,
+                use_graph_priors=True
         ):
         super(GraphormerEncoder, self).__init__()
         self.dropout = nn.Dropout(p=attn_drop)
         self.embedding_dim = embedding_dim
         self.num_heads = num_heads
+        self.use_graph_priors = use_graph_priors
 
         self.graph_token = nn.Embedding(1, embedding_dim)
 
@@ -73,15 +75,16 @@ class GraphormerEncoder(nn.Module):
 
     def forward(self, node_feat, in_degree, out_degree, attn_mask, path_data, dist):
         num_graphs, max_num_nodes, _ = node_feat.shape
-        deg_emb = self.degree_encoder(torch.stack((in_degree, out_degree)))
-
-        # node feature + degree encoding as input
-        node_feat = node_feat + deg_emb
+        if self.use_graph_priors:
+            deg_emb = self.degree_encoder(torch.stack((in_degree, out_degree)))
+            # node feature + degree encoding as input
+            node_feat = node_feat + deg_emb
+        
         graph_token_feat = self.graph_token.weight.unsqueeze(0).repeat(
             num_graphs, 1, 1
         )
         x = torch.cat([graph_token_feat, node_feat], dim=1)
-
+        
         # spatial encoding and path encoding serve as attention bias
         attn_bias = torch.zeros(
             num_graphs,
@@ -90,19 +93,21 @@ class GraphormerEncoder(nn.Module):
             self.num_heads,
             device=dist.device,
         )
-        path_encoding = self.path_encoder(dist, path_data)
-        spatial_encoding = self.spatial_encoder(dist)
-        attn_bias[:, 1:, 1:, :] = path_encoding + spatial_encoding
+        # if use_graph_priors = False, attn_bias will be all zeros, so encoder will be self-attention transformer
+        if self.use_graph_priors:
+            path_encoding = self.path_encoder(dist, path_data)
+            spatial_encoding = self.spatial_encoder(dist)
+            attn_bias[:, 1:, 1:, :] = path_encoding + spatial_encoding
 
-        # spatial encoding of the virtual node
-        t = self.graph_token_virtual_distance.weight.reshape(
-            1, 1, self.num_heads
-        )
-        # Since the virtual node comes first, the spatial encodings between it
-        # and other nodes will fill the 1st row and 1st column (omit num_graphs
-        # and num_heads dimensions) of attn_bias matrix by broadcasting.
-        attn_bias[:, 1:, 0, :] = attn_bias[:, 1:, 0, :] + t
-        attn_bias[:, 0, :, :] = attn_bias[:, 0, :, :] + t
+            # spatial encoding of the virtual node
+            t = self.graph_token_virtual_distance.weight.reshape(
+                1, 1, self.num_heads
+            )
+            # Since the virtual node comes first, the spatial encodings between it
+            # and other nodes will fill the 1st row and 1st column (omit num_graphs
+            # and num_heads dimensions) of attn_bias matrix by broadcasting.
+            attn_bias[:, 1:, 0, :] = attn_bias[:, 1:, 0, :] + t
+            attn_bias[:, 0, :, :] = attn_bias[:, 0, :, :] + t
 
         x = self.emb_layer_norm(x)
 

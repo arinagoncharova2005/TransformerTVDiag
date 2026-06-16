@@ -1,0 +1,15 @@
+{
+  "row": {
+    "gaia_index": 9206,
+    "group": "D_log_dominates",
+    "rcl_correct": false,
+    "rcl_agreement": "unclear",
+    "judge_faithfulness": 5,
+    "judge_completeness": 4,
+    "judge_actionability": 3,
+    "judge_verdict_correct": "yes",
+    "status": "ok"
+  },
+  "raw_response": "{\"faithfulness\":5,\"completeness\":4,\"actionability\":3,\"verdict_correct\":\"yes\",\"comment\":\"Faithful and mostly complete, but omits some metric evidence and concrete actions.\"}",
+  "model": "gpt-oss-120b"
+}

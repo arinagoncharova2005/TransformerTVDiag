@@ -112,6 +112,16 @@ parser.add_argument(
     help='Optional path for per-fold CV/sweep CSV results.',
 )
 parser.add_argument(
+    '--cap_per_instance',
+    type=int,
+    default=0,
+    help='Matched-N experiment: cap each RCL instance to at most this many '
+         'TRAIN samples per fold (0 = off). Cuts the majority instances down to '
+         'the rare size so every class is small and equal. Test set is untouched. '
+         'Lets the encoder retrain on few samples of every class, to test whether '
+         'rare decodability is limited by sample size or by the signal.',
+)
+parser.add_argument(
     '--eval_artifacts_dir',
     type=str,
     default='',
@@ -122,6 +132,22 @@ parser.add_argument(
     type=str,
     default='metric,trace,log',
     help='Comma-separated subset of modalities to use: metric,trace,log',
+)
+parser.add_argument(
+    '--use_graph_priors',
+    type=bool,
+    default=True,
+    help='Whether Graphormer uses degree/spatial/path/virtual-distance encoders.'
+         ' Default True. Pass --no_graph_priors to zero them out for ablation.',
+)
+parser.add_argument(
+    '--no_graph_priors',
+    dest='use_graph_priors',
+    action='store_false',
+    help='Ablation: zero out degree/spatial/path/virtual-distance encoders in'
+         ' Graphormer. Reduces the encoder to plain multi-head self-attention'
+         ' over node features + virtual graph token. Used to test whether graph'
+         ' structure contributes to TransTVDiag (Section 4.5/4.6 ablation).',
 )
 parser.add_argument(
     '--model_filename',
@@ -170,7 +196,27 @@ def build_stratify_labels(labels_df, stratify_by):
     if stratify_by == 'combined':
         return labels_df['anomaly_type'].astype(str) + '|' + labels_df['instance'].astype(str)
     return labels_df[stratify_by].astype(str)
+    
+def downsample_train_indices(labels_df, train_indices, cap, seed):
+    """Matched-N control: cap each RCL instance to at most `cap` training samples.
 
+    Majority instances (mobservice1/2) are cut down to the rare size, so every
+    class is small and roughly equal. Instances that already have fewer than
+    `cap` samples are kept as-is. Only the train split is touched; the test
+    split stays full. Returns the reduced, sorted train indices.
+    """
+    train_indices = np.asarray(train_indices)
+    instances = labels_df['instance'].values[train_indices]
+    rng = np.random.default_rng(seed)
+    kept = []
+    for inst in np.unique(instances):
+        idx = train_indices[instances == inst]
+        if cap > 0 and len(idx) > cap:
+            idx = rng.choice(idx, size=cap, replace=False)
+        kept.append(idx)
+    kept = np.concatenate(kept)
+    kept.sort()
+    return kept
 
 def validate_stratified_folds(y, n_splits):
     counts = y.value_counts()
@@ -242,6 +288,20 @@ def run_cv_sweep(args, logger, device):
                 f"TransTVDiag-root_{args.root_loss}-type_{args.type_loss}-gamma_{gamma_to_name(gamma)}-fold_{fold}.pt",
             )
             set_seed(fold_args.seed)
+
+            if args.cap_per_instance > 0:
+                before = len(train_indices)
+                train_indices = downsample_train_indices(
+                    labels_df, train_indices, args.cap_per_instance, fold_args.seed
+                )
+                inst_counts = (
+                    labels_df.iloc[train_indices]['instance'].value_counts().to_dict()
+                )
+                logger.info(
+                    f"Matched-N downsample: train {before} -> {len(train_indices)} "
+                    f"(cap={args.cap_per_instance}/instance); per-instance train counts: "
+                    f"{inst_counts}"
+                )
 
             logger.info(
                 f"CV run: gamma={gamma}, fold={fold + 1}/{args.cv_folds}, "

@@ -1,0 +1,40 @@
+
+========================================================================
+Variant: full_graph
+========================================================================
+
+--- FTI ---
+          GaussianNB: macro-F1 = 0.585 ± 0.073
+        DecisionTree: macro-F1 = 0.683 ± 0.045
+                 KNN: macro-F1 = 0.626 ± 0.041
+        RandomForest: macro-F1 = 0.755 ± 0.025
+              LogReg: macro-F1 = 0.740 ± 0.052
+            LightGBM: macro-F1 = 0.771 ± 0.032
+
+--- RCL ---
+          GaussianNB: macro-F1 = 0.313 ± 0.041 | HR@1 = 0.862 | HR@3 = 0.970 | NDCG@3 = 0.918
+        DecisionTree: macro-F1 = 0.285 ± 0.027 | HR@1 = 0.866 | HR@3 = 0.969 | NDCG@3 = 0.883
+                 KNN: macro-F1 = 0.266 ± 0.006 | HR@1 = 0.842 | HR@3 = 0.969 | NDCG@3 = 0.917
+        RandomForest: macro-F1 = 0.302 ± 0.017 | HR@1 = 0.870 | HR@3 = 0.971 | NDCG@3 = 0.933
+              LogReg: macro-F1 = 0.295 ± 0.017 | HR@1 = 0.861 | HR@3 = 0.970 | NDCG@3 = 0.929
+            LightGBM: macro-F1 = 0.282 ± 0.027 | HR@1 = 0.870 | HR@3 = 0.970 | NDCG@3 = 0.933
+
+========================================================================
+Variant: root_cause_only
+========================================================================
+
+--- FTI ---
+          GaussianNB: macro-F1 = 0.467 ± 0.031
+        DecisionTree: macro-F1 = 0.478 ± 0.054
+                 KNN: macro-F1 = 0.501 ± 0.056
+        RandomForest: macro-F1 = 0.492 ± 0.091
+              LogReg: macro-F1 = 0.497 ± 0.061
+            LightGBM: macro-F1 = 0.503 ± 0.057
+
+--- RCL ---
+          GaussianNB: macro-F1 = 0.991 ± 0.004 | HR@1 = 0.997 | HR@3 = 1.000 | NDCG@3 = 0.999
+        DecisionTree: macro-F1 = 0.948 ± 0.015 | HR@1 = 0.994 | HR@3 = 0.995 | NDCG@3 = 0.995
+                 KNN: macro-F1 = 0.971 ± 0.018 | HR@1 = 0.996 | HR@3 = 0.997 | NDCG@3 = 0.997
+        RandomForest: macro-F1 = 0.964 ± 0.008 | HR@1 = 0.995 | HR@3 = 0.996 | NDCG@3 = 0.996
+              LogReg: macro-F1 = 0.963 ± 0.008 | HR@1 = 0.995 | HR@3 = 0.997 | NDCG@3 = 0.996
+            LightGBM: macro-F1 = 0.963 ± 0.007 | HR@1 = 0.995 | HR@3 = 0.996 | NDCG@3 = 0.996

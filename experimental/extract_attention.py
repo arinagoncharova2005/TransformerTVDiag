@@ -79,6 +79,16 @@ CONFIG_PRESETS = {
         "checkpoint": "logs/gaia/cv_checkpoints/cb_ce_awl/"
                       "TransTVDiag-root_cb_ce-type_cb_ce-gamma_2p0-fold_{fold}.pt",
     },
+    "cb_ce_awl_cap50": {
+        "root_loss": "cb_ce", "type_loss": "cb_ce",
+        "focal_gamma": 2.0, "drw": False, "cb_beta": 0.999,
+        # MUST match training: FastText is refit on the train split, so the
+        # cap has to be reapplied here or the encoder is fed features it was
+        # not trained on. seed per fold is args.seed + fold (see get_fold_indices).
+        "cap_per_instance": 50,
+        "checkpoint": "logs/gaia/cv_checkpoints/cb_ce_awl_cap50/"
+                      "TransTVDiag-root_cb_ce-type_cb_ce-gamma_2p0-fold_{fold}.pt",
+    },
 }
 
 COMMON_ARGS = dict(
@@ -93,6 +103,7 @@ COMMON_ARGS = dict(
     aggregator="lstm",
     modalities="metric,trace,log",
     cv_folds=5, cv_stratify_by="instance",
+    cap_per_instance=0,
     TO=True, CM=True,
     dynamic_weight=True,
     epochs=3000, lr=0.001, batch_size=128,
@@ -128,6 +139,23 @@ def build_args(config_name: str, fold: int, reconstruct: bool) -> SimpleNamespac
     args.config_name = config_name
     return args
 
+def _cap_train_indices(labels_df, train_indices, cap, seed):
+    """Reapply the matched-N cap used in training (main.py
+    downsample_train_indices). Must use the same per-fold seed so the kept
+    rows are identical, otherwise the refit FastText features will not match
+    the checkpoint."""
+    train_indices = np.asarray(train_indices)
+    instances = labels_df["instance"].values[train_indices]
+    rng = np.random.default_rng(seed)
+    kept = []
+    for inst in np.unique(instances):
+        idx = train_indices[instances == inst]
+        if cap > 0 and len(idx) > cap:
+            idx = rng.choice(idx, size=cap, replace=False)
+        kept.append(idx)
+    kept = np.concatenate(kept)
+    kept.sort()
+    return kept
 
 def get_fold_indices(args, fold: int):
     """Reproduce the StratifiedKFold split used in training."""

@@ -1,0 +1,46 @@
+=== Explanation utility report ===
+config: cb_ce_awl
+verdicts (status=ok): 200
+base error rate (model wrong): 0.3750
+
+--- (a) error detection: flag model mistakes from verdict ---
+  flag = contradict:
+    confusion  TP=10 FP=29 FN=65 TN=96
+    precision=0.256  recall=0.133  F1=0.175  specificity=0.768
+    precision lift over always-trust baseline: 0.68x
+  flag = contradict|unclear:
+    confusion  TP=35 FP=47 FN=40 TN=78
+    precision=0.427  recall=0.467  F1=0.446  specificity=0.624
+    precision lift over always-trust baseline: 1.14x
+
+  (baseline 'always trust' flags nothing: recall=0;
+   baseline 'flag everything': precision = base error rate above.)
+
+  contradict-flag precision/recall by true failure type:
+    type 0: n=1 wrong=1 precision=0.000 recall=0.000
+    type 1: n=5 wrong=3 precision=0.000 recall=0.000
+    type 2: n=167 wrong=48 precision=0.222 recall=0.167
+    type 3: n=25 wrong=22 precision=1.000 recall=0.091
+    type 4: n=2 wrong=1 precision=0.000 recall=0.000
+
+--- (b) corrective recovery (needs local sample text) ---
+  samples with text: 200
+
+  corrective recall = among model-WRONG cases in each subset,
+  fraction whose explanation mentions the TRUE root cause.
+  random baseline = mean(k/10), k = #distinct services named
+  (chance of naming the true RC if k services were picked at random).
+
+  subset                              n  corr.recall   random   lift
+  wrong & contradict                 10        0.900    0.340   2.65x
+  wrong & (contradict|unclear)       35        0.857    0.383   2.24x
+  all wrong (ceiling, any verdict)   75        0.800    0.371   2.16x
+
+  among 'wrong & contradict' (n=10):
+    mentions predicted RC: 1.000
+    mentions some other service (redirect present): 1.000
+    mentions TRUE RC specifically: 0.900
+
+  note: subsets are conditioned on the LLM verdict, so n shrinks
+  fast (contradict is rare). 'all wrong' is verdict-independent.
+  wrote logs/gaia/explanation_eval/cb_ce_awl/utility_per_sample.csv

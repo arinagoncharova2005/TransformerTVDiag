@@ -1,0 +1,15 @@
+{
+  "row": {
+    "gaia_index": 2012,
+    "group": "C_trace_disagree_correct",
+    "rcl_correct": true,
+    "rcl_agreement": "contradict",
+    "judge_faithfulness": 5,
+    "judge_completeness": 2,
+    "judge_actionability": 2,
+    "judge_verdict_correct": "no",
+    "status": "ok"
+  },
+  "raw_response": "{\"faithfulness\":5,\"completeness\":2,\"actionability\":2,\"verdict_correct\":\"no\",\"comment\":\"Explanation misses the strongest trace signal and overstates contradiction.\"}",
+  "model": "gpt-oss-120b"
+}

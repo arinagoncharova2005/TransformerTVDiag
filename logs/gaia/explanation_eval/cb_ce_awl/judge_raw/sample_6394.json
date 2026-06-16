@@ -1,0 +1,15 @@
+{
+  "row": {
+    "gaia_index": 6394,
+    "group": "E_random",
+    "rcl_correct": false,
+    "rcl_agreement": "unclear",
+    "judge_faithfulness": 3,
+    "judge_completeness": 2,
+    "judge_actionability": 2,
+    "judge_verdict_correct": "no",
+    "status": "ok"
+  },
+  "raw_response": "{\"faithfulness\":3,\"completeness\":2,\"actionability\":2,\"verdict_correct\":\"no\",\"comment\":\"Introduces a non‑existent client error for logservice1 and downplays strong mobservice2 evidence.\"}",
+  "model": "gpt-oss-120b"
+}

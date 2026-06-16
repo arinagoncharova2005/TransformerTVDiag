@@ -1,0 +1,15 @@
+{
+  "row": {
+    "gaia_index": 1398,
+    "group": "B_trace_agree_wrong",
+    "rcl_correct": false,
+    "rcl_agreement": "support",
+    "judge_faithfulness": 5,
+    "judge_completeness": 4,
+    "judge_actionability": 4,
+    "judge_verdict_correct": "yes",
+    "status": "ok"
+  },
+  "raw_response": "{\"faithfulness\":5,\"completeness\":4,\"actionability\":4,\"verdict_correct\":\"yes\",\"comment\":\"Explanation is faithful and mostly complete, giving useful guidance but omits metric evidence.\"}",
+  "model": "gpt-oss-120b"
+}

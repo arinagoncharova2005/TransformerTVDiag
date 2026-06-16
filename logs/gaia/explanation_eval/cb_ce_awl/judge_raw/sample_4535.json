@@ -1,0 +1,15 @@
+{
+  "row": {
+    "gaia_index": 4535,
+    "group": "B_trace_agree_wrong",
+    "rcl_correct": false,
+    "rcl_agreement": "support",
+    "judge_faithfulness": 5,
+    "judge_completeness": 5,
+    "judge_actionability": 3,
+    "judge_verdict_correct": "yes",
+    "status": "ok"
+  },
+  "raw_response": "{\"faithfulness\":5,\"completeness\":5,\"actionability\":3,\"verdict_correct\":\"yes\",\"comment\":\"Accurate and complete but lacks concrete remediation steps.\"}",
+  "model": "gpt-oss-120b"
+}

@@ -91,8 +91,6 @@ def parse_args() -> argparse.Namespace:
     return p.parse_args()
 
 
-# ---------- Sample selection ------------------------------------------------
-
 def select_samples(sanity_df: pd.DataFrame, n_per_group: int, n_random: int,
                    seed: int) -> pd.DataFrame:
     """Pick a stratified mix for case-study coverage."""

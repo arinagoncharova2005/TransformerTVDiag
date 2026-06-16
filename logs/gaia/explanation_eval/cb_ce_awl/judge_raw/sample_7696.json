@@ -1,0 +1,15 @@
+{
+  "row": {
+    "gaia_index": 7696,
+    "group": "C_trace_disagree_correct",
+    "rcl_correct": true,
+    "rcl_agreement": "contradict",
+    "judge_faithfulness": 2,
+    "judge_completeness": 3,
+    "judge_actionability": 3,
+    "judge_verdict_correct": "yes",
+    "status": "ok"
+  },
+  "raw_response": "{\"faithfulness\":2,\"completeness\":3,\"actionability\":3,\"verdict_correct\":\"yes\",\"comment\":\"Explanation misstates source of HTTP 400 errors, reducing faithfulness.\"}",
+  "model": "gpt-oss-120b"
+}

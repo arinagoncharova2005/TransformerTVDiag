@@ -1,0 +1,28 @@
+=== Faithfulness / hallucination report ===
+config: cb_ce_awl
+samples evaluated: 200  (skipped/unparseable: 0)
+
+total mentions:        1695
+unsupported mentions:  0
+hallucination_rate:    0.0000  (unsupported / total mentions)
+fully_grounded_rate:   1.0000  (explanations with 0 hallucinations)
+mentions_pred_rcl:     1.0000  (explanation names the predicted root cause)
+
+-- atom-level above (closed vocab); relational/modality below --
+relational claims:     239  (directed src->dst:error edges)
+relational_bad:        18
+relational_hallucination_rate: 0.0753  (edge stated but not in evidence: wrong peer/direction/binding)
+modality claims:       222  (modality->service attributions)
+modality_bad:          3
+modality_misattribution_rate:  0.0135  (service credited to a modality it has no evidence in)
+fully_grounded_strict: 0.9050  (0 atom + 0 relational + 0 modality errors)
+
+by group:
+  group                         n  halluc_rate   grounded
+  A_trace_agree_correct        40       0.0000     1.0000
+  B_trace_agree_wrong          40       0.0000     1.0000
+  C_trace_disagree_correct     40       0.0000     1.0000
+  D_log_dominates              40       0.0000     1.0000
+  E_random                     40       0.0000     1.0000
+
+no hallucinated services detected.

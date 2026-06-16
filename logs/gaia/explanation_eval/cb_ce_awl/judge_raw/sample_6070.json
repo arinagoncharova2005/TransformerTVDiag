@@ -1,0 +1,15 @@
+{
+  "row": {
+    "gaia_index": 6070,
+    "group": "D_log_dominates",
+    "rcl_correct": false,
+    "rcl_agreement": "unclear",
+    "judge_faithfulness": 5,
+    "judge_completeness": 2,
+    "judge_actionability": 1,
+    "judge_verdict_correct": "yes",
+    "status": "ok"
+  },
+  "raw_response": "{\n  \"faithfulness\": 5,\n  \"completeness\": 2,\n  \"actionability\": 1,\n  \"verdict_correct\": \"yes\",\n  \"comment\": \"Accurate references but omits key trace evidence and offers no actionable guidance.\"\n}",
+  "model": "gpt-oss-120b"
+}

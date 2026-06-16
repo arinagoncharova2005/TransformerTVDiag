@@ -1,0 +1,15 @@
+{
+  "row": {
+    "gaia_index": 1973,
+    "group": "B_trace_agree_wrong",
+    "rcl_correct": false,
+    "rcl_agreement": "support",
+    "judge_faithfulness": 5,
+    "judge_completeness": 4,
+    "judge_actionability": 4,
+    "judge_verdict_correct": "no",
+    "status": "ok"
+  },
+  "raw_response": "{\"faithfulness\":5,\"completeness\":4,\"actionability\":4,\"verdict_correct\":\"no\",\"comment\":\"Explanation overstates support; evidence is ambiguous about mobservice1 being the root cause.\"}",
+  "model": "gpt-oss-120b"
+}

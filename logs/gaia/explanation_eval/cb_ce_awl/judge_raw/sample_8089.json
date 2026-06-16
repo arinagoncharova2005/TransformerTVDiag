@@ -1,0 +1,15 @@
+{
+  "row": {
+    "gaia_index": 8089,
+    "group": "E_random",
+    "rcl_correct": false,
+    "rcl_agreement": "unclear",
+    "judge_faithfulness": 5,
+    "judge_completeness": 2,
+    "judge_actionability": 1,
+    "judge_verdict_correct": "yes",
+    "status": "ok"
+  },
+  "raw_response": "{\"faithfulness\":5,\"completeness\":2,\"actionability\":1,\"verdict_correct\":\"yes\",\"comment\":\"Explanation is faithful but omits key metric evidence and offers no actionable guidance.\"}",
+  "model": "gpt-oss-120b"
+}

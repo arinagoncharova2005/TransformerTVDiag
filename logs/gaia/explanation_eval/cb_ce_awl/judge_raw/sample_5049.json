@@ -1,0 +1,15 @@
+{
+  "row": {
+    "gaia_index": 5049,
+    "group": "B_trace_agree_wrong",
+    "rcl_correct": false,
+    "rcl_agreement": "support",
+    "judge_faithfulness": 5,
+    "judge_completeness": 4,
+    "judge_actionability": 2,
+    "judge_verdict_correct": "yes",
+    "status": "ok"
+  },
+  "raw_response": "{\"faithfulness\":5,\"completeness\":4,\"actionability\":2,\"verdict_correct\":\"yes\",\"comment\":\"Accurate but lacks actionable guidance and omits metric evidence.\"}",
+  "model": "gpt-oss-120b"
+}

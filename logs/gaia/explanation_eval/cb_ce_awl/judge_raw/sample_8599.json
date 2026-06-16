@@ -1,0 +1,15 @@
+{
+  "row": {
+    "gaia_index": 8599,
+    "group": "C_trace_disagree_correct",
+    "rcl_correct": true,
+    "rcl_agreement": "support",
+    "judge_faithfulness": 5,
+    "judge_completeness": 3,
+    "judge_actionability": 2,
+    "judge_verdict_correct": "no",
+    "status": "ok"
+  },
+  "raw_response": "{\"faithfulness\":5,\"completeness\":3,\"actionability\":2,\"verdict_correct\":\"no\",\"comment\":\"Explanation omits metric evidence and gives no actionable steps, and its support claim is not fully justified.\"}",
+  "model": "gpt-oss-120b"
+}

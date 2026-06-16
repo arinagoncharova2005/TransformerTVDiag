@@ -1,0 +1,16 @@
+=== LLM-as-judge report ===
+config: cb_ce_awl   judge model: gpt-oss-120b
+samples judged: 200  (ok: 200)
+
+  judge_faithfulness     mean=4.79  median=5  min=2 max=5
+  judge_completeness     mean=3.91  median=4  min=2 max=5
+  judge_actionability    mean=3.02  median=3  min=1 max=5
+  verdict_correct (yes): 0.810
+
+--- validation vs objective faithfulness (atom+relational+modality) ---
+  judge faithfulness, objectively clean:   mean=4.87 (n=181)
+  judge faithfulness, objectively flagged: mean=4.05 (n=19)
+  (a good judge scores the flagged group lower)
+  Spearman(judge_faithfulness, #objective errors) = -0.295  (p=0.0000, significant; n=200; expected negative)
+
+caveat: judge and explainer may share model-family biases; treat scores as indicative, not ground truth.

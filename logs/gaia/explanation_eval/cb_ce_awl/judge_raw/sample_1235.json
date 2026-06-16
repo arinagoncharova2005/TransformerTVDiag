@@ -1,0 +1,15 @@
+{
+  "row": {
+    "gaia_index": 1235,
+    "group": "C_trace_disagree_correct",
+    "rcl_correct": true,
+    "rcl_agreement": "support",
+    "judge_faithfulness": 5,
+    "judge_completeness": 4,
+    "judge_actionability": 3,
+    "judge_verdict_correct": "yes",
+    "status": "ok"
+  },
+  "raw_response": "{\n  \"faithfulness\": 5,\n  \"completeness\": 4,\n  \"actionability\": 3,\n  \"verdict_correct\": \"yes\",\n  \"comment\": \"Accurately reflects evidence but offers limited concrete remediation steps.\"\n}",
+  "model": "gpt-oss-120b"
+}

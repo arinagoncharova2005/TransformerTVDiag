@@ -1,0 +1,15 @@
+{
+  "row": {
+    "gaia_index": 13292,
+    "group": "B_trace_agree_wrong",
+    "rcl_correct": false,
+    "rcl_agreement": "support",
+    "judge_faithfulness": 5,
+    "judge_completeness": 5,
+    "judge_actionability": 4,
+    "judge_verdict_correct": "yes",
+    "status": "ok"
+  },
+  "raw_response": "{\"faithfulness\":5,\"completeness\":5,\"actionability\":4,\"verdict_correct\":\"yes\",\"comment\":\"Explanation accurately reflects evidence and supports the predicted root cause.\"}",
+  "model": "gpt-oss-120b"
+}

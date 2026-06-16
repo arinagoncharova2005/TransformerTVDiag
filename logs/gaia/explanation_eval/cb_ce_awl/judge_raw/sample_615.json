@@ -1,0 +1,15 @@
+{
+  "row": {
+    "gaia_index": 615,
+    "group": "D_log_dominates",
+    "rcl_correct": true,
+    "rcl_agreement": "contradict",
+    "judge_faithfulness": 5,
+    "judge_completeness": 2,
+    "judge_actionability": 2,
+    "judge_verdict_correct": "no",
+    "status": "ok"
+  },
+  "raw_response": "{\n  \"faithfulness\": 5,\n  \"completeness\": 2,\n  \"actionability\": 2,\n  \"verdict_correct\": \"no\",\n  \"comment\": \"Explanation ignores trace evidence supporting mobservice1, making its contradict verdict unjustified.\"\n}",
+  "model": "gpt-oss-120b"
+}

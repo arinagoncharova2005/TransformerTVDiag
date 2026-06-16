@@ -17,24 +17,29 @@ class MainModel(nn.Module):
         if args.root_loss == 'focal' or args.root_loss == 'weighted_focal' or args.type_loss == 'focal' or args.type_loss == 'weighted_focal':
             print('Focal gamma: ', args.focal_gamma)
 
+        use_graph_priors = getattr(args, "use_graph_priors", True)
+
         self.metric_encoder = Encoder(in_dim=args.embedding_dim,
                                       attn_drop=args.attn_drop,
                                       num_heads=args.num_heads,
                                       num_layers=args.num_layers,
                                       graph_hidden_dim=args.graph_hidden,                                
-                                      out_dim=args.graph_out)
+                                      out_dim=args.graph_out,
+                                      use_graph_priors=use_graph_priors)
         self.trace_encoder = Encoder(in_dim=args.embedding_dim,
                                       attn_drop=args.attn_drop,
                                       num_heads=args.num_heads,
                                       num_layers=args.num_layers,
                                       graph_hidden_dim=args.graph_hidden,                                
-                                      out_dim=args.graph_out)
+                                      out_dim=args.graph_out,
+                                      use_graph_priors=use_graph_priors)
         self.log_encoder = Encoder(in_dim=args.embedding_dim,
                                       attn_drop=args.attn_drop,
                                       num_heads=args.num_heads,
                                       num_layers=args.num_layers,
                                       graph_hidden_dim=args.graph_hidden,                                
-                                      out_dim=args.graph_out)
+                                      out_dim=args.graph_out,
+                                      use_graph_priors=use_graph_priors)
         fuse_dim = 3 * args.graph_out
 
         self.locator = Voter(fuse_dim, 

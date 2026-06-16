@@ -9,7 +9,8 @@ class Encoder(nn.Module):
                  out_dim,
                  attn_drop=0.1,
                  num_heads=8,
-                 num_layers=2):
+                 num_layers=2,
+                 use_graph_priors=True):
         super(Encoder, self).__init__()
 
         self.graph_encoder = GraphormerEncoder(
@@ -25,6 +26,7 @@ class Encoder(nn.Module):
             embedding_dim=128,
             pre_layernorm=True,
             activation_fn=nn.GELU(),
+            use_graph_priors=use_graph_priors
         )
 
     def forward(self, node_feat, in_degree, out_degree, attn_mask, path_data, dist):

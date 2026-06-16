@@ -1,0 +1,15 @@
+{
+  "row": {
+    "gaia_index": 930,
+    "group": "C_trace_disagree_correct",
+    "rcl_correct": true,
+    "rcl_agreement": "contradict",
+    "judge_faithfulness": 5,
+    "judge_completeness": 3,
+    "judge_actionability": 2,
+    "judge_verdict_correct": "no",
+    "status": "ok"
+  },
+  "raw_response": "{\n  \"faithfulness\": 5,\n  \"completeness\": 3,\n  \"actionability\": 2,\n  \"verdict_correct\": \"no\",\n  \"comment\": \"Explanation is faithful but omits key evidence linking mobservice2 to errors and offers little actionable guidance; contradict verdict is unjustified.\"\n}",
+  "model": "gpt-oss-120b"
+}

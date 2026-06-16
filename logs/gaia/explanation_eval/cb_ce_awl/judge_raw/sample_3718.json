@@ -1,0 +1,15 @@
+{
+  "row": {
+    "gaia_index": 3718,
+    "group": "E_random",
+    "rcl_correct": false,
+    "rcl_agreement": "unclear",
+    "judge_faithfulness": 5,
+    "judge_completeness": 2,
+    "judge_actionability": 2,
+    "judge_verdict_correct": "yes",
+    "status": "ok"
+  },
+  "raw_response": "{\n  \"faithfulness\": 5,\n  \"completeness\": 2,\n  \"actionability\": 2,\n  \"verdict_correct\": \"yes\",\n  \"comment\": \"Explanation is faithful but omits stronger trace signals and offers little actionable guidance.\"\n}",
+  "model": "gpt-oss-120b"
+}

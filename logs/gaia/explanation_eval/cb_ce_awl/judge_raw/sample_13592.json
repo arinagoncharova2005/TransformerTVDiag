@@ -1,0 +1,15 @@
+{
+  "row": {
+    "gaia_index": 13592,
+    "group": "B_trace_agree_wrong",
+    "rcl_correct": false,
+    "rcl_agreement": "support",
+    "judge_faithfulness": 5,
+    "judge_completeness": 4,
+    "judge_actionability": 4,
+    "judge_verdict_correct": "yes",
+    "status": "ok"
+  },
+  "raw_response": "{\n  \"faithfulness\": 5,\n  \"completeness\": 4,\n  \"actionability\": 4,\n  \"verdict_correct\": \"yes\",\n  \"comment\": \"Accurate and mostly complete, gives clear guidance to investigate mobservice1.\"\n}",
+  "model": "gpt-oss-120b"
+}

@@ -1,0 +1,15 @@
+{
+  "row": {
+    "gaia_index": 4234,
+    "group": "C_trace_disagree_correct",
+    "rcl_correct": true,
+    "rcl_agreement": "contradict",
+    "judge_faithfulness": 5,
+    "judge_completeness": 4,
+    "judge_actionability": 3,
+    "judge_verdict_correct": "yes",
+    "status": "ok"
+  },
+  "raw_response": "{\"faithfulness\":5,\"completeness\":4,\"actionability\":3,\"verdict_correct\":\"yes\",\"comment\":\"Explanation stays faithful, cites key evidence, but offers limited actionable guidance.\"}",
+  "model": "gpt-oss-120b"
+}

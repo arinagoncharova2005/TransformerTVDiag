@@ -1,0 +1,10 @@
+Silhouette on fused POST-ENCODER learned embeddings f = cat(f_metric, f_trace, f_log), out-of-sample.
+Config: cb_ce_awl.  N total=16205, plotted=1127 (login_failure capped at 400).
+
+High-dim cosine:
+  FTI (5 classes):  -0.000
+  RCL (10 classes): -0.019
+
+2-D t-SNE (perplexity=30, seed=42):
+  FTI (5 classes):  -0.023
+  RCL (10 classes): -0.022

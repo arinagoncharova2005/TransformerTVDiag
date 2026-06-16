@@ -1,0 +1,15 @@
+{
+  "row": {
+    "gaia_index": 5285,
+    "group": "B_trace_agree_wrong",
+    "rcl_correct": false,
+    "rcl_agreement": "support",
+    "judge_faithfulness": 3,
+    "judge_completeness": 4,
+    "judge_actionability": 4,
+    "judge_verdict_correct": "yes",
+    "status": "ok"
+  },
+  "raw_response": "{\"faithfulness\":3,\"completeness\":4,\"actionability\":4,\"verdict_correct\":\"yes\",\"comment\":\"Contains a fabricated server‑error link to mobservice1, lowering faithfulness.\"}",
+  "model": "gpt-oss-120b"
+}
